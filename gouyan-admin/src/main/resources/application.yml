@@ -1,0 +1,7 @@
+# Spring 配置
+spring:
+  devtools:
+    restart:
+      enabled: true #热部署
+  freemarker:
+    cache: false #页面不开启缓存，修改即生效
