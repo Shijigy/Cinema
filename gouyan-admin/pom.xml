@@ -13,18 +13,25 @@
 	<description>后台服务模块，运行后台项目</description>
 
 	<dependencies>
-		<!--其他模块依赖-->
+		<!-- 开发者工具 -->
 		<dependency>
-			<groupId>com.gouyan</groupId>
-			<artifactId>gouyan-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
 		</dependency>
 
+		<!-- mysql数据驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!-- 框架核心模块 -->
 		<dependency>
 			<groupId>com.gouyan</groupId>
-			<artifactId>gouyan-system</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>gouyan-framework</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<build>
