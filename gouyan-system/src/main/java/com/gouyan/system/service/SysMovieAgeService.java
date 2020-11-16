@@ -19,6 +19,6 @@ public interface SysMovieAgeService {
 
     void update(SysMovieAge sysMovieAge);
 
-    void delete(Long id);
+    void delete(Long[] ids);
 
 }

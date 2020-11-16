@@ -39,7 +39,8 @@ public class SysMovieAgeServiceImpl implements SysMovieAgeService {
     }
 
     @Override
-    public void delete(Long id) {
-        sysMovieAgeMapper.delete(id);
+    public void delete(Long[] ids) {
+        for(Long id : ids)
+            sysMovieAgeMapper.delete(id);
     }
 }

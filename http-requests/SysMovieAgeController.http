@@ -1,8 +1,8 @@
 ### 添加请求
 POST http://localhost:8080/sysMovieAge
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-movieAgeName=测试添加
+{"movieAgeName":""}
 
 
 ### 查询所有
@@ -10,14 +10,14 @@ GET http://localhost:8080/sysMovieAge
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysMovieAge/4
+GET http://localhost:8080/sysMovieAge/15
 Accept: application/json
 
 ### 修改
 PUT http://localhost:8080/sysMovieAge
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-movieAgeId=20&movieAgeName=修改测试1
+{"movieAgeId":18,"movieAgeName":null}
 
 ### 删除
-DELETE http://localhost:8080/sysMovieAge/20
+DELETE http://localhost:8080/sysMovieAge/18,23
