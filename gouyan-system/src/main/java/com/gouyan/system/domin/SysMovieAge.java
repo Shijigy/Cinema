@@ -1,7 +1,6 @@
 package com.gouyan.system.domin;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -15,7 +14,7 @@ public class SysMovieAge implements Serializable {
 
     private Long movieAgeId;//年代id
 
-    @NotEmpty(message = "年代名称不能为空")
+    @NotBlank(message = "年代名称不能为空")
     private String movieAgeName;//年代名称
 
     public Long getMovieAgeId() {

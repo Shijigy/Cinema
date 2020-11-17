@@ -17,3 +17,9 @@ mybatis:
   mapper-locations: classpath*:mapper/**/*Mapper.xml #mapper配置文件的位置
   configuration:
     map-underscore-to-camel-case: true #配置开启驼峰式命名
+
+# logging 日志配置
+logging:
+  level:
+    com.gouyan: info
+    org.springframework: warn
