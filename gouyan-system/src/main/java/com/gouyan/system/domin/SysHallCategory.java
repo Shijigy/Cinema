@@ -7,21 +7,19 @@ import lombok.ToString;
 
 /**
  * @author lxd
- * @create 2020-11-18 22:01
+ * @create 2020-11-19 21:05
  */
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
-public class SysMovieArea {
-
+public class SysHallCategory {
     //序列号
     private static final long serialVersionUID = 1L;
 
-    //电影区域id
-    private Long movieAreaId;
+    //影厅分类id
+    private long hallCategoryId;
 
-    //电影区域名称
-    private String movieAreaName;
+    //影厅分类名称
+    private String hallCategoryName;
 }
