@@ -11,22 +11,31 @@ import java.util.List;
  */
 public interface SysMovieAreaMapper {
     /**
-     * 查询所有
+     * 查询所有电影区域
      * @return
      */
     List<SysMovieArea> findAll();
 
     /**
-     * 根据id查询
+     * 根据id查询电影区域
      * @param id
      * @return
      */
     SysMovieArea findById(Long id);
 
-
+    /**
+     * 添加电影区域信息
+     * @param sysMovieArea
+     * @return
+     */
     int add(SysMovieArea sysMovieArea);
 
 
+    /**
+     * 更新电影区域信息
+     * @param sysMovieArea
+     * @return
+     */
     int update(SysMovieArea sysMovieArea);
 
     /**
