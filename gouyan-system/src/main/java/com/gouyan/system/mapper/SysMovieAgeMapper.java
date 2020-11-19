@@ -25,18 +25,19 @@ public interface SysMovieAgeMapper {
     /**
      * 添加电影年代
      * @param sysMovieAge
+     * @return 影响行数
      */
-    void add(SysMovieAge sysMovieAge);
+    int add(SysMovieAge sysMovieAge);
 
     /**
      * 修改电影年代
      * @param sysMovieAge
      */
-    void update(SysMovieAge sysMovieAge);
+    int update(SysMovieAge sysMovieAge);
 
     /**
      * 删除指定id的电影年代
      * @param id
      */
-    void delete(Long id);
+    int delete(Long id);
 }

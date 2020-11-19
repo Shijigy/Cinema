@@ -2,22 +2,22 @@
 POST http://localhost:8080/sysMovieAge
 Content-Type: application/json
 
-{"movieAgeName":""}
+{"movieAgeName":"test0"}
 
 
 ### 查询所有
-GET http://localhost:8080/sysMovieAge
+GET http://localhost:8080/sysMovieAge?orderByColumn=movieAgeName
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysMovieAge/15
+GET http://localhost:8080/sysMovieAge/34
 Accept: application/json
 
 ### 修改
 PUT http://localhost:8080/sysMovieAge
 Content-Type: application/json
 
-{"movieAgeId":18,"movieAgeName":"修改测试"}
+{"movieAgeId":34,"movieAgeName":"修改0测试"}
 
 ### 删除
-DELETE http://localhost:8080/sysMovieAge/18
+DELETE http://localhost:8080/sysMovieAge/34

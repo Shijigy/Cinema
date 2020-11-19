@@ -15,10 +15,10 @@ public interface SysMovieAgeService {
 
     SysMovieAge findById(Long id);
 
-    void add(SysMovieAge sysMovieAge);
+    int add(SysMovieAge sysMovieAge);
 
-    void update(SysMovieAge sysMovieAge);
+    int update(SysMovieAge sysMovieAge);
 
-    void delete(Long[] ids);
+    int delete(Long[] ids);
 
 }

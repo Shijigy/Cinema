@@ -1,5 +1,10 @@
 package com.gouyan.system.domin;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -8,6 +13,10 @@ import java.io.Serializable;
  * @Author: 华雨欣
  * @Create: 2020-11-14 22:46
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class SysMovieAge implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,28 +25,4 @@ public class SysMovieAge implements Serializable {
 
     @NotBlank(message = "年代名称不能为空")
     private String movieAgeName;//年代名称
-
-    public Long getMovieAgeId() {
-        return movieAgeId;
-    }
-
-    public void setMovieAgeId(Long movieAgeId) {
-        this.movieAgeId = movieAgeId;
-    }
-
-    public String getMovieAgeName() {
-        return movieAgeName;
-    }
-
-    public void setMovieAgeName(String movieAgeName) {
-        this.movieAgeName = movieAgeName;
-    }
-
-    @Override
-    public String toString() {
-        return "sysMovieAge{" +
-                "movieAgeId=" + movieAgeId +
-                ", movieAgeName='" + movieAgeName + '\'' +
-                '}';
-    }
 }

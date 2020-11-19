@@ -23,3 +23,10 @@ logging:
   level:
     com.gouyan: info
     org.springframework: warn
+
+# pagehelper 分页插件配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

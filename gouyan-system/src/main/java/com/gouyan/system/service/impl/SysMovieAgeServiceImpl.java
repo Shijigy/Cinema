@@ -29,18 +29,20 @@ public class SysMovieAgeServiceImpl implements SysMovieAgeService {
     }
 
     @Override
-    public void add(SysMovieAge sysMovieAge) {
-        sysMovieAgeMapper.add(sysMovieAge);
+    public int add(SysMovieAge sysMovieAge) {
+        return sysMovieAgeMapper.add(sysMovieAge);
     }
 
     @Override
-    public void update(SysMovieAge sysMovieAge) {
-        sysMovieAgeMapper.update(sysMovieAge);
+    public int update(SysMovieAge sysMovieAge) {
+        return sysMovieAgeMapper.update(sysMovieAge);
     }
 
     @Override
-    public void delete(Long[] ids) {
+    public int delete(Long[] ids) {
+        int rows = 0;
         for(Long id : ids)
-            sysMovieAgeMapper.delete(id);
+            rows += sysMovieAgeMapper.delete(id);
+        return rows;
     }
 }

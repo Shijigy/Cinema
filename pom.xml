@@ -33,6 +33,8 @@
 		<gouyan.version>0.0.1-SNAPSHOT</gouyan.version>
 		<druid.version>1.2.2</druid.version>
 		<mybatis.springboot.version>2.1.3</mybatis.springboot.version>
+		<pagehelper.version>1.3.0</pagehelper.version>
+		<servlet.version>2.5</servlet.version>
 	</properties>
 
 	<!-- 只统一管理版本，实际依赖在各个模块自身中实现 -->
@@ -50,6 +52,20 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
 				<version>${druid.version}</version>
+			</dependency>
+
+			<!-- pagehelper分页插件 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${pagehelper.version}</version>
+			</dependency>
+
+			<!-- 原生Servlet -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet.version}</version>
 			</dependency>
 
 			<!-- 子模块 -->

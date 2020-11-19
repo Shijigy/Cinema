@@ -1,8 +1,10 @@
 package com.gouyan.web.controller.system;
 
+import com.github.pagehelper.PageHelper;
 import com.gouyan.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovieAge;
 import com.gouyan.system.service.impl.SysMovieAgeServiceImpl;
+import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,26 +15,26 @@ import java.util.List;
  * @Create: 2020-11-15 22:58
  */
 @RestController
-public class SysMovieAgeController {
+public class SysMovieAgeController extends BaseController {
 
     @Autowired
     SysMovieAgeServiceImpl sysMovieAgeService;
 
     @GetMapping("/sysMovieAge")
     public ResponseResult findAll(){
+        startPage();
         List<SysMovieAge> data = sysMovieAgeService.findAll();
-        return ResponseResult.success(data);
+        return getResult(data);
     }
 
     @GetMapping("/sysMovieAge/{id}")
     public ResponseResult findById(@PathVariable Long id){
-        return ResponseResult.success(sysMovieAgeService.findById(id));
+        return getResult(sysMovieAgeService.findById(id));
     }
 
     @PostMapping("/sysMovieAge")
     public ResponseResult add(@Validated @RequestBody SysMovieAge sysMovieAge){
-        sysMovieAgeService.add(sysMovieAge);
-        return ResponseResult.success();
+        return getResult(sysMovieAgeService.add(sysMovieAge));
     }
 
     /**
@@ -41,14 +43,12 @@ public class SysMovieAgeController {
      */
     @PutMapping("/sysMovieAge")
     public ResponseResult update(@Validated @RequestBody SysMovieAge sysMovieAge){
-        sysMovieAgeService.update(sysMovieAge);
-        return ResponseResult.success();
+        return getResult(sysMovieAgeService.update(sysMovieAge));
     }
 
     @DeleteMapping("/sysMovieAge/{ids}")
     public ResponseResult delete(@PathVariable Long[] ids){
-        sysMovieAgeService.delete(ids);
-        return ResponseResult.success();
+        return getResult(sysMovieAgeService.delete(ids));
     }
 
 }
