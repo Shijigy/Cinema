@@ -1,9 +1,7 @@
 package com.gouyan.web.controller.system;
 
 import com.gouyan.common.response.ResponseResult;
-import com.gouyan.system.domin.SysActorRole;
 import com.gouyan.system.domin.SysCinemaArea;
-import com.gouyan.system.service.SysCinemaAreaService;
 import com.gouyan.system.service.impl.SysCinemaAreaServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
