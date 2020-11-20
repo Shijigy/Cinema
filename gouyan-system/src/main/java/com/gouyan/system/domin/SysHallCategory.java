@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author lxd
  * @create 2020-11-19 21:05
@@ -21,5 +23,6 @@ public class SysHallCategory {
     private long hallCategoryId;
 
     //影厅分类名称
+    @NotBlank(message = "影厅分类名称不能为空")
     private String hallCategoryName;
 }

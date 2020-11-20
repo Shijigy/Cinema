@@ -1,5 +1,5 @@
 ### 查询所有
-GET http://localhost:8080/sysHallCategory
+GET http://localhost:8080/sysHallCategory?pageNum=2&pageSize=5
 Accept: application/json
 
 ### 查询一个

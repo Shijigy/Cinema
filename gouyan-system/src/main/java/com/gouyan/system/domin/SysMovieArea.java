@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author lxd
  * @create 2020-11-18 22:01
@@ -23,5 +25,6 @@ public class SysMovieArea {
     private Long movieAreaId;
 
     //电影区域名称
+    @NotBlank(message = "电影区域名称不能为空")
     private String movieAreaName;
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author lxd
  * @create 2020-11-19 18:32
@@ -19,5 +21,6 @@ public class SysMovieCategory {
     //电影分类id
     private Long movieCategoryId;
     //电影分类名称
+    @NotBlank(message = "电影分类名称不能为空")
     private String movieCategoryName;
 }
