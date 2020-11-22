@@ -339,7 +339,7 @@ CREATE TABLE `sys_user`  (
   `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名称',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户登录时所用的密码',
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户邮箱，记录个人信息和发送通知',
-  `phone_numer` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户电话号码，用于注册和发送通知',
+  `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户电话号码，用于注册和发送通知',
   `sex` tinyint(0) UNSIGNED NOT NULL COMMENT '用户性别，1为男性0为女性',
   `user_picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户头像',
   `information` json NULL COMMENT '存储用户的基本信息，如生日、生活状态(生活状态用字符串表示)、兴趣(兴趣用id数组表示)、个性签名',
