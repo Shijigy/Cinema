@@ -11,6 +11,16 @@ spring:
   freemarker:
     cache: false #页面不开启缓存，修改即生效
 
+  # jackson日期格式配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  # mvc日期格式配置
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+
 # Mybatis 配置
 mybatis:
   type-aliases-package: com.gouyan.**.domin #指定封装到实体类的包，省去书写全类名

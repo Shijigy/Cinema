@@ -1,0 +1,32 @@
+### 添加请求
+POST http://localhost:8080/sysMovie
+Content-Type: application/json
+
+{
+  "movieNameCn": "八佰",
+  "movieNameEn": "Caught By Time",
+  "movieLength": 120,
+  "movieAreaId": 2
+}
+
+### 查询所有
+GET http://localhost:8080/sysMovie?orderByColumn=movieScore
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8080/sysMovie/3
+Accept: application/json
+
+### 修改
+PUT http://localhost:8080/sysMovie
+Content-Type: application/json
+
+{
+  "movieId": 4,
+  "movieNameCn": "除暴",
+  "movieNameEn": "Caught By Time",
+  "movieLength": 120
+}
+
+### 删除
+DELETE http://localhost:8080/sysMovie/5

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysMovieMapper">
+
+    <resultMap id="SysMovieResult" type="SysMovie">
+        <id property="movieId" column="movie_id"></id>
+        <result property="movieAreaId" column="movie_area_id"></result>
+        <result property="movieAgeId" column="movie_age_id"></result>
+        <association property="sysMovieArea" column="movie_area_id" select="com.gouyan.system.mapper.SysMovieAreaMapper.findById"></association>
+        <association property="sysMovieAge" column="movie_age_id" select="com.gouyan.system.mapper.SysMovieAgeMapper.findById"></association>
+    </resultMap>
+
+
+    <select id="findAll" resultMap="SysMovieResult" parameterType="SysMovie">
+        select * from sys_movie s where 1 = 1
+        <if test="movieNameCn != null and movieNameCn != ''">
+            and s.movie_name_cn like concat('%', #{movieNameCn}, '%')
+        </if>
+        <if test="movieNameEn != null and movieNameEn != ''">
+            and s.movie_name_en like concat('%', #{movieNameEn}, '%')
+        </if>
+        <if test="movieAreaId != null and movieAreaId != 0">
+            and s.movie_area_id = #{movieAreaId}
+        </if>
+        <if test="movieAgeId != null and movieAgeId != 0">
+            and s.movie_age_id = #{movieAgeId}
+        </if>
+        <if test="releaseDate != null">
+            and s.release_date >= #{releaseDate}
+        </if>
+    </select>
+
+    <select id="findById" resultMap="SysMovieResult" parameterType="long">
+        select * from sys_movie where movie_id = #{id}
+    </select>
+
+    <update id="add" parameterType="SysMovie">
+        <!-- 将添加后的主键id传回原对象 -->
+        <selectKey keyProperty="movieId" keyColumn="movie_id" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into sys_movie(
+            <if test=" movieNameCn != null and movieNameCn != ''">movie_name_cn,</if>
+            <if test=" movieNameEn != null and movieNameEn != ''">movie_name_en,</if>
+            <if test=" movieLength != null and movieLength != 0">movie_length,</if>
+            <if test=" moviePoster != null and moviePoster != ''">moviePoster,</if>
+            <if test=" movieAreaId != null and movieAreaId != 0">movie_area_id,</if>
+            <if test=" movieIntroduction != null and movieIntroduction != ''">movie_introduction,</if>
+            <if test=" releaseDate != null">release_date,</if>
+            <if test=" movieScore != null and movieScore != 0">movie_score,</if>
+            <if test=" movieRateNum != null and movieRateNum != 0">movie_rate_num,</if>
+            <if test=" moviePictures != null and moviePictures != ''">movie_pictures,</if>
+            movie_age_id
+        ) values(
+            <if test=" movieNameCn != null and movieNameCn != ''">#{movieNameCn},</if>
+            <if test=" movieNameEn != null and movieNameEn != ''">#{movieNameEn},</if>
+            <if test=" movieLength != null and movieLength != 0">#{movieLength},</if>
+            <if test=" moviePoster != null and moviePoster != ''">#{moviePoster},</if>
+            <if test=" movieAreaId != null and movieAreaId != 0">#{movieAreaId},</if>
+            <if test=" movieIntroduction != null and movieIntroduction != ''">#{movieIntroduction},</if>
+            <if test=" releaseDate != null">#{releaseDate},</if>
+            <if test=" movieScore != null and movieScore != 0">movie_score = #{movieScore},</if>
+            <if test=" movieRateNum != null and movieRateNum != 0">movie_rate_num = #{movieRateNum},</if>
+            <if test=" moviePictures != null and moviePictures != ''">#{moviePictures},</if>
+            <if test=" movieAgeId == null or movieAgeId == 0">1</if>
+            <if test="movieAgeId != null and movieAgeId != 0">#{movieAgeId}</if>
+        )
+    </update>
+
+    <update id="update" parameterType="SysMovie">
+        update sys_movie
+        set
+        <if test=" movieNameCn != null and movieNameCn != ''">movie_name_cn = #{movieNameCn},</if>
+        <if test=" movieNameEn != null and movieNameEn != ''">movie_name_en = #{movieNameEn},</if>
+        <if test=" movieLength != null and movieLength != 0">movie_length = #{movieLength},</if>
+        <if test=" moviePoster != null and moviePoster != ''">movie_poster = #{moviePoster},</if>
+        <if test=" movieAreaId != null and movieAreaId != 0">movie_area_id = #{movieAreaId},</if>
+        <if test=" movieIntroduction != null and movieIntroduction != ''">movie_introduction = #{movieIntroduction},</if>
+        <if test=" releaseDate != null">release_date = #{releaseDate},</if>
+        <if test=" movieScore != null and movieScore != 0">movie_score = #{movieScore},</if>
+        <if test=" movieRateNum != null and movieRateNum != 0">movie_rate_num = #{movieRateNum},</if>
+        <if test=" moviePictures != null and moviePictures != ''">movie_pictures = #{moviePictures},</if>
+        <if test=" movieAgeId == null or movieAgeId == 0">movie_age_id = 1 </if>
+        <if test="movieAgeId != null and movieAgeId != 0">movie_age_id = #{movieAgeId} </if>
+        where movie_id = #{movieId}
+    </update>
+
+    <update id="delete" parameterType="Long">
+        delete from sys_movie where movie_id = #{movieId}
+    </update>
+</mapper>
