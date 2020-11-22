@@ -20,7 +20,7 @@ public class SysHallCategory {
     private static final long serialVersionUID = 1L;
 
     //影厅分类id
-    private long hallCategoryId;
+    private Long hallCategoryId;
 
     //影厅分类名称
     @NotBlank(message = "影厅分类名称不能为空")
