@@ -1,0 +1,52 @@
+### 添加请求
+POST http://localhost:8080/sysMovieComment
+Content-Type: application/json
+
+{
+  "movieId": 4,
+  "userId": 1,
+  "commentTime": "2020-11-22 00:00:00",
+  "content": "这部电影真的一般",
+  "score": 5
+}
+
+### 查询所有
+GET http://localhost:8080/sysMovieComment
+Accept: application/json
+
+### 查询指定电影评论
+GET http://localhost:8080/sysMovieComment/1
+Accept: application/json
+
+### 查询指定用户评论
+GET http://localhost:8080/sysUserComment/1
+Accept: application/json
+
+### 修改
+PUT http://localhost:8080/sysMovieComment
+Content-Type: application/json
+
+{
+  "movieId": 2,
+  "userId": 1,
+  "commentTime": "2020-11-22 00:00:00",
+  "content": "这部电影真的烂透了",
+  "score": 1.0
+}
+
+### 删除
+POST http://localhost:8080/sysMovieComment/delete
+Content-Type: application/json
+
+[
+  {
+    "movieId": 5,
+    "userId": 1,
+    "commentTime": "2020-11-22 00:00:00"
+  },
+  {
+    "movieId": 4,
+    "userId": 1,
+    "commentTime": "2020-11-22 00:00:00"
+  }
+]

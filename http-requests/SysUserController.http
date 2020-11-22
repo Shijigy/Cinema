@@ -1,0 +1,39 @@
+### 添加请求
+POST http://localhost:8080/sysUser
+Content-Type: application/json
+
+{
+  "userName": "李四",
+  "password": "123456",
+  "email": "456@qq.com",
+  "phoneNumber": "13512345678",
+  "sex": false,
+  "userPicture": "http://qjx6d8hoy.hb-bkt.clouddn.com/images/IMG_0333.JPG",
+  "information": "{\"state\": \"心情好\",\"birthday\": \"2020-10-11\",\"hobbies\": [1,2,3]}"
+}
+
+### 查询所有
+GET http://localhost:8080/sysUser
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8080/sysUser/2
+Accept: application/json
+
+### 修改
+PUT http://localhost:8080/sysUser
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "userName": "李四",
+  "password": "128856",
+  "email": "123456@qq.com",
+  "phoneNumber": "13512345678",
+  "sex": true,
+  "userPicture": "http://qjx6d8hoy.hb-bkt.clouddn.com/images/IMG_0333.JPG",
+  "information": "{\"state\": \"心情好\",\"birthday\": \"2020-10-11\",\"hobbies\": [1,2,3]}"
+}
+
+### 删除
+DELETE http://localhost:8080/sysUser/6,7,8

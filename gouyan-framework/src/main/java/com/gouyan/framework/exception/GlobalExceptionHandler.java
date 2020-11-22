@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  * 配置异常处理器，管理全局异常
  * @Author: 华雨欣
@@ -34,6 +36,12 @@ public class GlobalExceptionHandler {
         //获取错误msg
         String msg = bindingResult.getAllErrors().get(0).getDefaultMessage();
         return ResponseResult.error(msg);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseResult sqlIntegrityConstraintViolationExceptionHandler(SQLIntegrityConstraintViolationException e){
+        log.error(e.getMessage(), e);
+        return ResponseResult.error("插入或修改操作不合法");
     }
 
 }
