@@ -1,0 +1,36 @@
+### 添加请求
+POST http://localhost:8080/sysActor
+Content-Type: application/json
+
+{
+  "actorName": "肖战",
+  "actorGender": true
+}
+
+
+
+
+### 查询所有
+GET http://localhost:8080/sysActor
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8080/sysActor/2
+Accept: application/json
+
+### 修改
+PUT http://localhost:8080/sysActor
+Content-Type: application/json
+
+{
+  "actorId": 4,
+  "actorName": "王一博",
+  "actorPhoto": "https://www.4399.com",
+  "actorHeight": 180.5,
+  "actorGender": false,
+  "actorSchool": "北京大学"
+}
+
+### 删除
+DELETE http://localhost:8080/sysActor/5
+

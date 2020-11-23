@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysActorMapper">
+
+    <select id="findAll" parameterType="SysActor" resultType="SysActor">
+        select * from sys_actor
+        <where>
+            <if test="actorName != null and actorName != ''">
+                and actor_name like concat('%', #{actorName}, '%')
+            </if>
+            <if test="actorGender != null and actorGender != ''">
+                and actor_gender = #{actorGender}
+            </if>
+            <if test="actorSchool != null and actorSchool != ''">
+                and actor_school like concat('%', #{actorSchool}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="long" resultType="SysActor">
+        select * from sys_actor where actor_id = #{id}
+    </select>
+
+    <update id="add" parameterType="SysActor">
+        <!-- 将添加后的主键id传回原对象 -->
+        <selectKey keyProperty="actorId" keyColumn="actor_id" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into sys_actor (
+            actor_name,
+            <if test="actorPhoto != null and actorPhoto != ''">actor_photo, </if>
+            <if test="actorHeight != null and actorHeight != ''">actor_height, </if>
+            <if test="actorAge != null and actorAge != ''">actor_age, </if>
+            <if test="actorSchool != null and actorSchool != ''">actor_school,</if>
+            actor_gender
+        ) values (
+            #{actorName},
+            <if test="actorPhoto != null and actorPhoto != ''">#{actorPhoto}, </if>
+            <if test="actorHeight != null and actorHeight != ''">#{actorHeight}, </if>
+            <if test="actorAge != null and actorAge != ''">#{actorAge}, </if>
+            <if test="actorSchool != null and actorSchool != ''">#{actorSchool}, </if>
+            #{actorGender}
+        )
+    </update>
+
+    <update id="update" parameterType="SysActor">
+        update sys_actor set
+        actor_name = #{actorName},
+        <if test="actorPhoto != null and actorPhoto != ''">actor_photo = #{actorPhoto}, </if>
+        <if test="actorHeight != null and actorHeight != ''">actor_height = #{actorHeight}, </if>
+        <if test="actorAge != null and actorAge != ''">actor_age = #{actorAge}, </if>
+        actor_gender = #{actorGender},
+        <if test="actorSchool != null and actorSchool != ''">actor_school = #{actorSchool}</if>
+        where actor_id = #{actorId}
+    </update>
+    
+    <update id="delete" parameterType="long">
+        delete from sys_actor where actor_id = #{id}
+    </update>
+    
+    
+
+
+
+</mapper>
