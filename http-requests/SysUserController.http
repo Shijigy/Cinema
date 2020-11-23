@@ -1,12 +1,13 @@
+
 ### 添加请求
 POST http://localhost:8080/sysUser
 Content-Type: application/json
 
 {
-  "userName": "赵六",
-  "password": "1456",
-  "email": "1456@qq.com",
-  "phoneNumber": "12312312312",
+  "userName": "李四",
+  "password": "123456",
+  "email": "456@qq.com",
+  "phoneNumber": "13512345678",
   "sex": false,
   "userPicture": "http://qjx6d8hoy.hb-bkt.clouddn.com/images/IMG_0333.JPG",
   "information": "{\"state\": \"心情好\",\"birthday\": \"2020-10-11\",\"hobbies\": [1,2,3]}"
@@ -17,7 +18,7 @@ GET http://localhost:8080/sysUser
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysUser/2
+GET http://localhost:8080/sysUser/3
 Accept: application/json
 
 ### 修改
@@ -25,15 +26,15 @@ PUT http://localhost:8080/sysUser
 Content-Type: application/json
 
 {
-  "userId": 2,
-  "userName": "李三",
-  "password": "128856",
-  "email": "123456@qq.com",
-  "phoneNumber": "13512345678",
+  "userId": 4,
+  "userName": "哈哈",
+  "password": "aaa",
+  "email": "1184848785@qq.com",
+  "phoneNumber": "13333333333",
   "sex": true,
-  "userPicture": "http://qjx6d8hoy.hb-bkt.clouddn.com/images/IMG_0333.JPG",
-  "information": "{\"state\": \"心情好\",\"birthday\": \"2020-10-11\",\"hobbies\": [1,2,3]}"
+  "userPicture": "http:...",
+  "information": {"birthday":"1999-2-10", "state":"很开心", "hobbies": [1,2,3], "signature":"夹断哥花式擦屁股"}
 }
 
 ### 删除
-DELETE http://localhost:8080/sysUser/6,7,8
+DELETE http://localhost:8080/sysUser/5
