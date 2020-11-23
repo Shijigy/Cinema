@@ -1,0 +1,37 @@
+
+### 添加请求
+POST http://localhost:8080/sysUser
+Content-Type: application/json
+
+{
+  "movieNameCn": "八佰",
+  "movieNameEn": "Caught By Time",
+  "movieLength": 120,
+  "movieAreaId": 2
+}
+
+### 查询所有
+GET http://localhost:8080/sysUser
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8080/sysUser/3
+Accept: application/json
+
+### 修改
+PUT http://localhost:8080/sysUser
+Content-Type: application/json
+
+{
+  "userId": 4,
+  "userName": "哈哈",
+  "password": "aaa",
+  "email": "1184848785@qq.com",
+  "phoneNumber": "13333333333",
+  "sex": true,
+  "userPicture": "http:...",
+  "information": {"birthday":"1999-2-10", "state":"很开心", "hobbies": [1,2,3], "signature":"夹断哥花式擦屁股"}
+}
+
+### 删除
+DELETE http://localhost:8080/sysUser/5
