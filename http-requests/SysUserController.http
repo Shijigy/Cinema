@@ -7,14 +7,12 @@ Content-Type: application/json
   "userName": "李四",
   "password": "123456",
   "email": "456@qq.com",
-  "phoneNumber": "13512345678",
   "sex": false,
-  "userPicture": "http://qjx6d8hoy.hb-bkt.clouddn.com/images/IMG_0333.JPG",
-  "information": "{\"state\": \"心情好\",\"birthday\": \"2020-10-11\",\"hobbies\": [1,2,3]}"
+  "userPicture": "http://qjx6d8hoy.hb-bkt.clouddn.com/images/IMG_0333.JPG"
 }
 
 ### 查询所有
-GET http://localhost:8080/sysUser
+GET http://localhost:8080/sysUser?userName=x
 Accept: application/json
 
 ### 查询一个

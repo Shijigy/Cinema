@@ -20,7 +20,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public List<SysUser> findAll(SysUser sysUser) {
-        return sysUserMapper.findAll();
+        return sysUserMapper.findAll(sysUser);
     }
 
     @Override
