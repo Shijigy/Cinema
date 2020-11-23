@@ -1,7 +1,6 @@
 package com.gouyan.system.service.impl;
 
 import com.gouyan.system.domin.SysMovieComment;
-import com.gouyan.system.domin.pkclass.SysMovieCommentPrimaryKey;
 import com.gouyan.system.mapper.SysMovieCommentMapper;
 import com.gouyan.system.service.SysMovieCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +44,9 @@ public class SysMovieCommentServiceImpl implements SysMovieCommentService {
     }
 
     @Override
-    public int delete(SysMovieCommentPrimaryKey[] pks) {
+    public int delete(SysMovieComment[] pks) {
         int rows = 0;
-        for(SysMovieCommentPrimaryKey pk : pks){
+        for(SysMovieComment pk : pks){
             rows += sysMovieCommentMapper.delete(pk.getMovieId(), pk.getUserId(), pk.getCommentTime());
         }
         return rows;

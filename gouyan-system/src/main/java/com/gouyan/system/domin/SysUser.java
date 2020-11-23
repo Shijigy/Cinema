@@ -33,7 +33,7 @@ public class SysUser implements Serializable {
     @Email(message = "邮箱格式有误")
     private String email;
     //电话号码
-//    @Pattern(regexp = "^1[3|4|5|7|8]\\d{9}$", message = "电话号码格式有错")
+    @Pattern(regexp = "^1[3|4|5|7|8]\\d{9}$", message = "电话号码格式有错")
     private String phoneNumber;
     //性别
     private Boolean sex;

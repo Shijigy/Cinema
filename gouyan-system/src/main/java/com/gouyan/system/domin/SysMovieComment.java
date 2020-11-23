@@ -1,9 +1,6 @@
 package com.gouyan.system.domin;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -39,5 +36,6 @@ public class SysMovieComment implements Serializable {
 
 
     //评论用户
+    SysUser sysUser;
 
 }

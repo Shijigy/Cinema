@@ -4,15 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gouyan.system.mapper.SysMovieCommentMapper">
 
-    <select id="findAll" resultType="SysMovieComment">
+    <resultMap id="commentResult" type="SysMovieComment">
+        <result property="movieId" column="movie_id"></result>
+        <result property="userId" column="user_id"></result>
+        <association property="sysUser" column="user_id" select="com.gouyan.system.mapper.SysUserMapper.findById"></association>
+    </resultMap>
+
+    <select id="findAll" resultMap="commentResult">
         select * from sys_movie_comment
     </select>
 
-    <select id="findByMovieId" resultType="SysMovieComment" parameterType="long">
+    <select id="findByMovieId" resultMap="commentResult" parameterType="long">
         select * from sys_movie_comment where movie_id = #{id}
     </select>
 
-    <select id="findByUserId" resultType="SysMovieComment" parameterType="long">
+    <select id="findByUserId" resultMap="commentResult" parameterType="long">
         select * from sys_movie_comment where user_id = #{id}
     </select>
 
@@ -24,12 +30,11 @@
         update sys_movie_comment
         set
         <if test="content != null and content != ''">content = #{content},</if>
-        <if test="score != null and score != 0">score = #{score},</if>
         comment_time = sysdate()
         where movie_id = #{movieId} and user_id = #{userId}
     </update>
 
-    <update id="delete" parameterType="SysMovieCommentPrimaryKey">
-        delete from sys_movie_comment where movie_id = #{movieId} and user_id = #{userId} and comment_time = #{commentTime}
+    <update id="delete" parameterType="SysMovieComment">
+        delete from sys_movie_comment where movie_id = #{arg0} and user_id = #{arg1} and comment_time = #{arg2}
     </update>
 </mapper>

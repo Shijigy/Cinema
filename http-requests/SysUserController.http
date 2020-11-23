@@ -3,10 +3,10 @@ POST http://localhost:8080/sysUser
 Content-Type: application/json
 
 {
-  "userName": "李四",
-  "password": "123456",
-  "email": "456@qq.com",
-  "phoneNumber": "13512345678",
+  "userName": "赵六",
+  "password": "1456",
+  "email": "1456@qq.com",
+  "phoneNumber": "12312312312",
   "sex": false,
   "userPicture": "http://qjx6d8hoy.hb-bkt.clouddn.com/images/IMG_0333.JPG",
   "information": "{\"state\": \"心情好\",\"birthday\": \"2020-10-11\",\"hobbies\": [1,2,3]}"
@@ -26,7 +26,7 @@ Content-Type: application/json
 
 {
   "userId": 2,
-  "userName": "李四",
+  "userName": "李三",
   "password": "128856",
   "email": "123456@qq.com",
   "phoneNumber": "13512345678",

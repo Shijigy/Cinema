@@ -1,7 +1,6 @@
 package com.gouyan.system.service;
 
 import com.gouyan.system.domin.SysMovieComment;
-import com.gouyan.system.domin.pkclass.SysMovieCommentPrimaryKey;
 
 import java.util.List;
 
@@ -21,6 +20,6 @@ public interface SysMovieCommentService {
 
     int update(SysMovieComment sysMovieComment);
 
-    int delete(SysMovieCommentPrimaryKey[] pks);
+    int delete(SysMovieComment[] pks);
 
 }

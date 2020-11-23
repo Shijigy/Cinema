@@ -1,5 +1,6 @@
 package com.gouyan.web.controller.system;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gouyan.common.response.ResponseResult;
 import com.gouyan.system.domin.SysUser;
 import com.gouyan.system.service.impl.SysUserServiceImpl;
@@ -32,7 +33,7 @@ public class SysUserController extends BaseController {
     }
 
     @PostMapping("/sysUser")
-    public ResponseResult add(@Validated @RequestBody SysUser sysUser){
+    public ResponseResult add(@Validated @RequestBody SysUser sysUser) throws JsonProcessingException {
         return getResult(sysUserService.add(sysUser));
     }
 
