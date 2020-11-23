@@ -77,7 +77,12 @@ public class SysMovieCommentController extends BaseController {
                 SysMovie movie = sysMovieService.findById(comment.getMovieId());
                 Integer movieRateNum = movie.getMovieRateNum();
                 Double movieScore = movie.getMovieScore();
-                movieScore = (movieScore * movieRateNum - comment.getScore()) / (--movieRateNum);
+                if(movieRateNum == 1){
+                    movieRateNum = 0;
+                    movieScore = 0.0;
+                }else{
+                    movieScore = (movieScore * movieRateNum - comment.getScore()) / (--movieRateNum);
+                }
 
                 movie.setMovieRateNum(movieRateNum);
                 movie.setMovieScore(movieScore);

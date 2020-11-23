@@ -4,7 +4,11 @@ Content-Type: application/json
 
 {
   "actorName": "肖战",
-  "actorGender": true
+  "actorGender": true,
+  "actorPhoto": "bablablablabla",
+  "actorAge": 20,
+  "actorHeight": 170.5,
+  "actorSchool": "中央美院"
 }
 
 

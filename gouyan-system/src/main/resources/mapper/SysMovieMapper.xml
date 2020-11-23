@@ -79,8 +79,8 @@
         <if test=" movieAreaId != null and movieAreaId != 0">movie_area_id = #{movieAreaId},</if>
         <if test=" movieIntroduction != null and movieIntroduction != ''">movie_introduction = #{movieIntroduction},</if>
         <if test=" releaseDate != null">release_date = #{releaseDate},</if>
-        <if test=" movieScore != null and movieScore != 0">movie_score = #{movieScore},</if>
-        <if test=" movieRateNum != null and movieRateNum != 0">movie_rate_num = #{movieRateNum},</if>
+        <if test=" movieScore != null">movie_score = #{movieScore},</if>
+        <if test=" movieRateNum != null">movie_rate_num = #{movieRateNum},</if>
         <if test=" moviePictures != null and moviePictures != ''">movie_pictures = #{moviePictures},</if>
         <if test=" movieAgeId == null or movieAgeId == 0">movie_age_id = 1 </if>
         <if test="movieAgeId != null and movieAgeId != 0">movie_age_id = #{movieAgeId} </if>

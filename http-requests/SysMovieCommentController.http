@@ -3,8 +3,8 @@ POST http://localhost:8080/sysMovieComment
 Content-Type: application/json
 
 {
-  "movieId": 3,
-  "userId": 5,
+  "movieId": 4,
+  "userId": 4,
   "commentTime": "2020-11-23 00:00:00",
   "content": "这部电影真的很很一般",
   "score": 9
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
   "movieId": 4,
-  "userId": 4,
+  "userId": 1,
   "commentTime": null,
   "content": "这部电影真的烂透了",
   "score": 1.0
@@ -40,8 +40,8 @@ Content-Type: application/json
 
 [
   {
-    "movieId": 3,
-    "userId": 5,
+    "movieId": 4,
+    "userId": 4,
     "commentTime": "2020-11-23 00:00:00",
     "score": 9
   }
