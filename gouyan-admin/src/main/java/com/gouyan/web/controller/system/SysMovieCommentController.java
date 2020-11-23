@@ -1,10 +1,10 @@
 package com.gouyan.web.controller.system;
 
 import com.gouyan.common.response.ResponseResult;
-import com.gouyan.system.domin.SysActorRole;
+import com.gouyan.system.domin.SysMovie;
 import com.gouyan.system.domin.SysMovieComment;
-import com.gouyan.system.domin.pkclass.SysMovieCommentPrimaryKey;
 import com.gouyan.system.service.impl.SysMovieCommentServiceImpl;
+import com.gouyan.system.service.impl.SysMovieServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -21,6 +21,9 @@ public class SysMovieCommentController extends BaseController {
 
     @Autowired
     private SysMovieCommentServiceImpl sysMovieCommentService;
+
+    @Autowired
+    private SysMovieServiceImpl sysMovieService;
 
     @GetMapping("/sysMovieComment")
     public ResponseResult findAll(){
@@ -41,17 +44,47 @@ public class SysMovieCommentController extends BaseController {
 
     @PostMapping("/sysMovieComment")
     public ResponseResult add(@Validated @RequestBody SysMovieComment sysMovieComment){
-        return getResult(sysMovieCommentService.add(sysMovieComment));
+        int rows = sysMovieCommentService.add(sysMovieComment);
+        if(rows > 0){
+            //添加成功 修改电影评分和评论人数
+            SysMovie movie = sysMovieService.findById(sysMovieComment.getMovieId());
+            Integer movieRateNum = movie.getMovieRateNum();
+            Double movieScore = movie.getMovieScore();
+            movieScore = (movieScore * movieRateNum + sysMovieComment.getScore()) / (++movieRateNum);
+
+            movie.setMovieScore(movieScore);
+            movie.setMovieRateNum(movieRateNum);
+            sysMovieService.update(movie);
+        }
+        return getResult(rows);
     }
 
+    /**
+     * 修改评论内容信息，不允许修改评分
+     * @param sysMovieComment
+     * @return
+     */
     @PutMapping("/sysMovieComment")
     public ResponseResult update(@Validated @RequestBody SysMovieComment sysMovieComment){
         return getResult(sysMovieCommentService.update(sysMovieComment));
     }
 
     @PostMapping("/sysMovieComment/delete")
-    public ResponseResult delete(@RequestBody SysMovieCommentPrimaryKey[] pks){
-        return getResult(sysMovieCommentService.delete(pks));
+    public ResponseResult delete(@RequestBody SysMovieComment[] pks){
+        int rows = sysMovieCommentService.delete(pks);
+        if(rows > 0){
+            for(SysMovieComment comment : pks){
+                SysMovie movie = sysMovieService.findById(comment.getMovieId());
+                Integer movieRateNum = movie.getMovieRateNum();
+                Double movieScore = movie.getMovieScore();
+                movieScore = (movieScore * movieRateNum - comment.getScore()) / (--movieRateNum);
+
+                movie.setMovieRateNum(movieRateNum);
+                movie.setMovieScore(movieScore);
+                sysMovieService.update(movie);
+            }
+        }
+        return getResult(rows);
     }
 
 }
