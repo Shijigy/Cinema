@@ -1,5 +1,7 @@
 package com.gouyan.web.controller.system;
 
+import com.gouyan.common.constant.HttpStatus;
+import com.gouyan.common.exception.DataNotFoundException;
 import com.gouyan.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovie;
 import com.gouyan.system.domin.SysMovieComment;
@@ -59,20 +61,33 @@ public class SysMovieCommentController extends BaseController {
         return getResult(rows);
     }
 
-    /**
-     * 修改评论内容信息，不允许修改评分
-     * @param sysMovieComment
-     * @return
-     */
     @PutMapping("/sysMovieComment")
     public ResponseResult update(@Validated @RequestBody SysMovieComment sysMovieComment){
-        return getResult(sysMovieCommentService.update(sysMovieComment));
+        //查询原评论信息
+        SysMovieComment originalComment = sysMovieCommentService.findOne(sysMovieComment);
+        if(originalComment == null){
+            throw new DataNotFoundException("原始数据查询失败，请确保输入有效");
+        }
+
+        int rows = sysMovieCommentService.update(sysMovieComment);
+        if(rows > 0){
+            //修改成功，修改电影评分
+            SysMovie movie = sysMovieService.findById(sysMovieComment.getMovieId());
+            Integer movieRateNum = movie.getMovieRateNum();
+            Double movieScore = movie.getMovieScore();
+            movieScore = (movieScore * movieRateNum + sysMovieComment.getScore() - originalComment.getScore()) / movieRateNum;
+            //更新评分
+            movie.setMovieScore(movieScore);
+            sysMovieService.update(movie);
+        }
+        return getResult(rows);
     }
 
     @PostMapping("/sysMovieComment/delete")
     public ResponseResult delete(@RequestBody SysMovieComment[] pks){
         int rows = sysMovieCommentService.delete(pks);
         if(rows > 0){
+            //删除成功，修改删除评论后的评分
             for(SysMovieComment comment : pks){
                 SysMovie movie = sysMovieService.findById(comment.getMovieId());
                 Integer movieRateNum = movie.getMovieRateNum();

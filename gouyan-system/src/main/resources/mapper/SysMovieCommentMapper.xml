@@ -14,6 +14,10 @@
         select * from sys_movie_comment
     </select>
 
+    <select id="findOne" resultType="SysMovieComment" parameterType="SysMovieComment">
+        select * from sys_movie_comment where movie_id = #{movieId} and user_id = #{userId} and comment_time = #{commentTime}
+    </select>
+
     <select id="findByMovieId" resultMap="commentResult" parameterType="long">
         select * from sys_movie_comment where movie_id = #{id}
     </select>
@@ -30,11 +34,12 @@
         update sys_movie_comment
         set
         <if test="content != null and content != ''">content = #{content},</if>
+        <if test="score != null and score != 0">score = #{score},</if>
         comment_time = sysdate()
         where movie_id = #{movieId} and user_id = #{userId}
     </update>
 
     <update id="delete" parameterType="SysMovieComment">
-        delete from sys_movie_comment where movie_id = #{arg0} and user_id = #{arg1} and comment_time = #{arg2}
+        delete from sys_movie_comment where movie_id = #{movieId} and user_id = #{userId} and comment_time = #{commentTime}
     </update>
 </mapper>

@@ -24,6 +24,11 @@ public class SysMovieCommentServiceImpl implements SysMovieCommentService {
     }
 
     @Override
+    public SysMovieComment findOne(SysMovieComment sysMovieComment) {
+        return sysMovieCommentMapper.findOne(sysMovieComment);
+    }
+
+    @Override
     public List<SysMovieComment> findByMovieId(Long movieId) {
         return sysMovieCommentMapper.findByMovieId(movieId);
     }
@@ -47,7 +52,7 @@ public class SysMovieCommentServiceImpl implements SysMovieCommentService {
     public int delete(SysMovieComment[] pks) {
         int rows = 0;
         for(SysMovieComment pk : pks){
-            rows += sysMovieCommentMapper.delete(pk.getMovieId(), pk.getUserId(), pk.getCommentTime());
+            rows += sysMovieCommentMapper.delete(pk);
         }
         return rows;
     }

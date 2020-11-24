@@ -12,6 +12,8 @@ public interface SysMovieCommentService {
 
     List<SysMovieComment> findAll();
 
+    SysMovieComment findOne(SysMovieComment sysMovieComment);
+
     List<SysMovieComment> findByMovieId(Long movieId);
 
     List<SysMovieComment> findByUserId(Long userId);

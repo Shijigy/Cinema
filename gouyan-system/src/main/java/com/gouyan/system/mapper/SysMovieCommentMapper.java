@@ -18,6 +18,13 @@ public interface SysMovieCommentMapper {
     List<SysMovieComment> findAll();
 
     /**
+     * 查询一个
+     * @param sysMovieComment 包含电影、用户、时间的实体类
+     * @return
+     */
+    SysMovieComment findOne(SysMovieComment sysMovieComment);
+
+    /**
      * 根据电影id查询
      * @param movieId
      * @return
@@ -45,12 +52,10 @@ public interface SysMovieCommentMapper {
     int update(SysMovieComment sysMovieComment);
 
     /**
-     * 删除
-     * @param movieId
-     * @param userId
-     * @param commentTime
+     * 删除，只需要movieId,userId,commentTime
+     * @param sysMovieComment
      * @return
      */
-    int delete(Long movieId, Long userId, Date commentTime);
+    int delete(SysMovieComment sysMovieComment);
 
 }

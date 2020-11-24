@@ -29,6 +29,7 @@ public class SysMovieComment implements Serializable {
     private Long userId;
 
     //评论时间
+    @NotNull(message = "评论时间不能为空")
     private Date commentTime;
 
     //评论内容

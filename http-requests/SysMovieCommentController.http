@@ -29,9 +29,9 @@ Content-Type: application/json
 {
   "movieId": 4,
   "userId": 1,
-  "commentTime": null,
+  "commentTime": "2020-11-24 10:49:54",
   "content": "这部电影真的烂透了",
-  "score": 1.0
+  "score": 2.0
 }
 
 ### 删除

@@ -1,5 +1,6 @@
 package com.gouyan.framework.exception;
 
+import com.gouyan.common.exception.DataNotFoundException;
 import com.gouyan.common.response.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
@@ -42,6 +44,12 @@ public class GlobalExceptionHandler {
     public ResponseResult sqlIntegrityConstraintViolationExceptionHandler(SQLIntegrityConstraintViolationException e){
         log.error(e.getMessage(), e);
         return ResponseResult.error("插入或修改操作不合法");
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseResult dataNotFoundExceptionHandler(DataNotFoundException e){
+        log.warn(e.getMessage());
+        return ResponseResult.error(e.getMessage());
     }
 
 }
