@@ -19,7 +19,8 @@ spring:
   # mvc日期格式配置
   mvc:
     format:
-      date: yyyy-MM-dd HH:mm:ss
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
 
 # Mybatis 配置
 mybatis:
