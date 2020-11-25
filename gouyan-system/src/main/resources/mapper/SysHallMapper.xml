@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysHallMapper">
+
+    <select id="findAll" resultType="SysHall">
+        select * from sys_hall
+    </select>
+
+    <select id="findByCinemaIdAndHallId" parameterType="SysHall" resultType="SysHall">
+        select * from sys_hall where cinema_id = #{cinemaId} and hall_id = #{hallId}
+    </select>
+
+    <update id="add" parameterType="SysHall">
+        insert into sys_hall values (#{cinemaId}, #{hallId}, #{hallName}, #{hallCategoryId}, #{rowNums}, #{seatNums}, #{hallState})
+    </update>
+
+    <update id="update" parameterType="SysHall">
+        update sys_hall set
+        hall_name = #{hallName},
+        hall_category_id = #{hallCategoryId},
+        row_nums = #{rowNums},
+        seat_nums = #{seatNums},
+        hall_state = #{hallState}
+        where cinema_id = #{cinemaId} and hall_id = #{hallId}
+    </update>
+
+    <update id="delete" parameterType="SysHall">
+        delete from sys_hall where cinema_id = #{cinemaId} and hall_id  = #{hallId}
+    </update>
+
+</mapper>

@@ -1,0 +1,46 @@
+### 添加请求
+POST http://localhost:8080/sysHall
+Content-Type: application/json
+
+{
+  "cinemaId": 7,
+  "hallId": 8,
+  "hallName": "5号厅",
+  "hallCategoryId": 5,
+  "rowNums": 15,
+  "seatNums": 300,
+  "hallState": false
+}
+
+### 查询所有
+GET http://localhost:8080/sysHall
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8080/sysHall/3/2
+Accept: application/json
+
+### 修改
+PUT http://localhost:8080/sysHall
+Content-Type: application/json
+
+{
+  "cinemaId": 3,
+  "hallId": 2,
+  "hallName": "5号厅",
+  "hallCategoryId": 5,
+  "rowNums": 15,
+  "seatNums": 300,
+  "hallState": false
+}
+
+### 删除
+POST http://localhost:8080/sysHall/delete
+Content-Type: application/json
+
+[
+  {
+    "cinemaId": 2,
+    "hallId": 2
+  }
+]
