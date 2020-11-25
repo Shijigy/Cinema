@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysSessionMapper">
+
+    <select id="findByVo" parameterType="SysSessionVo" resultType="SysSession">
+        select * from sys_session where 1 = 1
+        <if test="cinemaId != null and cinemaId != 0">and cinema_id = #{cinemaId} </if>
+        <if test="movieId != null and movieId != 0">and movie_id = #{movieId} </if>
+        <if test="movieRuntimeId != null and movieRuntimeId != 0">and movie_runtime_id = #{movieRuntimeId} </if>
+        <if test="sessionDate != null">and session_date = #{sessionDate} </if>
+    </select>
+
+    <select id="findById" parameterType="long" resultType="SysSession">
+        select * from sys_session where session_id = #{id}
+    </select>
+
+    <update id="add" parameterType="SysSession">
+        <!-- 将添加后的主键id传回原对象 -->
+        <selectKey keyProperty="sessionId" keyColumn="session_id" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into sys_session(
+            cinema_id, hall_id, language_version, movie_id, movie_runtime_id, session_date, session_state, session_price, 
+            <if test="sessionTips != null and sessionTips != ''">session_tips, </if>
+            session_seats
+        ) values(
+            #{cinemaId}, #{hallId}, #{languageVersion}, #{movieId}, #{movieRuntimeId}, #{sessionDate}, #{sessionState}, #{sessionPrice},
+            <if test="sessionTips != null and sessionTips != ''">#{sessionTips}, </if>
+            #{sessionSeats}
+        )
+    </update>
+
+    <update id="update" parameterType="SysSession">
+        update sys_session
+        set
+        <if test="hallId != null and hallId != 0">hall_id = #{hallId},</if>
+        <if test="languageVersion != null and languageVersion != ''">language_version = #{languageVersion},</if>
+        <if test="movieId != null and movieId != 0">movie_id = #{movieId},</if>
+        <if test="movieRuntimeId != null and movieRuntimeId != 0">movie_runtime_id = #{movieRuntimeId},</if>
+        <if test="sessionDate != null">session_date = #{sessionDate},</if>
+        <if test="sessionState != null">session_state = #{sessionState},</if>
+        <if test="sessionPrice != null and sessionPrice >= 0">session_price = #{sessionPrice},</if>
+        <if test="sessionTips != null and sessionTips != ''">session_tips = #{sessionTips},</if>
+        session_seats = #{sessionSeats}
+        where session_id = #{sessionId}
+    </update>
+
+    <update id="delete" parameterType="long">
+        delete from sys_session where session_id = #{sessionId}
+    </update>
+
+</mapper>
