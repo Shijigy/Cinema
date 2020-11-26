@@ -1,0 +1,47 @@
+### 添加请求
+POST http://localhost:8080/sysCinema
+Content-Type: application/json
+
+{
+  "cinemaName": "中影北方国际影城",
+  "cinemaBrand": "金逸影城",
+  "cinemaPicture": "[\"https://leetcode-cn.com/problems/design-linked-list/\"]",
+  "isTicketChanged": true,
+  "isRefunded": false,
+  "cinemaAreaId": 1,
+  "cinemaAddress": "甘井子区泉水瑞沃广场3楼",
+  "userId": 1,
+  "entryDate": "2020-02-02"
+}
+
+
+
+
+### 查询所有
+GET http://localhost:8080/sysCinema
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8080/sysCinema/2
+Accept: application/json
+
+### 修改
+PUT http://localhost:8080/sysCinema
+Content-Type: application/json
+
+{
+  "cinemaId": 3,
+  "cinemaName": "哈哈哈影城",
+  "cinemaBrand": "万达影城",
+  "cinemaPicture": "[\"https://leetcode-cn.com/problems/design-linked-list/\"]",
+  "isTicketChanged": true,
+  "isRefunded": false,
+  "cinemaAreaId": 1,
+  "cinemaAddress": "甘井子区泉水瑞沃广场3楼",
+  "userId": 2,
+  "entryDate": "2020-02-02"
+}
+
+### 删除
+DELETE http://localhost:8080/sysCinema/4
+
