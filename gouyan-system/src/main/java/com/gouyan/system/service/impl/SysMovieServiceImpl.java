@@ -46,4 +46,9 @@ public class SysMovieServiceImpl implements SysMovieService {
         }
         return rows;
     }
+
+    @Override
+    public List<SysMovie> findMovieById(Long id) {
+        return sysMovieMapper.findMovieById(id);
+    }
 }

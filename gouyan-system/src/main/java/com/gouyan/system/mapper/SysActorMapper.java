@@ -19,4 +19,6 @@ public interface SysActorMapper {
     int update(SysActor sysActor);
 
     int delete(Long id);
+
+    SysActor findActorById(Long id);
 }

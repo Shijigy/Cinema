@@ -47,4 +47,9 @@ public class SysMovieController extends BaseController {
         return getResult(sysMovieService.delete(ids));
     }
 
+    @GetMapping("/sysMovie/find/{id}")
+    public ResponseResult findMovieById(@PathVariable Long id){
+        return getResult(sysMovieService.findMovieById(id));
+    }
+
 }

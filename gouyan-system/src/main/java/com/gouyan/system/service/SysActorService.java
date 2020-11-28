@@ -19,4 +19,6 @@ public interface SysActorService {
     int update(SysActor sysActor);
 
     int delete(Long[] ids);
+
+    SysActor findActorById(Long id);
 }

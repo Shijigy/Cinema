@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8080/sysMovie?orderByColumn=movieScore
+GET http://localhost:8080/sysMovie?movieNameCn=除
 Accept: application/json
 
 ### 查询一个
@@ -30,3 +30,6 @@ Content-Type: application/json
 
 ### 删除
 DELETE http://localhost:8080/sysMovie/5
+
+### 前台查询完整数据
+GET http://localhost:8080/sysMovie/find/1

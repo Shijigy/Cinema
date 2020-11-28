@@ -47,4 +47,9 @@ public class SysActorServiceImpl implements SysActorService {
         }
         return rows;
     }
+
+    @Override
+    public SysActor findActorById(Long id) {
+        return sysActorMapper.findActorById(id);
+    }
 }

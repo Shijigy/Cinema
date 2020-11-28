@@ -46,4 +46,9 @@ public class SysActorController extends BaseController {
     public ResponseResult delete(@PathVariable Long[] ids){
         return getResult(sysActorService.delete(ids));
     }
+
+    @GetMapping("/sysActor/find/{id}")
+    public ResponseResult findActorById(@PathVariable Long id){
+        return getResult(sysActorService.findActorById(id));
+    }
 }

@@ -43,4 +43,12 @@ public interface SysMovieMapper {
      */
     int delete(Long id);
 
+
+    /**
+     * 前台根据movie_id查询电影信息，含电影演员与演员对应角色
+     * @param id
+     * @return
+     */
+    List<SysMovie> findMovieById(Long id);
+
 }
