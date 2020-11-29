@@ -4,11 +4,14 @@ Content-Type: application/json
 
 {
   "cinemaId": 7,
-  "hallId": 8,
-  "hallName": "5号厅",
-  "hallCategoryId": 5,
+  "hallId": 3,
+  "hallName": "3号厅",
+  "hallCategoryId": 2,
   "rowNums": 15,
+  "rowStart": "1",
+  "seatNumsRow": 20,
   "seatNums": 300,
+  "seatState": "[{\"1\": [2,2,0,0,0]},{\"2\": [0,0,0,0,0]},{\"3\": [0,0,0,0,0]}]",
   "hallState": false
 }
 
@@ -17,7 +20,7 @@ GET http://localhost:8080/sysHall
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysHall/3/2
+GET http://localhost:8080/sysHall/7/2
 Accept: application/json
 
 ### 修改
@@ -25,10 +28,11 @@ PUT http://localhost:8080/sysHall
 Content-Type: application/json
 
 {
-  "cinemaId": 3,
+  "cinemaId": 7,
   "hallId": 2,
   "hallName": "5号厅",
   "hallCategoryId": 5,
+  "rowStart": "A",
   "rowNums": 15,
   "seatNums": 300,
   "hallState": false
@@ -40,7 +44,7 @@ Content-Type: application/json
 
 [
   {
-    "cinemaId": 2,
+    "cinemaId": 7,
     "hallId": 2
   }
 ]

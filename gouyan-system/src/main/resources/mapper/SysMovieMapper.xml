@@ -27,22 +27,22 @@
         <result property="moviePictures" column="movie_pictures"></result>
         <association property="sysMovieArea" column="movie_area_id" select="com.gouyan.system.mapper.SysMovieAreaMapper.findById"></association>
         <association property="sysMovieAge" column="movie_age_id" select="com.gouyan.system.mapper.SysMovieAgeMapper.findById"></association>
-        <collection property="actorList" ofType="SysActor">
-            <id property="actorId" column="actor_id"></id>
-            <result property="actorName" column="actor_name"></result>
-            <result property="actorPhoto" column="actor_photo"></result>
-            <result property="actorHeight" column="actor_height"></result>
-            <result property="actorAge" column="actor_age"></result>
-            <result property="actorGender" column="actor_gender"></result>
-            <result property="actorSchool" column="actor_school"></result>
-            <result property="actorNation" column="actor_nation"></result>
-            <result property="actorBloodType" column="actor_blood_type"></result>
-            <result property="actorConstellation" column="actor_constellation"></result>
-            <result property="actorNationality" column="actor_nationality"></result>
-            <result property="actorInformation" column="actor_information"></result>
-            <collection property="actorRoleList" ofType="SysActorRole">
-                <id property="actorRoleId" column="actor_role_id"></id>
-                <result property="actorRoleName" column="actor_role_name"></result>
+        <collection property="actorRoleList" ofType="SysActorRole">
+            <id property="actorRoleId" column="actor_role_id"></id>
+            <result property="actorRoleName" column="actor_role_name"></result>
+            <collection property="actorList" ofType="SysActor">
+                <id property="actorId" column="actor_id"></id>
+                <result property="actorName" column="actor_name"></result>
+                <result property="actorPhoto" column="actor_photo"></result>
+                <result property="actorHeight" column="actor_height"></result>
+                <result property="actorAge" column="actor_age"></result>
+                <result property="actorGender" column="actor_gender"></result>
+                <result property="actorSchool" column="actor_school"></result>
+                <result property="actorNation" column="actor_nation"></result>
+                <result property="actorBloodType" column="actor_blood_type"></result>
+                <result property="actorConstellation" column="actor_constellation"></result>
+                <result property="actorNationality" column="actor_nationality"></result>
+                <result property="actorInformation" column="actor_information"></result>
             </collection>
         </collection>
     </resultMap>

@@ -13,15 +13,18 @@
     </select>
 
     <update id="add" parameterType="SysHall">
-        insert into sys_hall values (#{cinemaId}, #{hallId}, #{hallName}, #{hallCategoryId}, #{rowNums}, #{seatNums}, #{hallState})
+        insert into sys_hall values (#{cinemaId}, #{hallId}, #{hallName}, #{hallCategoryId}, #{rowStart}, #{rowNums}, #{seatNumsRow}, #{seatNums}, #{seatState}, #{hallState})
     </update>
 
     <update id="update" parameterType="SysHall">
         update sys_hall set
         hall_name = #{hallName},
         hall_category_id = #{hallCategoryId},
+        row_start = #{rowStart},
         row_nums = #{rowNums},
+        seat_nums_row = #{seatNumsRow},
         seat_nums = #{seatNums},
+        seat_state = #{seatState},
         hall_state = #{hallState}
         where cinema_id = #{cinemaId} and hall_id = #{hallId}
     </update>

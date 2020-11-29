@@ -3,13 +3,13 @@ POST http://localhost:8080/sysCinema
 Content-Type: application/json
 
 {
-  "cinemaName": "中影北方国际影城",
-  "cinemaBrand": "金逸影城",
+  "cinemaName": "万达影城(大学店)",
+  "cinemaBrand": "万达影城",
   "cinemaPicture": "[\"https://leetcode-cn.com/problems/design-linked-list/\"]",
   "isTicketChanged": true,
   "isRefunded": false,
   "cinemaAreaId": 1,
-  "cinemaAddress": "甘井子区泉水瑞沃广场3楼",
+  "cinemaAddress": "金州区湾里街道金凯隆商城",
   "userId": 1,
   "entryDate": "2020-02-02"
 }

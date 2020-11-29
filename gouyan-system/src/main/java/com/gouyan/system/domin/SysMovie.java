@@ -68,8 +68,8 @@ public class SysMovie implements Serializable {
     //电影年代
     private SysMovieAge sysMovieAge;
 
-    //电影的参演人员
-    private List<SysActor> actorList;
+//    //电影的参演人员
+//    private List<SysActor> actorList;
 
     //电影的参演人员对应的角色id
     private List<SysActorRole> actorRoleList;
