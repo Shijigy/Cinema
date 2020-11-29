@@ -117,7 +117,7 @@
         join sys_actor_movie am on a.actor_id = am.actor_id
         join sys_movie m on m.movie_id = am.movie_id
         join sys_actor_role ar on ar.actor_role_id = am.actor_role_id
-        where a.actor_id = #{id}
+        where a.actor_id = #{id} order by release_date desc
     </select>
 
 
