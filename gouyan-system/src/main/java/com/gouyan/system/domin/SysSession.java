@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * 场次实体类
@@ -66,4 +67,16 @@ public class SysSession implements Serializable {
     //场次座位信息
     @NotBlank(message = "场次座位信息不能为空")
     private String sessionSeats;
+
+    private Integer seatNums;
+
+
+    //多表连接
+    private SysCinema sysCinema;
+
+    private SysHall sysHall;
+
+    private SysMovie sysMovie;
+
+    private SysMovieRuntime sysMovieRuntime;
 }

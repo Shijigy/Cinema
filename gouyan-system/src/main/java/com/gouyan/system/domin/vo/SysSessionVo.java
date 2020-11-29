@@ -19,6 +19,8 @@ public class SysSessionVo implements Serializable {
 
     private Long cinemaId;
 
+    private Long hallId;
+
     private Long movieId;
 
     private Long movieRuntimeId;

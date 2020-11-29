@@ -4,15 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gouyan.system.mapper.SysSessionMapper">
 
-    <select id="findByVo" parameterType="SysSessionVo" resultType="SysSession">
-        select * from sys_session where 1 = 1
-        <if test="cinemaId != null and cinemaId != 0">and cinema_id = #{cinemaId} </if>
-        <if test="movieId != null and movieId != 0">and movie_id = #{movieId} </if>
-        <if test="movieRuntimeId != null and movieRuntimeId != 0">and movie_runtime_id = #{movieRuntimeId} </if>
-        <if test="sessionDate != null">and session_date = #{sessionDate} </if>
+    <resultMap id="SysSessionResult" type="SysSession">
+        <id property="sessionId" column="session_id"></id>
+        <result property="cinemaId" column="cinema_id"></result>
+        <result property="hallId" column="hall_id"></result>
+        <result property="movieId" column="movie_id"></result>
+        <result property="movieRuntimeId" column="movie_runtime_id"></result>
+        <association property="sysCinema" column="cinema_id" select="com.gouyan.system.mapper.SysCinemaMapper.findById"></association>
+        <association property="sysHall" column="{cinemaId=cinema_id, hallId=hall_id}" select="com.gouyan.system.mapper.SysHallMapper.findByCinemaIdAndHallId"></association>
+        <association property="sysMovie" column="movie_id" select="com.gouyan.system.mapper.SysMovieMapper.findById"></association>
+        <association property="sysMovieRuntime" column="movie_runtime_id" select="com.gouyan.system.mapper.SysMovieRuntimeMapper.findById"></association>
+    </resultMap>
+
+    <select id="findByVo" parameterType="SysSessionVo" resultMap="SysSessionResult">
+        select * from sys_session se
+        join sys_cinema ci on se.cinema_id = ci.cinema_id
+        join sys_hall ha on se.hall_id = ha.hall_id
+        join sys_movie mo on se.movie_id = mo.movie_id
+        join sys_movie_runtime mr on se.movie_runtime_id = mr.movie_runtime_id
+        <where>
+            <if test="cinemaId != null and cinemaId != 0">and se.cinema_id = #{cinemaId} </if>
+            <if test="hallId != null and hallId != 0">and se.hall_id = #{hallId} </if>
+            <if test="movieId != null and movieId != 0">and se.movie_id = #{movieId} </if>
+            <if test="movieRuntimeId != null and movieRuntimeId != 0">and se.movie_runtime_id = #{movieRuntimeId} </if>
+            <if test="sessionDate != null">and se.session_date = #{sessionDate} </if>
+        </where>
     </select>
 
-    <select id="findById" parameterType="long" resultType="SysSession">
+    <select id="findById" parameterType="long" resultMap="SysSessionResult">
         select * from sys_session where session_id = #{id}
     </select>
 
@@ -24,11 +43,11 @@
         insert into sys_session(
             cinema_id, hall_id, language_version, movie_id, movie_runtime_id, session_date, session_state, session_price, 
             <if test="sessionTips != null and sessionTips != ''">session_tips, </if>
-            session_seats
+            session_seats, seat_nums
         ) values(
             #{cinemaId}, #{hallId}, #{languageVersion}, #{movieId}, #{movieRuntimeId}, #{sessionDate}, #{sessionState}, #{sessionPrice},
             <if test="sessionTips != null and sessionTips != ''">#{sessionTips}, </if>
-            #{sessionSeats}
+            #{sessionSeats}, #{seatNums}
         )
     </update>
 
@@ -43,7 +62,7 @@
         <if test="sessionState != null">session_state = #{sessionState},</if>
         <if test="sessionPrice != null and sessionPrice >= 0">session_price = #{sessionPrice},</if>
         <if test="sessionTips != null and sessionTips != ''">session_tips = #{sessionTips},</if>
-        session_seats = #{sessionSeats}
+        session_seats = #{sessionSeats}, seat_nums = #{seatNums}
         where session_id = #{sessionId}
     </update>
 
