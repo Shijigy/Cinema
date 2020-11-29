@@ -30,11 +30,15 @@
             <result property="movieRateNum" column="movie_rate_num"></result>
             <result property="movieIntroduction" column="movie_introduction"></result>
             <result property="moviePictures" column="movie_pictures"></result>
+            <collection property="actorRoleList" ofType="SysActorRole">
+                <id property="actorRoleId" column="actor_role_id"></id>
+                <result property="actorRoleName" column="actor_role_name"></result>
+            </collection>
         </collection>
-        <collection property="actorRoleList" ofType="SysActorRole">
-            <id property="actorRoleId" column="actor_role_id"></id>
-            <result property="actorRoleName" column="actor_role_name"></result>
-        </collection>
+<!--        <collection property="actorRoleList" ofType="SysActorRole">-->
+<!--            <id property="actorRoleId" column="actor_role_id"></id>-->
+<!--            <result property="actorRoleName" column="actor_role_name"></result>-->
+<!--        </collection>-->
     </resultMap>
 
     <select id="findAll" parameterType="SysActor" resultType="SysActor">
@@ -113,6 +117,7 @@
         join sys_actor_movie am on a.actor_id = am.actor_id
         join sys_movie m on m.movie_id = am.movie_id
         join sys_actor_role ar on ar.actor_role_id = am.actor_role_id
+        where a.actor_id = #{id}
     </select>
 
 
