@@ -19,7 +19,7 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8080/sysSession?sessionDate=2020-11-25
+GET http://localhost:8080/sysSession?cinemaId=1&hallId=1
 Accept: application/json
 
 ### 查询一个
@@ -34,16 +34,16 @@ Content-Type: application/json
   "sessionId": 2,
   "cinemaId": 1,
   "hallId": 1,
-  "languageVersion": "国语4D",
+  "languageVersion": "国语3D",
   "movieId": 1,
   "movieRuntimeId": 1,
-  "sessionDate": "2020-11-25",
-  "sessionState": false,
+  "sessionDate": "2020-11-26",
+  "sessionState": true,
   "sessionPrice": 34.0,
   "sessionTips": null,
   "sessionSeats": "{\"A\": [0,0,0,0,0],\"B\": [0,0,0,0,0],\"C\": [0,0,0,1,0]}"
 }
 
 ### 删除
-DELETE http://localhost:8080/sysSession/5
+DELETE http://localhost:8080/sysSession/9
 

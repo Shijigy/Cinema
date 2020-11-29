@@ -45,6 +45,7 @@
                 <result property="actorInformation" column="actor_information"></result>
             </collection>
         </collection>
+        <collection property="movieCommentList" ofType="SysMovieComment" column="movie_id" select="com.gouyan.system.mapper.SysMovieCommentMapper.findByMovieId"></collection>
     </resultMap>
 
 
