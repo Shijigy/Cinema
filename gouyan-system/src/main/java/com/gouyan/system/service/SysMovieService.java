@@ -14,6 +14,8 @@ public interface SysMovieService {
 
     SysMovie findById(Long id);
 
+    SysMovie findOne(Long id);
+
     int add(SysMovie sysMovie);
 
     int update(SysMovie sysMovie);

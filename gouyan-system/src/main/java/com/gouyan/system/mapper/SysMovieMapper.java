@@ -25,6 +25,13 @@ public interface SysMovieMapper {
     SysMovie findById(Long id);
 
     /**
+     * 查询一个电影的信息，不查询相关的演员等信息
+     * @param id
+     * @return
+     */
+    SysMovie findOne(Long id);
+
+    /**
      * 添加
      * @param sysMovie
      * @return 影响行数

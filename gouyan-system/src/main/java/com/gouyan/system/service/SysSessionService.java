@@ -15,6 +15,8 @@ public interface SysSessionService {
 
     SysSession findById(Long id);
 
+    SysSession findOne(Long id);
+
     int add(SysSession sysSession);
 
     int update(SysSession sysSession);

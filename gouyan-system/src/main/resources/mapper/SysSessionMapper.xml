@@ -35,6 +35,10 @@
         select * from sys_session where session_id = #{id}
     </select>
 
+    <select id="findOne" parameterType="long" resultType="SysSession">
+        select * from sys_session where session_id = #{id}
+    </select>
+
     <update id="add" parameterType="SysSession">
         <!-- 将添加后的主键id传回原对象 -->
         <selectKey keyProperty="sessionId" keyColumn="session_id" resultType="long" order="AFTER">

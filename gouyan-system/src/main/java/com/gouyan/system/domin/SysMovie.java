@@ -52,6 +52,9 @@ public class SysMovie implements Serializable {
     //电影评分
     private Double movieScore;
 
+    //电影总票房
+    private Double movieBoxOffice;
+
     //评分人数
     private Integer movieRateNum;
 

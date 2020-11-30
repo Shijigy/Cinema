@@ -22,6 +22,7 @@
         <result property="movieAgeId" column="movie_age_id"></result>
         <result property="releaseDate" column="release_date"></result>
         <result property="movieScore" column="movie_score"></result>
+        <result property="movieBoxOffice" column="movie_box_office"></result>
         <result property="movieRateNum" column="movie_rate_num"></result>
         <result property="movieIntroduction" column="movie_introduction"></result>
         <result property="moviePictures" column="movie_pictures"></result>
@@ -72,6 +73,11 @@
         select * from sys_movie where movie_id = #{id}
     </select>
 
+    <!--根据id查询单个电影信息，不需要相关的额外信息-->
+    <select id="findOne" resultType="SysMovie" parameterType="long">
+        select * from sys_movie where movie_id = #{id}
+    </select>
+
     <update id="add" parameterType="SysMovie">
         <!-- 将添加后的主键id传回原对象 -->
         <selectKey keyProperty="movieId" keyColumn="movie_id" resultType="long" order="AFTER">
@@ -86,6 +92,7 @@
             <if test=" movieIntroduction != null and movieIntroduction != ''">movie_introduction,</if>
             <if test=" releaseDate != null">release_date,</if>
             <if test=" movieScore != null and movieScore != 0">movie_score,</if>
+            <if test=" movieBoxOffice != null">movie_box_offcie,</if>
             <if test=" movieRateNum != null and movieRateNum != 0">movie_rate_num,</if>
             <if test=" moviePictures != null and moviePictures != ''">movie_pictures,</if>
             movie_age_id
@@ -97,8 +104,9 @@
             <if test=" movieAreaId != null and movieAreaId != 0">#{movieAreaId},</if>
             <if test=" movieIntroduction != null and movieIntroduction != ''">#{movieIntroduction},</if>
             <if test=" releaseDate != null">#{releaseDate},</if>
-            <if test=" movieScore != null and movieScore != 0">movie_score = #{movieScore},</if>
-            <if test=" movieRateNum != null and movieRateNum != 0">movie_rate_num = #{movieRateNum},</if>
+            <if test=" movieScore != null and movieScore != 0">#{movieScore},</if>
+            <if test=" movieBoxOffice != null">#{movieBoxOffice},</if>
+            <if test=" movieRateNum != null and movieRateNum != 0">#{movieRateNum},</if>
             <if test=" moviePictures != null and moviePictures != ''">#{moviePictures},</if>
             <if test=" movieAgeId == null or movieAgeId == 0">1</if>
             <if test="movieAgeId != null and movieAgeId != 0">#{movieAgeId}</if>
@@ -116,6 +124,7 @@
         <if test=" movieIntroduction != null and movieIntroduction != ''">movie_introduction = #{movieIntroduction},</if>
         <if test=" releaseDate != null">release_date = #{releaseDate},</if>
         <if test=" movieScore != null">movie_score = #{movieScore},</if>
+        <if test=" movieBoxOffice != null">movie_box_office = #{movieBoxOffice},</if>
         <if test=" movieRateNum != null">movie_rate_num = #{movieRateNum},</if>
         <if test=" moviePictures != null and moviePictures != ''">movie_pictures = #{moviePictures},</if>
         <if test=" movieAgeId == null or movieAgeId == 0">movie_age_id = 1 </if>

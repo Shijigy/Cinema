@@ -26,6 +26,13 @@ public interface SysSessionMapper {
     SysSession findById(Long id);
 
     /**
+     * 查询一个，不查询相关的信息
+     * @param id
+     * @return
+     */
+    SysSession findOne(Long id);
+
+    /**
      * 添加
      * @param sysSession
      * @return

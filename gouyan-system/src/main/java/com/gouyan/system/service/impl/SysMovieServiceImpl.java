@@ -29,6 +29,11 @@ public class SysMovieServiceImpl implements SysMovieService {
     }
 
     @Override
+    public SysMovie findOne(Long id) {
+        return sysMovieMapper.findOne(id);
+    }
+
+    @Override
     public int add(SysMovie sysMovie) {
         return sysMovieMapper.add(sysMovie);
     }

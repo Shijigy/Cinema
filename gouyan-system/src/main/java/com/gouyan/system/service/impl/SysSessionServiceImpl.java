@@ -30,6 +30,11 @@ public class SysSessionServiceImpl implements SysSessionService {
     }
 
     @Override
+    public SysSession findOne(Long id){
+        return sysSessionMapper.findOne(id);
+    }
+
+    @Override
     public int add(SysSession sysSession) {
         return sysSessionMapper.add(sysSession);
     }
