@@ -24,6 +24,8 @@ import java.util.List;
 @ToString
 public class SysSession implements Serializable {
 
+    private static final Long serialVersionUID = 1L;
+
     //场次id
     private Long sessionId;
 

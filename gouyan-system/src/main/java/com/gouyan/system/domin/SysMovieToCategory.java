@@ -5,25 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * 个人爱好
+ * 存储电影与电影类别的多对多联系
  * @Author: 华雨欣
- * @Create: 2020-11-20 10:32
+ * @Create: 2020-11-30 22:07
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class SysUserHobby implements Serializable {
+public class SysMovieToCategory implements Serializable {
 
     private static final Long serialVersionUID = 1L;
 
-    private Long userHobbyId;
+    private Long movieId;
 
-    @NotBlank(message = "爱好名称不能为空")
-    private String userHobbyName;
-
+    private Long movieCategoryId;
 }

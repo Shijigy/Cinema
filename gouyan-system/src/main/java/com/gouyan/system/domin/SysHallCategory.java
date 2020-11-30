@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * @author lxd
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Data
 @ToString
-public class SysHallCategory {
+public class SysHallCategory implements Serializable{
     //序列号
     private static final long serialVersionUID = 1L;
 
