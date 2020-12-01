@@ -19,7 +19,7 @@
           <el-button type="primary" @click="addDialogVisible = true">添加影厅</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="warning">删除影厅</el-button>
+          <el-button type="danger">删除影厅</el-button>
         </el-col>
       </el-row>
 
