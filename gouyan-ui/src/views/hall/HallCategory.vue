@@ -30,10 +30,10 @@
         <el-table-column prop="hallCategoryName" label="影厅名称" width="180"></el-table-column>
         <el-table-column label="操作" width="150">
           <template v-slot:default="slotProps" v-model="slotProps.row">
-            <el-tooltip effect="dark" content="修改影厅信息" placement="top" :enterable="false" open-delay="500">
+            <el-tooltip effect="dark" content="修改影厅信息" placement="top" :enterable="false" :open-delay="500">
               <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
             </el-tooltip>
-            <el-tooltip effect="dark" content="删除影厅" placement="top" :enterable="false" open-delay="500">
+            <el-tooltip effect="dark" content="删除影厅" placement="top" :enterable="false" :open-delay="500">
               <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
             </el-tooltip>
           </template>
@@ -102,7 +102,7 @@ export default {
     this.getHallCategoryList()
   },
   methods: {
-    async getHallCategoryList() {
+    getHallCategoryList() {
       const _this = this;
       axios.get(_this.url + 'sysHallCategory', {params: _this.queryInfo}).then(resp => {
         console.log(resp)
@@ -128,14 +128,13 @@ export default {
     },
     // 监听添加按钮
     addHallCategory(){
-      const a = this;
-      this.$refs.addFormRef.validate(async valid => {
+      const _this = this;
+      this.$refs.addFormRef.validate(valid => {
         console.log(valid)
         if (!valid) return
-        // alert(a.addForm.hallCategoryName)
         //预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        axios.post(this.url + 'sysHallCategory', {hallCategory: a.addForm.hallCategoryName}).then(resp => {
+        axios.post(this.url + 'sysHallCategory', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
           if (resp.data.code == 200){
             this.$message.success('添加影厅分类成功！')
