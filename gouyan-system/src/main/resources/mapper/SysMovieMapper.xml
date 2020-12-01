@@ -65,10 +65,10 @@
             <if test="movieNameEn != null and movieNameEn != ''">
                 and s.movie_name_en like concat('%', #{movieNameEn}, '%')
             </if>
-            <if test="movieAreaId != null and movieAreaId != 0">
+            <if test="movieAreaId != null and movieAreaId > 0">
                 and s.movie_area_id = #{movieAreaId}
             </if>
-            <if test="movieAgeId != null and movieAgeId != 0">
+            <if test="movieAgeId != null and movieAgeId > 0">
                 and s.movie_age_id = #{movieAgeId}
             </if>
             <if test="startDate != null">
@@ -76,7 +76,7 @@
             </if>
             <if test="endDate != null">
                 and s.release_date &lt;= #{endDate}</if>
-            <if test="movieCategoryId != null and movieCategoryId != 0">
+            <if test="movieCategoryId != null and movieCategoryId > 0">
                 and smc.movie_category_id = #{movieCategoryId}
             </if>
         </where>

@@ -1,6 +1,6 @@
 
 ### 添加请求
-POST http://localhost:8080/sysUser
+POST http://localhost:8181/sysUser
 Content-Type: application/json
 
 {
@@ -12,15 +12,15 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8080/sysUser?userName=x
+GET http://localhost:8181/sysUser?userName=x
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysUser/3
+GET http://localhost:8181/sysUser/3
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8080/sysUser
+PUT http://localhost:8181/sysUser
 Content-Type: application/json
 
 {
@@ -35,4 +35,4 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8080/sysUser/5
+DELETE http://localhost:8181/sysUser/5

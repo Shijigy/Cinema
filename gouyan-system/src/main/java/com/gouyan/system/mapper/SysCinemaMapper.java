@@ -1,6 +1,7 @@
 package com.gouyan.system.mapper;
 
 import com.gouyan.system.domin.SysCinema;
+import com.gouyan.system.domin.vo.SysCinemaVo;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface SysCinemaMapper {
 
-    List<SysCinema> findAll(SysCinema sysCinema);
+    List<SysCinema> findAll(SysCinemaVo sysCinemaVo);
 
     SysCinema findById(Long id);
 

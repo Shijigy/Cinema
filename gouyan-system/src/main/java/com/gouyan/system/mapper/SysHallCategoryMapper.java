@@ -26,6 +26,13 @@ public interface SysHallCategoryMapper {
     SysHallCategory findById(Long id);
 
     /**
+     * 根据影院id查询影院包含的特殊厅
+     * @param id
+     * @return
+     */
+    List<SysHallCategory> findByCinemaId(Long id);
+
+    /**
      * 添加影厅分类信息
      * @param sysHallCategory
      */

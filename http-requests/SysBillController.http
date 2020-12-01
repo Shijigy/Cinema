@@ -1,5 +1,5 @@
 ### 添加请求
-POST http://localhost:8080/sysBill
+POST http://localhost:8181/sysBill
 Content-Type: application/json
 
 {
@@ -16,15 +16,15 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8080/sysBill
+GET http://localhost:8181/sysBill
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysBill/2
+GET http://localhost:8181/sysBill/2
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8080/sysBill
+PUT http://localhost:8181/sysBill
 Content-Type: application/json
 
 {
@@ -34,4 +34,4 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8080/sysBill/3,4
+DELETE http://localhost:8181/sysBill/3,4

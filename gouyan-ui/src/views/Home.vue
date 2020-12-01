@@ -8,7 +8,7 @@
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <el-container>
-      <el-aside :width="isCollapsed ? '64px' : '250px'">
+      <el-aside :width="isCollapsed ? '65px' : '250px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!--侧边栏菜单-->
         <el-menu

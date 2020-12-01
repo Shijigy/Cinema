@@ -1,5 +1,5 @@
 ### 添加请求
-POST http://localhost:8080/sysCinema
+POST http://localhost:8181/sysCinema
 Content-Type: application/json
 
 {
@@ -18,15 +18,15 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8080/sysCinema
+GET http://localhost:8181/sysCinema?isRefunded=false
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysCinema/2
+GET http://localhost:8181/sysCinema/2
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8080/sysCinema
+PUT http://localhost:8181/sysCinema
 Content-Type: application/json
 
 {
@@ -43,5 +43,5 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8080/sysCinema/4
+DELETE http://localhost:8181/sysCinema/4
 

@@ -2,6 +2,7 @@ package com.gouyan.web.controller.system;
 
 import com.gouyan.common.response.ResponseResult;
 import com.gouyan.system.domin.SysCinema;
+import com.gouyan.system.domin.vo.SysCinemaVo;
 import com.gouyan.system.service.impl.SysCinemaServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class SysCinemaController extends BaseController {
     private SysCinemaServiceImpl sysCinemaService;
 
     @GetMapping("/sysCinema")
-    public ResponseResult findAll(SysCinema sysCinema){
+    public ResponseResult findAll(SysCinemaVo sysCinemaVo){
         startPage();
-        return getResult(sysCinemaService.findAll(sysCinema));
+        return getResult(sysCinemaService.findAll(sysCinemaVo));
     }
 
     @GetMapping("/sysCinema/{id}")

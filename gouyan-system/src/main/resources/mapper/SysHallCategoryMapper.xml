@@ -12,6 +12,12 @@
         select * from sys_hall_category where hall_category_id = #{id}
     </select>
 
+    <select id="findByCinemaId" resultType="SysHallCategory" parameterType="long">
+        select distinct shc.* from sys_hall sh
+        join sys_hall_category shc on sh.hall_category_id = shc.hall_category_id
+        where sh.cinema_id= #{id}
+    </select>
+
     <update id="add" parameterType="SysHallCategory">
         <!-- 将添加后的主键id传回原对象 -->
         <selectKey keyProperty="hallCategoryId" keyColumn="hall_category_id" resultType="long" order="AFTER">
