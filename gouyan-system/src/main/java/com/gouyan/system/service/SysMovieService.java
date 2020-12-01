@@ -1,6 +1,7 @@
 package com.gouyan.system.service;
 
 import com.gouyan.system.domin.SysMovie;
+import com.gouyan.system.domin.vo.SysMovieVo;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface SysMovieService {
 
-    List<SysMovie> findAll(SysMovie sysMovie);
+    List<SysMovie> findAll(SysMovieVo sysMovieVo);
 
     SysMovie findById(Long id);
 

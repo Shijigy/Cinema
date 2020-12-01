@@ -1,6 +1,7 @@
 package com.gouyan.system.mapper;
 
 import com.gouyan.system.domin.SysMovie;
+import com.gouyan.system.domin.vo.SysMovieVo;
 
 import java.util.List;
 
@@ -12,10 +13,10 @@ public interface SysMovieMapper {
 
     /**
      * 按照传入对象的参数进行条件分页查询
-     * @param sysMovie
+     * @param sysMovieVo
      * @return
      */
-    List<SysMovie> findAll(SysMovie sysMovie);
+    List<SysMovie> findAll(SysMovieVo sysMovieVo);
 
     /**
      * 根据id查询
