@@ -18,6 +18,8 @@ import java.io.Serializable;
 @Data
 public class SysCinemaArea implements Serializable {
 
+    private static final Long serialVersionUID = 1L;
+
     //影院区域id
     private Long cinemaAreaId;
 

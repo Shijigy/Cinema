@@ -1,6 +1,7 @@
 package com.gouyan.system.service.impl;
 
 import com.gouyan.system.domin.SysMovie;
+import com.gouyan.system.domin.vo.SysMovieVo;
 import com.gouyan.system.mapper.SysMovieMapper;
 import com.gouyan.system.service.SysMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class SysMovieServiceImpl implements SysMovieService {
     private SysMovieMapper sysMovieMapper;
 
     @Override
-    public List<SysMovie> findAll(SysMovie sysMovie) {
-        return sysMovieMapper.findAll(sysMovie);
+    public List<SysMovie> findAll(SysMovieVo sysMovieVo) {
+        return sysMovieMapper.findAll(sysMovieVo);
     }
 
     @Override

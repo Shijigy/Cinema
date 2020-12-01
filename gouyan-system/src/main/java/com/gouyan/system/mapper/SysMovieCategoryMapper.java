@@ -25,6 +25,13 @@ public interface SysMovieCategoryMapper {
     SysMovieCategory findById(Long id);
 
     /**
+     * 根据电影id查询所属的全部类别
+     * @param id
+     * @return
+     */
+    List<SysMovieCategory> findByMovieId(Long id);
+
+    /**
      * 添加一个电影分类
      * @param sysMovieCategory
      * @return

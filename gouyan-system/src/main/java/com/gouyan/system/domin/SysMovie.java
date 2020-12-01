@@ -78,4 +78,7 @@ public class SysMovie implements Serializable {
     //影评列表
     private List<SysMovieComment> movieCommentList;
 
+    //电影的类别
+    private List<SysMovieCategory> movieCategoryList;
+
 }

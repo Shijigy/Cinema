@@ -2,6 +2,7 @@ package com.gouyan.web.controller.system;
 
 import com.gouyan.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovie;
+import com.gouyan.system.domin.vo.SysMovieVo;
 import com.gouyan.system.service.impl.SysMovieServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class SysMovieController extends BaseController {
     private SysMovieServiceImpl sysMovieService;
 
     @GetMapping("/sysMovie")
-    public ResponseResult findAll(SysMovie sysMovie){
+    public ResponseResult findAll(SysMovieVo sysMovieVo){
         startPage();
-        List<SysMovie> data = sysMovieService.findAll(sysMovie);
+        List<SysMovie> data = sysMovieService.findAll(sysMovieVo);
         return getResult(data);
     }
 

@@ -10,6 +10,7 @@
         <result property="movieAgeId" column="movie_age_id"></result>
         <association property="sysMovieArea" column="movie_area_id" select="com.gouyan.system.mapper.SysMovieAreaMapper.findById"></association>
         <association property="sysMovieAge" column="movie_age_id" select="com.gouyan.system.mapper.SysMovieAgeMapper.findById"></association>
+        <collection property="movieCategoryList" column="movie_id" select="com.gouyan.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
     </resultMap>
 
     <resultMap id="MovieMap" type="SysMovie">
@@ -47,26 +48,38 @@
             </collection>
         </collection>
         <collection property="movieCommentList" ofType="SysMovieComment" column="movie_id" select="com.gouyan.system.mapper.SysMovieCommentMapper.findByMovieId"></collection>
+        <collection property="movieCategoryList" ofType="SysMovieCategory" column="movie_id" select="com.gouyan.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
     </resultMap>
 
 
-    <select id="findAll" resultMap="SysMovieResult" parameterType="SysMovie">
-        select * from sys_movie s where 1 = 1
-        <if test="movieNameCn != null and movieNameCn != ''">
-            and s.movie_name_cn like concat('%', #{movieNameCn}, '%')
+    <select id="findAll" resultMap="SysMovieResult" parameterType="SysMovieVo">
+        select * from sys_movie s
+        <if test="movieCategoryId != null and movieCategoryId > 0">
+            join sys_movie_to_category smtc on s.movie_id = smtc.movie_id
+            join sys_movie_category smc on smtc.movie_category_id = smc.movie_category_id
         </if>
-        <if test="movieNameEn != null and movieNameEn != ''">
-            and s.movie_name_en like concat('%', #{movieNameEn}, '%')
-        </if>
-        <if test="movieAreaId != null and movieAreaId != 0">
-            and s.movie_area_id = #{movieAreaId}
-        </if>
-        <if test="movieAgeId != null and movieAgeId != 0">
-            and s.movie_age_id = #{movieAgeId}
-        </if>
-        <if test="releaseDate != null">
-            and s.release_date >= #{releaseDate}
-        </if>
+        <where>
+            <if test="movieNameCn != null and movieNameCn != ''">
+                and s.movie_name_cn like concat('%', #{movieNameCn}, '%')
+            </if>
+            <if test="movieNameEn != null and movieNameEn != ''">
+                and s.movie_name_en like concat('%', #{movieNameEn}, '%')
+            </if>
+            <if test="movieAreaId != null and movieAreaId != 0">
+                and s.movie_area_id = #{movieAreaId}
+            </if>
+            <if test="movieAgeId != null and movieAgeId != 0">
+                and s.movie_age_id = #{movieAgeId}
+            </if>
+            <if test="startDate != null">
+                and s.release_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                and s.release_date &lt;= #{endDate}</if>
+            <if test="movieCategoryId != null and movieCategoryId != 0">
+                and smc.movie_category_id = #{movieCategoryId}
+            </if>
+        </where>
     </select>
 
     <select id="findById" resultMap="SysMovieResult" parameterType="long">

@@ -20,6 +20,8 @@ import java.io.Serializable;
 @ToString
 public class SysMovieRuntime implements Serializable {
 
+    private static final Long serialVersionUID = 1L;
+
     private Long movieRuntimeId;
 
     //播放时段名称

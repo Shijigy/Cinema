@@ -11,6 +11,11 @@
         select * from sys_movie_category where movie_category_id = #{id}
     </select>
 
+    <select id="findByMovieId" resultType="SysMovieCategory" parameterType="long">
+        select * from sys_movie_category smc, sys_movie_to_category smtc
+        where smc.movie_category_id = smtc.movie_category_id and movie_id = #{id}
+    </select>
+
     <update id="add" parameterType="SysMovieCategory">
         <!-- 将添加后的主键id传回原对象 -->
         <selectKey keyProperty="movieCategoryId" keyColumn="movie_category_id" resultType="long" order="AFTER">

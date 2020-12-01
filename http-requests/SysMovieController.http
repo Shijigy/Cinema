@@ -10,11 +10,11 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8080/sysMovie?movieNameCn=除
+GET http://localhost:8080/sysMovie?movieAreaId=5&movieAgeId=1&orderByColumn=releaseDate&isAsc=desc
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysMovie/3
+GET http://localhost:8080/sysMovie/1
 Accept: application/json
 
 ### 修改
