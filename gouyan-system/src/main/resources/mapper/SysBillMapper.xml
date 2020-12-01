@@ -17,6 +17,7 @@
         <where>
             <if test="billState != null"> and bill_state = #{billState} </if>
             <if test="userId != null"> and user_id = #{userId} </if>
+            <if test="billDate != null"> and bill_date &gt;= #{billDate} and bill_date &lt;= adddate(#{billDate}, 1) </if>
         </where>
     </select>
 

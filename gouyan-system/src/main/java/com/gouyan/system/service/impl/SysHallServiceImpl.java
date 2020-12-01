@@ -21,8 +21,8 @@ public class SysHallServiceImpl implements SysHallService {
     private SysHallMapper sysHallMapper;
 
     @Override
-    public List<SysHall> findAll() {
-        return sysHallMapper.findAll();
+    public List<SysHall> findAll(SysHall sysHall) {
+        return sysHallMapper.findAll(sysHall);
     }
 
     @Override

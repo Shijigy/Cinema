@@ -47,7 +47,7 @@
             <if test="actorName != null and actorName != ''">
                 and actor_name like concat('%', #{actorName}, '%')
             </if>
-            <if test="actorGender != null and actorGender != ''">
+            <if test="actorGender != null">
                 and actor_gender = #{actorGender}
             </if>
             <if test="actorSchool != null and actorSchool != ''">

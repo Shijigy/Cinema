@@ -1,5 +1,5 @@
 ### 添加请求
-POST http://localhost:8080/sysHall
+POST http://localhost:8181/sysHall
 Content-Type: application/json
 
 {
@@ -16,15 +16,15 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8080/sysHall
+GET http://localhost:8181/sysHall?hallState=1
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8080/sysHall/7/2
+GET http://localhost:8181/sysHall/1/2
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8080/sysHall
+PUT http://localhost:8181/sysHall
 Content-Type: application/json
 
 {
@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ### 删除
-POST http://localhost:8080/sysHall/delete
+POST http://localhost:8181/sysHall/delete
 Content-Type: application/json
 
 [

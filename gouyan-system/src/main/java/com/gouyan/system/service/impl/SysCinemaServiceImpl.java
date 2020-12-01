@@ -1,6 +1,7 @@
 package com.gouyan.system.service.impl;
 
 import com.gouyan.system.domin.SysCinema;
+import com.gouyan.system.domin.vo.SysCinemaVo;
 import com.gouyan.system.mapper.SysCinemaMapper;
 import com.gouyan.system.service.SysCinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class SysCinemaServiceImpl implements SysCinemaService {
 
 
     @Override
-    public List<SysCinema> findAll(SysCinema sysCinema) {
-        return sysCinemaMapper.findAll(sysCinema);
+    public List<SysCinema> findAll(SysCinemaVo sysCinemaVo) {
+        return sysCinemaMapper.findAll(sysCinemaVo);
     }
 
     @Override
