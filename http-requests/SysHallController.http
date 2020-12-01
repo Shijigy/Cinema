@@ -16,11 +16,11 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8181/sysHall
+GET http://localhost:8181/sysHall?hallState=1
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8181/sysHall/7/2
+GET http://localhost:8181/sysHall/1/2
 Accept: application/json
 
 ### 修改

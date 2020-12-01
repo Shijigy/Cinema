@@ -20,7 +20,7 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8181/sysActor
+GET http://localhost:8181/sysActor?actorGender=true
 Accept: application/json
 
 ### 查询一个

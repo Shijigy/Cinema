@@ -16,7 +16,7 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8181/sysBill
+GET http://localhost:8181/sysBill?billDate=2020-12-1
 Accept: application/json
 
 ### 查询一个

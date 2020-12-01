@@ -9,7 +9,7 @@ import java.util.List;
  * @create 2020-11-25 10:16
  */
 public interface SysHallMapper {
-    List<SysHall> findAll();
+    List<SysHall> findAll(SysHall sysHall);
 
     SysHall findByCinemaIdAndHallId(SysHall sysHall);
 

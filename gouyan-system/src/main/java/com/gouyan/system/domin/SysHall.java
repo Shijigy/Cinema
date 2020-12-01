@@ -57,4 +57,10 @@ public class SysHall implements Serializable {
 
     @NotNull(message = "影厅状态不能为空")
     private Boolean hallState;
+
+
+    //影厅表的多表连接
+    private SysCinema sysCinema;
+
+    private SysHallCategory sysHallCategory;
 }

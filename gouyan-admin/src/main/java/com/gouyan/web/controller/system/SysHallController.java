@@ -20,9 +20,9 @@ public class SysHallController extends BaseController {
     private SysHallServiceImpl sysHallService;
 
     @GetMapping("/sysHall")
-    public ResponseResult findAll(){
+    public ResponseResult findAll(SysHall sysHall){
         startPage();
-        return getResult(sysHallService.findAll());
+        return getResult(sysHallService.findAll(sysHall));
     }
 
     @GetMapping("/sysHall/{cinemaId}/{hallId}")
