@@ -5,7 +5,9 @@
 </template>
 
 
+
 <script>
+import global from "@/assets/css/global.css"
 export default {
   name: 'App',
   data() {
@@ -18,9 +20,5 @@ export default {
 
 
 <style>
-html, body, #app{
-  padding: 0px;
-  margin: 0px;
-  height: 100%;
-}
+
 </style>

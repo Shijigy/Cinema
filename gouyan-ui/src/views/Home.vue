@@ -8,7 +8,7 @@
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <el-container>
-      <el-aside :width="isCollapsed ? '64px' : '250px'">
+      <el-aside :width="isCollapsed ? '65px' : '250px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!--侧边栏菜单-->
         <el-menu
@@ -18,7 +18,8 @@
             unique-opened
             :collapse="isCollapsed"
             :collapse-transition="false"
-            :router="true">
+            :router="true"
+            :default-active="$route.path">
           <!--一级菜单-->
           <el-submenu :index="String(item.data.id)" v-for="item in menulist" :key="item.data.id">
             <!--一级菜单的模板区域-->
