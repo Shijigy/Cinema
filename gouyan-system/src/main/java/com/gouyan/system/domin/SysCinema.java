@@ -54,4 +54,7 @@ public class SysCinema implements Serializable {
 
     //影院存在的影厅类别
     private List<SysHallCategory> sysHallCategoryList;
+
+    //当前影院上映的所有电影，规则：上映的电影指包括今天在内，未来5天有安排目标影片的场次
+    private List<SysMovie> sysMovieList;
 }

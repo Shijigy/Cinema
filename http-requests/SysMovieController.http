@@ -32,4 +32,4 @@ Content-Type: application/json
 DELETE http://localhost:8181/sysMovie/5
 
 ### 前台查询完整数据
-GET http://localhost:8181/sysMovie/find/1
+GET http://localhost:81817/sysMovie/find/1

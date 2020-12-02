@@ -53,4 +53,12 @@ public interface SysSessionMapper {
      */
     int delete(Long id);
 
+    /**
+     * 根据影院id和电影id查询近5天上映的场次信息
+     * @param cinemaId
+     * @param movieId
+     * @return
+     */
+    List<SysSession> findByCinemaAndMovie(Long cinemaId, Long movieId);
+
 }

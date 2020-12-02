@@ -48,4 +48,9 @@ public class SysCinemaServiceImpl implements SysCinemaService {
         }
         return rows;
     }
+
+    @Override
+    public SysCinema findCinemaById(Long id) {
+        return sysCinemaMapper.findCinemaById(id);
+    }
 }

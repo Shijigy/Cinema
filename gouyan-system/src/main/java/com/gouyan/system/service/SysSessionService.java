@@ -23,4 +23,6 @@ public interface SysSessionService {
 
     int delete(Long[] id);
 
+    List<SysSession> findByCinemaAndMovie(Long cinemaId, Long movieId);
+
 }

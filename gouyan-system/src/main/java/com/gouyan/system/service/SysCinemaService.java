@@ -21,4 +21,6 @@ public interface SysCinemaService {
 
     int delete(Long[] ids);
 
+    SysCinema findCinemaById(Long id);
+
 }

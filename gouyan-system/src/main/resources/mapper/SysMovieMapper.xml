@@ -51,6 +51,28 @@
         <collection property="movieCategoryList" ofType="SysMovieCategory" column="movie_id" select="com.gouyan.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
     </resultMap>
 
+    <resultMap id="CinemaMovieMap" type="SysMovie">
+        <id property="movieId" column="movie_id"></id>
+        <result property="movieNameCn" column="movie_name_cn"></result>
+        <result property="movieNameEn" column="movie_name_en"></result>
+        <result property="movieLength" column="movie_length"></result>
+        <result property="moviePoster" column="movie_poster"></result>
+        <result property="movieAreaId" column="movie_area_id"></result>
+        <result property="movieAgeId" column="movie_age_id"></result>
+        <result property="releaseDate" column="release_date"></result>
+        <result property="movieScore" column="movie_score"></result>
+        <result property="movieBoxOffice" column="movie_box_office"></result>
+        <result property="movieRateNum" column="movie_rate_num"></result>
+        <result property="movieIntroduction" column="movie_introduction"></result>
+        <result property="moviePictures" column="movie_pictures"></result>
+        <collection property="movieCategoryList" ofType="SysMovieCategory" column="movie_id" select="com.gouyan.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
+        <collection property="majorActorNameList" ofType="String">
+            <constructor>
+                <arg column="actor_name"></arg>
+            </constructor>
+        </collection>
+    </resultMap>
+
 
     <select id="findAll" resultMap="SysMovieResult" parameterType="SysMovieVo">
         select * from sys_movie s
@@ -155,5 +177,14 @@
         join sys_actor a on a.actor_id = am.actor_id
         join sys_actor_role ar on ar.actor_role_id = am.actor_role_id
         where m.movie_id = #{id}
+    </select>
+
+    <!--查询指定影院的所有上映电影，包含主演名字、影片类别-->
+    <select id="findByCinemaId" parameterType="Long" resultMap="CinemaMovieMap">
+        select distinct sm.*, sa.actor_name from sys_movie sm
+        join sys_session ss on sm.movie_id = ss.movie_id
+        join sys_actor_movie sam on sam.movie_id = sm.movie_id
+        join sys_actor sa on sa.actor_id = sam.actor_id
+        where ss.cinema_id = #{id} and ss.session_date &gt;= CURDATE() and ss.session_date &lt; ADDDATE(curdate(),5) and sam.actor_role_Id = 2
     </select>
 </mapper>

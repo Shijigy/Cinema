@@ -24,4 +24,6 @@ public interface SysMovieService {
     int delete(Long[] ids);
 
     List<SysMovie> findMovieById(Long id);
+
+    List<SysMovie> findByCinemaId(Long id);
 }

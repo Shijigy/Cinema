@@ -52,4 +52,9 @@ public class SysSessionServiceImpl implements SysSessionService {
         }
         return rows;
     }
+
+    @Override
+    public List<SysSession> findByCinemaAndMovie(Long cinemaId, Long movieId) {
+        return sysSessionMapper.findByCinemaAndMovie(cinemaId, movieId);
+    }
 }

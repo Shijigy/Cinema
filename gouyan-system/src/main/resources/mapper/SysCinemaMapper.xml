@@ -20,6 +20,12 @@
         <collection property="sysHallCategoryList" ofType="SysHallCategory" column="cinema_id" select="com.gouyan.system.mapper.SysHallCategoryMapper.findByCinemaId"></collection>
     </resultMap>
 
+    <!-- 查询单个影院的详细信息，包含影院上映的所有电影信息 -->
+    <resultMap id="SysCinemaMap" type="SysCinema">
+        <id property="cinemaId" column="cinema_id"></id>
+        <collection property="sysMovieList" ofType="SysMovie" column="cinema_id" select="com.gouyan.system.mapper.SysMovieMapper.findByCinemaId"></collection>
+    </resultMap>
+
     <!--带条件查询的findAll-->
     <select id="findAll" resultMap="SysCinemaResult" parameterType="SysCinemaVo">
         select distinct sc.* from sys_cinema sc
@@ -61,5 +67,9 @@
     <update id="delete" parameterType="Long">
         delete from sys_cinema where cinema_id = #{id}
     </update>
+
+    <select id="findCinemaById" parameterType="Long" resultMap="SysCinemaMap">
+        select * from sys_cinema where cinema_id = #{id}
+    </select>
 
 </mapper>

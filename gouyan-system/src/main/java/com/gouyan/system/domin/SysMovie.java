@@ -81,4 +81,7 @@ public class SysMovie implements Serializable {
     //电影的类别
     private List<SysMovieCategory> movieCategoryList;
 
+    //电影主演名称，在影院中显示
+    private List<String> majorActorNameList;
+
 }
