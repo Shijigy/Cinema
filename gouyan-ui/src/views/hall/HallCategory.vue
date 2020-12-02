@@ -29,9 +29,9 @@
         <el-table-column prop="hallCategoryId" label="影厅编号" width="145"></el-table-column>
         <el-table-column prop="hallCategoryName" label="影厅名称" width="180"></el-table-column>
         <el-table-column label="操作" width="150">
-          <template v-slot:default="slotProps" v-model="slotProps.row">
+          <template slot-scope="scope">
             <el-tooltip effect="dark" content="修改影厅信息" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.hallCategoryId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除影厅" placement="top" :enterable="false" :open-delay="500">
               <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
@@ -53,6 +53,7 @@
 
     </el-card>
 
+    <!--添加影厅对话框-->
     <el-dialog title="添加影厅" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
       <!--内容主题区-->
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="100px">
@@ -65,6 +66,22 @@
       <span slot="footer" class="dialog-footer">
       <el-button @click="addDialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="addHallCategory">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!--修改影厅对话框-->
+    <el-dialog title="修改影厅" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
+      <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
+        <el-form-item label="影厅编号">
+          <el-input v-model="editForm.hallCategoryId" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="影厅名称" prop="hallCategoryName">
+          <el-input v-model="editForm.hallCategoryName"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editHallCategoryInfo">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -95,6 +112,13 @@ export default {
       addFormRules: {
         hallCategoryName: [
             { required: true, message: '请输入影厅名', trigger: 'blur' }
+        ]
+      },
+      editDialogVisible: false,
+      editForm: {},
+      editFormRules: {
+        hallCategoryName: [
+          { required: true, message: '请输入影厅名', trigger: 'blur' }
         ]
       }
     }
@@ -135,18 +159,46 @@ export default {
         if (!valid) return
         //预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        axios.post(this.url + 'sysHallCategory', JSON.stringify(_this.addForm)).then(resp => {
+        axios.post(_this.url + 'sysHallCategory', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
-          if (resp.data.code == 200){
-            this.$message.success('添加影厅分类成功！')
-          }else {
-            this.$message.error('添加影厅分类失败！')
+          if (resp.data.code !== 200){
+            this.$message.success('添加影厅分类失败！')
           }
         })
         //隐藏添加对话框
         this.addDialogVisible = false
         //重新加载列表
         this.getHallCategoryList()
+        this.$message.error('添加影厅分类失败！')
+      })
+    },
+    // 显示修改对话框，回显数据
+    showEditDialog(id){
+      const _this = this
+      axios.get(_this.url + 'sysHallCategory/' + id ).then(resp => {
+        console.log(resp)
+        _this.editForm = resp.data.data
+      })
+      this.editDialogVisible = true
+    },
+    // 监听修改对话框的关闭事件
+    editDialogClosed(){
+      this.$refs.editFormRef.resetFields()
+    },
+    // 修改影厅分类信息并提交
+    editHallCategoryInfo(){
+      this.$refs.editFormRef.validate(valid => {
+        const _this = this
+        if (!valid) return
+        axios.defaults.headers.put['Content-Type'] = 'application/json'
+        axios.put(_this.url + '/sysHallCategory', JSON.stringify(_this.editForm)).then(resp => {
+          if (resp.data.code !== 200){
+            this.$message.success('修改影厅分类失败！')
+          }
+        })
+        this.editDialogVisible = false
+        this.getHallCategoryList()
+        this.$message.success('修改影厅分类成功！')
       })
     }
   }
