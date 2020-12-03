@@ -10,21 +10,16 @@
     <!--卡片视图-->
     <el-card class="box-card">
       <el-row :gutter="20">
-        <!--        <el-col :span="8">-->
-        <!--          <el-input placeholder="请输入影厅名称">-->
-        <!--            <el-button slot="append" icon="el-icon-search"></el-button>-->
-        <!--          </el-input>-->
-        <!--        </el-col>-->
         <el-col :span="2">
           <el-button type="primary" @click="addDialogVisible = true">添加影厅</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="danger">删除影厅</el-button>
+          <el-button type="danger" @click="multipleDelete">批量删除影厅</el-button>
         </el-col>
       </el-row>
 
       <!--影厅分类列表-->
-      <el-table :data="hallcategorylist" style="width: 45%" border stripe>
+      <el-table :data="hallcategorylist" style="width: 45%" border stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="hallCategoryId" label="影厅编号" width="145"></el-table-column>
         <el-table-column prop="hallCategoryName" label="影厅名称" width="180"></el-table-column>
@@ -34,7 +29,7 @@
               <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.hallCategoryId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除影厅" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteHallCategoryById(scope.row.hallCategoryId)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -92,6 +87,9 @@
 import global from "@/assets/css/global.css"
 export default {
   name: "hallCategory",
+  // this.$message和this.$confirm都属于原型挂载, 在element.js中配置
+  // Vue.prototype.$message = Message
+  // Vue.prototype.$confirm = MessageBox.confirm
   data() {
     return {
       queryInfo: {
@@ -120,7 +118,8 @@ export default {
         hallCategoryName: [
           { required: true, message: '请输入影厅名', trigger: 'blur' }
         ]
-      }
+      },
+      multipleSelection: []
     }
   },
   created() {
@@ -200,22 +199,67 @@ export default {
         this.getHallCategoryList()
         this.$message.success('修改影厅分类成功！')
       })
+    },
+    // 监听多选框变化
+    handleSelectionChange(val){
+      this.multipleSelection = val
+    },
+    async multipleDelete(){
+      const _this = this
+      //询问用户是否确认删除
+      const resp = await this.$confirm('此操作将永久删除这些条目, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
+
+      // 用户确认删除, resp为字符串"confirm"
+      // 用户取消删除，resp为字符串"cancel"
+      if (resp == 'cancel'){
+        return _this.$message.info('已取消删除')
+      }
+
+      let ids = []
+      this.multipleSelection.forEach(data => {
+        ids.push(data.hallCategoryId)
+      })
+      await axios.delete(_this.url + 'sysHallCategory/' + ids).then(resp => {
+        if (resp.data.code !== 200){
+          this.$message.success('批量删除影厅分类失败！')
+        }
+      })
+      this.getHallCategoryList()
+      this.$message.success('批量删除影厅分类成功！')
+    },
+    //根据id删除对应的影厅分类
+    async deleteHallCategoryById(id){
+      const _this = this
+      //询问用户是否确认删除
+      const resp = await this.$confirm('此操作将永久删除该条目, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
+
+      // 用户确认删除, resp为字符串"confirm"
+      // 用户取消删除，resp为字符串"cancel"
+      console.log(resp)
+      if (resp == 'cancel'){
+        return _this.$message.info('已取消删除')
+      }
+
+      await axios.delete(_this.url + 'sysHallCategory/' + id).then(resp => {
+        if (resp.data.code !== 200){
+          _this.$message.success('删除影厅分类失败！')
+        }
+      })
+      this.getHallCategoryList()
+      this.$message.success('删除影厅分类成功！')
     }
   }
 }
 </script>
 
 <style scoped>
-
-/*.el-card {*/
-/*  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;*/
-/*}*/
-
-/*.el-table {*/
-/*  margin-top: 15px;*/
-/*  font-size: 12px;*/
-/*}*/
-
-
 
 </style>
