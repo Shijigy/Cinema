@@ -13,7 +13,7 @@ public class Page {
     private Integer pageNum = 1;
 
     //页大小
-    private Integer pageSize = 10;
+    private Integer pageSize = 1000;
 
     //按列排序
     private String orderByColumn;
