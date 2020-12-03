@@ -66,38 +66,34 @@
         <result property="movieIntroduction" column="movie_introduction"></result>
         <result property="moviePictures" column="movie_pictures"></result>
         <collection property="movieCategoryList" ofType="SysMovieCategory" column="movie_id" select="com.gouyan.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
-        <collection property="majorActorNameList" ofType="String">
-            <constructor>
-                <arg column="actor_name"></arg>
-            </constructor>
-        </collection>
+        <collection property="majorActorNameList" ofType="String" column="movie_id" select="com.gouyan.system.mapper.SysActorMapper.findaMajorActorNames"></collection>
     </resultMap>
 
 
-    <select id="findAll" resultMap="SysMovieResult" parameterType="SysMovieVo">
-        select * from sys_movie s
+    <select id="findAll" resultMap="CinemaMovieMap" parameterType="SysMovieVo">
+        select sm.* from sys_movie sm
         <if test="movieCategoryId != null and movieCategoryId > 0">
-            join sys_movie_to_category smtc on s.movie_id = smtc.movie_id
+            join sys_movie_to_category smtc on sm.movie_id = smtc.movie_id
             join sys_movie_category smc on smtc.movie_category_id = smc.movie_category_id
         </if>
         <where>
             <if test="movieNameCn != null and movieNameCn != ''">
-                and s.movie_name_cn like concat('%', #{movieNameCn}, '%')
+                and sm.movie_name_cn like concat('%', #{movieNameCn}, '%')
             </if>
             <if test="movieNameEn != null and movieNameEn != ''">
-                and s.movie_name_en like concat('%', #{movieNameEn}, '%')
+                and sm.movie_name_en like concat('%', #{movieNameEn}, '%')
             </if>
             <if test="movieAreaId != null and movieAreaId > 0">
-                and s.movie_area_id = #{movieAreaId}
+                and sm.movie_area_id = #{movieAreaId}
             </if>
             <if test="movieAgeId != null and movieAgeId > 0">
-                and s.movie_age_id = #{movieAgeId}
+                and sm.movie_age_id = #{movieAgeId}
             </if>
             <if test="startDate != null">
-                and s.release_date &gt;= #{startDate}
+                and sm.release_date &gt;= #{startDate}
             </if>
             <if test="endDate != null">
-                and s.release_date &lt;= #{endDate}</if>
+                and sm.release_date &lt;= #{endDate}</if>
             <if test="movieCategoryId != null and movieCategoryId > 0">
                 and smc.movie_category_id = #{movieCategoryId}
             </if>
@@ -181,10 +177,38 @@
 
     <!--查询指定影院的所有上映电影，包含主演名字、影片类别-->
     <select id="findByCinemaId" parameterType="Long" resultMap="CinemaMovieMap">
-        select distinct sm.*, sa.actor_name from sys_movie sm
+        select distinct sm.* from sys_movie sm
         join sys_session ss on sm.movie_id = ss.movie_id
-        join sys_actor_movie sam on sam.movie_id = sm.movie_id
-        join sys_actor sa on sa.actor_id = sam.actor_id
-        where ss.cinema_id = #{id} and ss.session_date &gt;= CURDATE() and ss.session_date &lt; ADDDATE(curdate(),5) and sam.actor_role_Id = 2
+        where ss.cinema_id = #{id} and ss.session_date &gt;= CURDATE() and ss.session_date &lt; ADDDATE(curdate(),5)
+    </select>
+
+    <!-- 查询各种榜单信息 -->
+    <!-- 热映口碑榜：昨日安排场次的电影，按评分取前10 -->
+    <select id="hotMovieList" resultMap="CinemaMovieMap">
+        select distinct sm.* from sys_movie sm
+        join sys_session ss on sm.movie_id = ss.movie_id
+        where ss.session_date = adddate(curdate(), -1)
+        order by sm.movie_score desc
+    </select>
+
+    <!-- 国内票房榜：已上映的国内电影中，按票房取前10 -->
+    <select id="domesticBoxOfficeList" resultMap="CinemaMovieMap">
+        select sm.* from sys_movie sm
+        where sm.movie_area_id in (1, 5, 6) and sm.release_date &lt;= curdate()
+        order by sm.movie_box_office desc
+    </select>
+    
+    <!-- 欧美票房榜：已上映的欧美电影中，按票房取前10 -->
+    <select id="europeanAndAmericanBoxOfficeList" resultMap="CinemaMovieMap">
+        select sm.* from sys_movie sm
+        where sm.movie_area_id in (2, 9, 10, 11, 12, 13, 14) and sm.release_date &lt;= curdate()
+        order by sm.movie_box_office desc
+    </select>
+
+    <!-- top100榜：所有已上映电影按评分、评分人数取前100，分页交给Controller -->
+    <select id="top100List" resultMap="CinemaMovieMap">
+        select distinct sm.* from sys_movie sm
+        where sm.release_date &lt;= curdate()
+        order by sm.movie_score desc, sm.movie_rate_num desc
     </select>
 </mapper>

@@ -21,4 +21,11 @@ public interface SysActorMapper {
     int delete(Long id);
 
     SysActor findActorById(Long id);
+
+    /**
+     * 根据电影id查询所有主演名称
+     * @param id
+     * @return
+     */
+    List<String> findaMajorActorNames(Long id);
 }

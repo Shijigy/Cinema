@@ -52,4 +52,16 @@ public class GlobalExceptionHandler {
         return ResponseResult.error(e.getMessage());
     }
 
+    @ExceptionHandler(NoSuchMethodException.class)
+    public ResponseResult noSuchMethodExceptionHandler(NoSuchMethodException e){
+        log.warn(e.getMessage());
+        return ResponseResult.error("抱歉，服务器内部出现了些问题");
+    }
+
+    @ExceptionHandler(IllegalAccessException.class)
+    public ResponseResult illegalAccessExceptionHandler(IllegalAccessException e){
+        log.warn(e.getMessage());
+        return ResponseResult.error("抱歉，服务器内部出现了些问题");
+    }
+
 }
