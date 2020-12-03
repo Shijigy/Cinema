@@ -25,5 +25,16 @@ public interface SysMovieService {
 
     List<SysMovie> findMovieById(Long id);
 
+    //获取单个影院上映的所有电影信息
     List<SysMovie> findByCinemaId(Long id);
+
+
+    //获取各种榜单
+    List<SysMovie> hotMovieList();
+
+    List<SysMovie> domesticBoxOfficeList();
+
+    List<SysMovie> europeanAndAmericanBoxOfficeList();
+
+    List<SysMovie> top100List();
 }

@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8181/sysMovie?movieAreaId=5&movieAgeId=1&orderByColumn=releaseDate&isAsc=desc
+GET http://localhost:8181/sysMovie
 Accept: application/json
 
 ### 查询一个
@@ -32,4 +32,7 @@ Content-Type: application/json
 DELETE http://localhost:8181/sysMovie/5
 
 ### 前台查询完整数据
-GET http://localhost:81817/sysMovie/find/1
+GET http://localhost:8181/sysMovie/find/1
+
+### 查询榜单
+GET http://localhost:8181/sysMovie/rankingList/4

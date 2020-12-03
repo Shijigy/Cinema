@@ -66,4 +66,28 @@ public interface SysMovieMapper {
      */
     List<SysMovie> findByCinemaId(Long id);
 
+    /**
+     * 热映口碑榜 昨日热映的电影里，按评分取前10
+     * @return
+     */
+    List<SysMovie> hotMovieList();
+
+    /**
+     * 国内票房榜 已上映的国内电影里，按票房取前10 国内电影 areaid = 1、5、6
+     * @return
+     */
+    List<SysMovie> domesticBoxOfficeList();
+
+    /**
+     * 欧美票房榜 已上映的欧美电影里，按票房取前10 欧美电影 areaid = 2、9、10、11、12、13、14
+     * @return
+     */
+    List<SysMovie> europeanAndAmericanBoxOfficeList();
+
+    /**
+     * top100榜 所有已上映影片按评分、评分人数取前100
+     * @return
+     */
+    List<SysMovie> top100List();
+
 }
