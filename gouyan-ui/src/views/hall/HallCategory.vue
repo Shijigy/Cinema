@@ -154,22 +154,22 @@ export default {
     // 监听添加按钮
     addHallCategory(){
       const _this = this;
-      this.$refs.addFormRef.validate(valid => {
+      this.$refs.addFormRef.validate(async valid => {
         console.log(valid)
         if (!valid) return
         //预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        axios.post(_this.url + 'sysHallCategory', JSON.stringify(_this.addForm)).then(resp => {
+        await axios.post(_this.url + 'sysHallCategory', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
           if (resp.data.code !== 200){
-            this.$message.success('添加影厅分类失败！')
+            this.$message.error('添加影厅分类失败！')
           }
         })
         //隐藏添加对话框
         this.addDialogVisible = false
         //重新加载列表
         this.getHallCategoryList()
-        this.$message.error('添加影厅分类失败！')
+        this.$message.success('添加影厅分类成功！')
       })
     },
     // 显示修改对话框，回显数据
@@ -187,13 +187,13 @@ export default {
     },
     // 修改影厅分类信息并提交
     editHallCategoryInfo(){
-      this.$refs.editFormRef.validate(valid => {
+      this.$refs.editFormRef.validate(async valid => {
         const _this = this
         if (!valid) return
         axios.defaults.headers.put['Content-Type'] = 'application/json'
-        axios.put(_this.url + '/sysHallCategory', JSON.stringify(_this.editForm)).then(resp => {
+        await axios.put(_this.url + '/sysHallCategory', JSON.stringify(_this.editForm)).then(resp => {
           if (resp.data.code !== 200){
-            this.$message.success('修改影厅分类失败！')
+            this.$message.error('修改影厅分类失败！')
           }
         })
         this.editDialogVisible = false
