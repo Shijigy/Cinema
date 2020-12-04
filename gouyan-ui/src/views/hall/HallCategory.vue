@@ -10,11 +10,11 @@
     <!--卡片视图-->
     <el-card class="box-card">
       <el-row :gutter="20">
-        <el-col :span="2">
-          <el-button type="primary" @click="addDialogVisible = true">添加影厅</el-button>
+        <el-col :span="3">
+          <el-button type="primary" @click="addDialogVisible = true">添加分类</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="danger" @click="multipleDelete">批量删除影厅</el-button>
+          <el-button type="danger" @click="multipleDelete">批量删除</el-button>
         </el-col>
       </el-row>
 
