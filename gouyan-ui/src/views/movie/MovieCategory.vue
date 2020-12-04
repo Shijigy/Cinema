@@ -67,7 +67,7 @@
     <el-dialog title="修改类别" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
         <el-form-item label="类别编号">
-          <el-input v-model="editForm.MovieCategoryId" disabled></el-input>
+          <el-input v-model="editForm.movieCategoryId" disabled></el-input>
         </el-form-item>
         <el-form-item label="电影类别" prop="movieCategoryName">
           <el-input v-model="editForm.movieCategoryName"></el-input>
