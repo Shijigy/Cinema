@@ -79,5 +79,10 @@ public class SysBillController extends BaseController {
     public ResponseResult delete(@PathVariable Long[] ids){
         return getResult(sysBillService.delete(ids));
     }
+
+    @GetMapping("todayBoxOffice")
+    public ResponseResult todayBoxOffice(){
+        return getResult(sysBillService.todayBoxOffice());
+    }
     
 }

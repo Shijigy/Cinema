@@ -19,5 +19,7 @@ public interface SysBillService {
     int update(SysBill sysBill);
 
     int delete(Long[] ids);
+
+    Double todayBoxOffice();
     
 }

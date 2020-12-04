@@ -46,4 +46,9 @@ public class SysBillServiceImpl implements SysBillService {
         }
         return rows;
     }
+
+    @Override
+    public Double todayBoxOffice() {
+        return sysBillMapper.todayBoxOffice();
+    }
 }
