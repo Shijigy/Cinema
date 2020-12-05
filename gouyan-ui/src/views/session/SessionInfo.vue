@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <h1>场次管理组件</h1>
   </div>
@@ -7,7 +6,7 @@
 
 <script>
 export default {
-  name: "SessionInfo"
+  name: "SessionInfo",
 }
 </script>
 
