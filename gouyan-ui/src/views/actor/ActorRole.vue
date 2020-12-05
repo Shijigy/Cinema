@@ -67,7 +67,7 @@
     <el-dialog title="修改角色" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
         <el-form-item label="角色编号">
-          <el-input v-model="editForm.ActorRoleId" disabled></el-input>
+          <el-input v-model="editForm.actorRoleId" disabled></el-input>
         </el-form-item>
         <el-form-item label="演员角色" prop="actorRoleName">
           <el-input v-model="editForm.actorRoleName"></el-input>

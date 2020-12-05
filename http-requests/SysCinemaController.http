@@ -18,7 +18,7 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8181/sysCinema?isRefunded=false
+GET http://localhost:8181/sysCinema?cinemaBrandId=2
 Accept: application/json
 
 ### 查询一个

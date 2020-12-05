@@ -67,7 +67,7 @@
     <el-dialog title="修改年代" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
         <el-form-item label="年代编号">
-          <el-input v-model="editForm.MovieAgeId" disabled></el-input>
+          <el-input v-model="editForm.movieAgeId" disabled></el-input>
         </el-form-item>
         <el-form-item label="电影年代" prop="movieAgeName">
           <el-input v-model="editForm.movieAgeName"></el-input>

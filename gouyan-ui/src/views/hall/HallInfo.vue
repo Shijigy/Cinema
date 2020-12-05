@@ -36,7 +36,7 @@
           </el-select>
         </el-col>
         <el-col :span="1.5">
-          <el-button icon="el-icon-search" @click="getHallList"></el-button>
+          <el-button icon="el-icon-search" @click="getHallList">搜索</el-button>
         </el-col>
         <el-col :span="2">
           <el-button type="primary" @click="addDialogVisible = true">添加影厅</el-button>

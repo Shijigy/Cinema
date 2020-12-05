@@ -67,7 +67,7 @@
     <el-dialog title="修改爱好" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
         <el-form-item label="爱好编号">
-          <el-input v-model="editForm.UserHobbyId" disabled></el-input>
+          <el-input v-model="editForm.userHobbyId" disabled></el-input>
         </el-form-item>
         <el-form-item label="用户爱好" prop="userHobbyName">
           <el-input v-model="editForm.userHobbyName"></el-input>

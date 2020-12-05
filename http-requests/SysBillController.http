@@ -35,3 +35,6 @@ Content-Type: application/json
 
 ### 删除
 DELETE http://localhost:8181/sysBill/3,4
+
+### 返回今日票房
+GET http://localhost:8181/todayBoxOffice

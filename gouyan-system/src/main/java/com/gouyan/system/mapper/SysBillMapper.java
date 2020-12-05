@@ -19,5 +19,7 @@ public interface SysBillMapper {
     int update(SysBill sysBill);
 
     int delete(Long id);
+
+    Double todayBoxOffice();
     
 }
