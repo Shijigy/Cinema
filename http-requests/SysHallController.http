@@ -7,10 +7,6 @@ Content-Type: application/json
   "hallId": 3,
   "hallName": "3号厅",
   "hallCategoryId": 2,
-  "rowNums": 15,
-  "rowStart": "1",
-  "seatNumsRow": 20,
-  "seatNums": 300,
   "seatState": "[{\"1\": [2,2,0,0,0]},{\"2\": [0,0,0,0,0]},{\"3\": [0,0,0,0,0]}]",
   "hallState": false
 }

@@ -156,10 +156,19 @@
     </el-dialog>
 
     <!--安排座位对话框-->
-    <el-dialog title="安排座位" :visible.sync="arrangeDialogVisible" width="80%">
+    <el-dialog title="安排座位" :visible.sync="arrangeDialogVisible" :width="arrangeDialogWidth">
+      <div style="display:flex; align-content: center">
+        <span style="margin-right: 50px">启用</span>
+        <span class="seat" :class="isSelected[0]"></span>
+        <span style="margin: 0 50px">禁用</span>
+        <span class="seat" :class="isSelected[1]"></span>
+      </div>
+      <br/>
       <div class="row" v-for="(value, key) in seats">
         <span style="margin-right: 100px">{{key}}</span>
-        <span class="seat" :class="isSelected[seats[key][index]]" @click="pressSeat(key, index)" v-for="(item, index) in value"></span>
+        <div style="display: flex; justify-content: flex-end">
+          <span class="seat" :class="isSelected[seats[key][index]]" @click="pressSeat(key, index)" v-for="(item, index) in value"></span>
+        </div>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="arrangeDialogVisible = false">取 消</el-button>
@@ -255,7 +264,8 @@ export default {
         0: 'seat-default',
         1: 'seat-choose'
       },
-      editSeat: {}
+      editSeat: {},
+      arrangeDialogWidth: ''
     }
   },
   created() {
@@ -302,7 +312,7 @@ export default {
         for (let j = 0; j < col; j++) {
           arr.push(0)
         }
-        seat[String.fromCharCode(i + this.addForm.rowStart.charCodeAt(0))] = arr
+        seat[isNaN(parseInt(this.editForm.rowStart)) ? String.fromCharCode(i + this.editForm.rowStart.charCodeAt(0)) : i + parseInt(this.editForm.rowStart)] = arr
       }
       this.$set(this.addForm, 'seatState', JSON.stringify(seat))
 
@@ -349,7 +359,7 @@ export default {
         for (let j = 0; j < col; j++) {
           arr.push(0)
         }
-        seat[String.fromCharCode(i + this.editForm.rowStart.charCodeAt(0))] = arr
+        seat[isNaN(parseInt(this.editForm.rowStart)) ? String.fromCharCode(i + this.editForm.rowStart.charCodeAt(0)) : i + parseInt(this.editForm.rowStart)] = arr
       }
       this.$set(this.editForm, 'seatState', JSON.stringify(seat))
 
@@ -471,6 +481,7 @@ export default {
         console.log(resp)
       })
       console.log(this.seats)
+      this.arrangeDialogWidth = 200 + this.editSeat.seatNumsRow * 40 + 'px'
       this.arrangeDialogVisible = true
     },
     pressSeat(key, idx){
@@ -499,8 +510,10 @@ export default {
   .row{
     white-space: nowrap;
     margin-top: 10px;
+    padding: 0 10px;
     text-align: center;
     display: flex;
+    justify-content: space-between;
   }
   .seat{
     display: inline-block;
