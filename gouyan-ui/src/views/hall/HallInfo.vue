@@ -91,34 +91,79 @@
     </el-card>
 
     <!--添加影厅对话框-->
-    <el-dialog title="添加影厅" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
+    <el-dialog title="添加影厅" :visible.sync="addDialogVisible" width="60%" @close="addDialogClosed">
       <!--内容主题区-->
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="100px">
         <!--prop：在addFormRules中定义校验规则， v-model：双向绑定数据-->
-        <el-form-item label="影厅名称" prop="hallCategoryName">
-          <el-input v-model="addForm.hallCategoryName"></el-input>
+        <el-form-item label="影院编号" prop="cinemaId">
+          <el-input v-model="addForm.cinemaId"></el-input>
+        </el-form-item>
+        <el-form-item label="影厅编号" prop="hallId">
+          <el-input v-model="addForm.hallId"></el-input>
+        </el-form-item>
+        <el-form-item label="影厅名称" prop="hallName">
+          <el-input v-model="addForm.hallName"></el-input>
+        </el-form-item>
+        <el-form-item label="影厅分类编号" prop="hallCategoryId">
+          <el-input v-model="addForm.hallCategoryId"></el-input>
+        </el-form-item>
+        <el-form-item label="起始排" prop="rowStart">
+          <el-input v-model="addForm.rowStart"></el-input>
+        </el-form-item>
+        <el-form-item label="排数" prop="rowNums">
+          <el-input v-model="addForm.rowNums"></el-input>
+        </el-form-item>
+        <el-form-item label="排座位数" prop="seatNumsRow">
+          <el-input v-model="addForm.seatNumsRow"></el-input>
         </el-form-item>
       </el-form>
       <!--底部区域-->
       <span slot="footer" class="dialog-footer">
       <el-button @click="addDialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addHallCategory">确 定</el-button>
+      <el-button type="primary" @click="addHall">确 定</el-button>
       </span>
     </el-dialog>
 
     <!--修改影厅对话框-->
-    <el-dialog title="修改影厅" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
+    <el-dialog title="修改影厅" :visible.sync="editDialogVisible" width="60%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
-        <el-form-item label="影厅编号">
-          <el-input v-model="editForm.hallCategoryId" disabled></el-input>
+        <el-form-item label="影院编号" prop="cinemaId">
+          <el-input v-model="editForm.cinemaId" disabled></el-input>
         </el-form-item>
-        <el-form-item label="影厅名称" prop="hallCategoryName">
-          <el-input v-model="editForm.hallCategoryName"></el-input>
+        <el-form-item label="影厅编号" prop="hallId">
+          <el-input v-model="editForm.hallId" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="影厅名称" prop="hallName">
+          <el-input v-model="editForm.hallName"></el-input>
+        </el-form-item>
+        <el-form-item label="影厅分类编号" prop="hallCategoryId">
+          <el-input v-model="editForm.hallCategoryId"></el-input>
+        </el-form-item>
+        <el-form-item label="起始排" prop="rowStart">
+          <el-input v-model="editForm.rowStart"></el-input>
+        </el-form-item>
+        <el-form-item label="排数" prop="rowNums">
+          <el-input v-model="editForm.rowNums"></el-input>
+        </el-form-item>
+        <el-form-item label="排座位数" prop="seatNumsRow">
+          <el-input v-model="editForm.seatNumsRow"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editHallCategoryInfo">确 定</el-button>
+        <el-button type="primary" @click="editHallInfo">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!--安排座位对话框-->
+    <el-dialog title="安排座位" :visible.sync="arrangeDialogVisible" width="80%">
+      <div class="row" v-for="(value, key) in seats">
+        <span style="margin-right: 100px">{{key}}</span>
+        <span class="seat" :class="isSelected[seats[key][index]]" @click="pressSeat(key, index)" v-for="(item, index) in value"></span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="arrangeDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveSeat">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -150,60 +195,43 @@ export default {
         hallId: '',
         hallName: '',
         hallCategoryId: '',
-        rowNums: '',
-        seatNumsRow: '',
-        seatNums: '',
+        rowStart: 1,
+        rowNums: 10,
+        seatNumsRow: 10,
+        seatNums: 100,
         seatState: '',
-        hallState: ''
+        hallState: false
       },
       //验证表单规则对象
       addFormRules: {
         cinemaId: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
+          { required: true, message: '请输入影院编号', trigger: 'blur' }
         ],
         hallId: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
+          { required: true, message: '请输入影厅编号', trigger: 'blur' }
         ],
         hallName: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
+          { required: true, message: '请输入影厅名称', trigger: 'blur' }
         ],
         hallCategoryId: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
-        rowNums: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
-        seatNumsRow: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
-        hallState: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
+          { required: true, message: '请输入影厅分类编号', trigger: 'blur' }
+        ]
       },
       editDialogVisible: false,
       editForm: {},
       editFormRules: {
         cinemaId: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
+          { required: true, message: '请输入影院编号', trigger: 'blur' }
         ],
         hallId: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
+          { required: true, message: '请输入影厅编号', trigger: 'blur' }
         ],
         hallName: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
+          { required: true, message: '请输入影厅名称', trigger: 'blur' }
         ],
         hallCategoryId: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
-        rowNums: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
-        seatNumsRow: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
-        hallState: [
-          { required: true, message: '请输入影厅名', trigger: 'blur' }
-        ],
+          { required: true, message: '请输入影厅分类编号', trigger: 'blur' }
+        ]
       },
       selectedCinemaId: '',
       selectedHallCategoryId: '',
@@ -220,7 +248,14 @@ export default {
           name: '已启用'
         }
       ],
-      multipleSelection: []
+      multipleSelection: [],
+      arrangeDialogVisible: false,
+      seats: {},
+      isSelected: {
+        0: 'seat-default',
+        1: 'seat-choose'
+      },
+      editSeat: {}
     }
   },
   created() {
@@ -257,30 +292,43 @@ export default {
       this.$refs.addFormRef.resetFields()
     },
     // 监听添加按钮
-    addHallCategory(){
+    addHall(){
+      let row = this.addForm.rowNums
+      let col = this.addForm.seatNumsRow
+      this.$set(this.addForm, 'seatNums', row * col)
+      let seat = {}
+      for (let i = 0; i < row; i++) {
+        let arr = []
+        for (let j = 0; j < col; j++) {
+          arr.push(0)
+        }
+        seat[String.fromCharCode(i + this.addForm.rowStart.charCodeAt(0))] = arr
+      }
+      this.$set(this.addForm, 'seatState', JSON.stringify(seat))
+
       const _this = this;
       this.$refs.addFormRef.validate(async valid => {
         console.log(valid)
         if (!valid) return
         //预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        await axios.post(_this.url + 'sysHallCategory', JSON.stringify(_this.addForm)).then(resp => {
+        await axios.post(_this.url + 'sysHall', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
           if (resp.data.code !== 200){
-            this.$message.error('添加影厅分类失败！')
+            this.$message.error('添加影厅信息失败！')
           }
         })
         //隐藏添加对话框
         this.addDialogVisible = false
         //重新加载列表
-        this.getHallCategoryList()
-        this.$message.success('添加影厅分类成功！')
+        this.getHallList()
+        this.$message.success('添加影厅信息成功！')
       })
     },
     // 显示修改对话框，回显数据
-    showEditDialog(id){
+    showEditDialog(id1, id2){
       const _this = this
-      axios.get(_this.url + 'sysHallCategory/' + id ).then(resp => {
+      axios.get(_this.url + 'sysHall/' + id1 + '/' + id2 ).then(resp => {
         console.log(resp)
         _this.editForm = resp.data.data
       })
@@ -291,19 +339,35 @@ export default {
       this.$refs.editFormRef.resetFields()
     },
     // 修改影厅分类信息并提交
-    editHallCategoryInfo(){
+    editHallInfo(){
+      let row = this.editForm.rowNums
+      let col = this.editForm.seatNumsRow
+      this.$set(this.editForm, 'seatNums', row * col)
+      let seat = {}
+      for (let i = 0; i < row; i++) {
+        let arr = []
+        for (let j = 0; j < col; j++) {
+          arr.push(0)
+        }
+        seat[String.fromCharCode(i + this.editForm.rowStart.charCodeAt(0))] = arr
+      }
+      this.$set(this.editForm, 'seatState', JSON.stringify(seat))
+
       this.$refs.editFormRef.validate(async valid => {
         const _this = this
         if (!valid) return
+        let success = true
         axios.defaults.headers.put['Content-Type'] = 'application/json'
-        await axios.put(_this.url + '/sysHallCategory', JSON.stringify(_this.editForm)).then(resp => {
+        await axios.put(_this.url + '/sysHall', JSON.stringify(_this.editForm)).then(resp => {
           if (resp.data.code !== 200){
-            this.$message.error('修改影厅分类失败！')
+            this.$message.error('修改影厅信息失败！')
+            success = false
           }
         })
+        if (!success) return
         this.editDialogVisible = false
-        this.getHallCategoryList()
-        this.$message.success('修改影厅分类成功！')
+        this.getHallList()
+        this.$message.success('修改影厅信息成功！')
       })
     },
     // 监听多选框变化
@@ -398,11 +462,57 @@ export default {
       })
       this.getHallList()
       this.$message.success('更新影厅状态成功！')
+    },
+    async arrangeSeat(id1, id2){
+      const _this = this
+      await axios.get(_this.url + 'sysHall/' + id1 + '/' + id2).then(resp => {
+        _this.editSeat = resp.data.data
+        _this.seats = JSON.parse(resp.data.data.seatState)
+        console.log(resp)
+      })
+      console.log(this.seats)
+      this.arrangeDialogVisible = true
+    },
+    pressSeat(key, idx){
+      console.log( typeof this.seats[key][idx])
+      this.$set(this.seats[key], idx, (this.seats[key][idx] == 0 ? 1 : 0))
+    },
+    async saveSeat(){
+      this.editSeat.seatState = JSON.stringify(this.seats)
+      console.log(this.editSeat)
+      const _this = this
+      axios.defaults.headers.put['Content-Type'] = 'application/json'
+      axios.put(_this.url + 'sysHall', JSON.stringify(_this.editSeat)).then(resp => {
+        if (resp.data.code !== 200){
+          this.$message.error('安排座位失败！')
+        }
+      })
+      this.arrangeDialogVisible = false
+      this.getHallList()
+      this.$message.success('安排座位成功！')
     }
   }
 }
 </script>
 
 <style scoped>
-
+  .row{
+    white-space: nowrap;
+    margin-top: 10px;
+    text-align: center;
+    display: flex;
+  }
+  .seat{
+    display: inline-block;
+    width: 30px;
+    height: 26px;
+    margin: 0 5px;
+    background-position: 0 1px;
+  }
+  .seat-default {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHKSURBVEhLxZfbysIwDMezKeJUVAR9A/H9X0FQZMOLeem14sWc4AnP9muybM4557eT/mCYdLT/tknaqQgJ/ACVf7/Oz4TfbvVisYDlcgm1Wg2SRON0OoGqqtDr9bglAAoHGY1GQgqzl5zz+SyGwyF7z7wITyYTtrJD13W2HrzEuFqtspUdnU4Hbrcbew5fSa5SqfQbYbmzoCgKew5fK6disciWgyd8vV5hPB5DoVAA27bpSct6vQbLsmjFhmFwK0MpJjFNky2H3W4nZEf24rPZbMTlcmFPiPv9LgaDAXu+rNY0jS0HzG5Zh+zFRwo9bS/GuNvtgpwM+SQsVwetVosa/GDnpMhFsfUAJ3I4HMgmYRQIZl1awsbzTyYyqzHRkhK2Yj+RwklwBYMHRpDMhd0tTrXiT52jwCsxCrqPZc3RARLM7O1266V/XMrlMlQqFfYcVqsVZXa9Xo8Wzhq/cOYx/i+e8KeYZIFfgyyMxWw2o4Y8mc/nXty9jz08NqfTKTSbTapBLAt8kh6buDocGh+3xNrtNjQaDbLxRSj7/f7pNolLv98Xx+ORvVfeBla+S3VJ4K7hGO/I7S8MDht2UbjklspRokj+NRQKwB/pWISi3oSUQQAAAABJRU5ErkJggg==") no-repeat;
+  }
+  .seat-choose{
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAKVSURBVEhLxZXPThpRFMY/hhFBG4okbdiYxgXpxmJi0phi4sKlL+HWlSsfwMSFr+DKjSufwMSFiyakaaagQaOxW1txUUjDHwVh5vacmdtxgGEsA1N/yYHLvdzzzT33nDMhQeAFUOT3f+fFhAeGutRs4tfpKV5dXECoqpz9R8hlKxqFsrqK96mUnOzGVfhrsYh3+/tIXV8Dk5Nydkh0HW3a+21zE59WVuTkE33C5/k8PmxvW4ITE/SPkFzxQacDUOS0nR18XFiQkxZ9dzx9dARwaCOR0UQZ9kP29vAQupz6S39y8UmVMeZcOIwInfp54QAQdJDe2LkLt9tAq2Vmp294L/vhe6Zxb13YwrSMvKZRZMIoLy2hvLYG3N/7E+c9FN7f2SzK8/MQiQS0szO5aGFndfHkBJndXSAeNzc2ZmehUw3GCwUru4eBTlpbXETs6grqwwNgGBBkX7a2kF1eNv9inziWy1minFxU/NM3N2jHYr5PbJAPtdGwHpp8hiiS6YMDUPBNTOE6WfL21sxAGx7Xav5KivaIx0fy7kghGqv0QHR+6yd/GGQUcx52M0Idu+0UDn+ORxovLp24i8CEO9SrvQhM+LlL8hQWnJHcBHxYiKvDA7OOqzTobGwgWalYjZ2hjlObm0N7Zmb4kqIkipZKmLq7e6oU8ldJJqHu7YGK1kOYke3OF1xKzvLsEfa+Y34IDrcfc4q6YAsrfDcBozgy3RSeIvuRyVidinsrNfixW7WKn+m0qcXYLwlum9+Pj5G4vITO709KEDaDmrsfFPLBrtnMrkhvqDfr63gt13nBlYZhiFyhIH8Nz2dNE005dmNgcgl6Fxv8dvGJXq9DcIgHYId63LBbvqpBeJfTCHiJMoEJewP8Afy6sw903o8jAAAAAElFTkSuQmCC") no-repeat;
+  }
 </style>
