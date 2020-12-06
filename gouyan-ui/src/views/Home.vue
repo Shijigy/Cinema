@@ -1,7 +1,7 @@
 <template>
   <el-container class="home-container">
     <el-header>
-      <div>
+      <div class="span-container">
         <img src="../assets/logo.png" alt="" height="50px" width="50px">
         <span>狗眼电影后台管理系统</span>
       </div>
@@ -316,10 +316,13 @@ export default {
   align-items: center;
 }
 
-div > span{
+.span-container > span{
   margin-left: 15px;
 }
 
+.el-submenu__title > span{
+  margin-left: 15px;
+}
 
 
 .el-aside {
