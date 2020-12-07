@@ -5,6 +5,8 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 
+axios.defaults.baseURL = 'http://127.0.0.1:8181/'
+
 Vue.config.productionTip = false
 
 new Vue({

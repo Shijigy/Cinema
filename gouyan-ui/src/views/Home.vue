@@ -295,7 +295,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .home-container{
   height: 100%;
@@ -316,14 +316,9 @@ export default {
   align-items: center;
 }
 
-.span-container > span{
+div > span{
   margin-left: 15px;
 }
-
-.el-submenu__title > span{
-  margin-left: 15px;
-}
-
 
 .el-aside {
   background-color: #333744;

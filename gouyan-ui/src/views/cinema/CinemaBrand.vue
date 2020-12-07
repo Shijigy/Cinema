@@ -98,7 +98,6 @@ export default {
       },
       cinemabrandlist: [],
       total: 0,
-      url: 'http://localhost:8181/',
       //控制对话框的显示与隐藏
       addDialogVisible: false,
       //添加品牌的表单数据
@@ -127,7 +126,7 @@ export default {
   methods: {
     getCinemaBrandList() {
       const _this = this;
-      axios.get(_this.url + 'sysCinemaBrand', {params: _this.queryInfo}).then(resp => {
+      axios.get('sysCinemaBrand', {params: _this.queryInfo}).then(resp => {
         console.log(resp)
         _this.cinemabrandlist = resp.data.data;
         _this.total = resp.data.total;
@@ -157,7 +156,7 @@ export default {
         if (!valid) return
         //预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        await axios.post(_this.url + 'sysCinemaBrand', JSON.stringify(_this.addForm)).then(resp => {
+        await axios.post('sysCinemaBrand', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
           if (resp.data.code !== 200){
             this.$message.error('添加影院品牌失败！')
@@ -173,7 +172,7 @@ export default {
     // 显示修改对话框，回显数据
     showEditDialog(id){
       const _this = this
-      axios.get(_this.url + 'sysCinemaBrand/' + id ).then(resp => {
+      axios.get('sysCinemaBrand/' + id ).then(resp => {
         console.log(resp)
         _this.editForm = resp.data.data
       })
@@ -189,7 +188,7 @@ export default {
         const _this = this
         if (!valid) return
         axios.defaults.headers.put['Content-Type'] = 'application/json'
-        await axios.put(_this.url + '/sysCinemaBrand', JSON.stringify(_this.editForm)).then(resp => {
+        await axios.put('sysCinemaBrand', JSON.stringify(_this.editForm)).then(resp => {
           if (resp.data.code !== 200){
             this.$message.error('修改影院品牌失败！')
           }
@@ -222,7 +221,7 @@ export default {
       this.multipleSelection.forEach(data => {
         ids.push(data.cinemaBrandId)
       })
-      await axios.delete(_this.url + 'sysCinemaBrand/' + ids).then(resp => {
+      await axios.delete('sysCinemaBrand/' + ids).then(resp => {
         if (resp.data.code !== 200){
           this.$message.success('批量删除影院品牌失败！')
         }
@@ -247,7 +246,7 @@ export default {
         return _this.$message.info('已取消删除')
       }
 
-      await axios.delete(_this.url + 'sysCinemaBrand/' + id).then(resp => {
+      await axios.delete('sysCinemaBrand/' + id).then(resp => {
         if (resp.data.code !== 200){
           _this.$message.success('删除影院品牌失败！')
         }
