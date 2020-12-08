@@ -14,7 +14,7 @@ GET http://localhost:8181/sysMovie
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8181/sysMovie/1
+GET http://localhost:8181/sysMovie/2
 Accept: application/json
 
 ### 修改

@@ -65,6 +65,8 @@
         <result property="movieRateNum" column="movie_rate_num"></result>
         <result property="movieIntroduction" column="movie_introduction"></result>
         <result property="moviePictures" column="movie_pictures"></result>
+        <association property="sysMovieArea" column="movie_area_id" select="com.gouyan.system.mapper.SysMovieAreaMapper.findById"></association>
+        <association property="sysMovieAge" column="movie_age_id" select="com.gouyan.system.mapper.SysMovieAgeMapper.findById"></association>
         <collection property="movieCategoryList" ofType="SysMovieCategory" column="movie_id" select="com.gouyan.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
         <collection property="majorActorNameList" ofType="String" column="movie_id" select="com.gouyan.system.mapper.SysActorMapper.findaMajorActorNames"></collection>
     </resultMap>
