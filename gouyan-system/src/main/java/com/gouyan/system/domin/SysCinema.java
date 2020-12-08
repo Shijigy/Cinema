@@ -54,6 +54,8 @@ public class SysCinema implements Serializable {
 
     private SysCinemaBrand sysCinemaBrand;
 
+    private SysCinemaArea sysCinemaArea;
+
     //影院存在的影厅类别
     private List<SysHallCategory> sysHallCategoryList;
 

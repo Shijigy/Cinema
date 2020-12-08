@@ -18,6 +18,7 @@
         <result property="entryDate" column="entry_date"></result>
         <association property="user" column="user_id" select="com.gouyan.system.mapper.SysUserMapper.findById"></association>
         <association property="sysCinemaBrand" column="cinema_brand_id" select="com.gouyan.system.mapper.SysCinemaBrandMapper.findById"></association>
+        <association property="sysCinemaArea" column="cinema_area_id" select="com.gouyan.system.mapper.SysCinemaAreaMapper.findById"></association>
         <collection property="sysHallCategoryList" ofType="SysHallCategory" column="cinema_id" select="com.gouyan.system.mapper.SysHallCategoryMapper.findByCinemaId"></collection>
     </resultMap>
 
