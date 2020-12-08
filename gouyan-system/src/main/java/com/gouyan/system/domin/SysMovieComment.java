@@ -43,4 +43,7 @@ public class SysMovieComment implements Serializable {
     //评论用户
     SysUser sysUser;
 
+    //评论的电影
+    SysMovie sysMovie;
+
 }
