@@ -160,8 +160,8 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="影院图片" prop="cinemaPicture">
-          <el-upload action="/upload/cinema" list-type="picture-card" :auto-upload="false"
-          :file-list="pics" :on-change="handleChange">
+          <el-upload action="http://127.0.0.1:8181/upload/cinema" list-type="picture-card" :auto-upload="false"
+          :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -352,7 +352,16 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       disabled: false,
-      pics: [],
+      pics: [
+        {
+          name: '1',
+          url: 'http://127.0.0.1:8181/images/cinema/2020/12/08/f78a640b813244b19483ee83fddc4b06.jpeg'
+        },
+        {
+          name: '2',
+          url: 'http://127.0.0.1:8181/images/cinema/2020/12/08/f78a640b813244b19483ee83fddc4b06.jpeg'
+        }
+      ],
     }
   },
   created() {
@@ -401,6 +410,8 @@ export default {
       this.$refs.addFormRef.validate(async valid => {
         console.log(valid)
         if (!valid) return
+        _this.upload();
+        return;
         _this.addForm.cinemaPicture = JSON.stringify(_this.addForm.cinemaPicture)
         // 预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -554,6 +565,15 @@ export default {
     handleChange(file, filelist){
       this.pics = filelist.slice(0)
       console.log(this.pics)
+    },
+    upload(){
+      this.$refs.pictureRef.submit();
+    },
+    handleSuccess(response){
+      console.log(response)
+    },
+    handleError(err){
+      console.log(err)
     }
   }
 }
