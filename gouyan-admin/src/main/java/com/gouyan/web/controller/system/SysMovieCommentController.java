@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -86,9 +87,12 @@ public class SysMovieCommentController extends BaseController {
     @PostMapping("/sysMovieComment/delete")
     public ResponseResult delete(@RequestBody SysMovieComment[] pks){
         int rows = sysMovieCommentService.delete(pks);
+        System.out.println(Arrays.toString(pks));
         if(rows > 0){
             //删除成功，修改删除评论后的评分
+            System.out.println("111");
             for(SysMovieComment comment : pks){
+                System.out.println(comment);
                 SysMovie movie = sysMovieService.findById(comment.getMovieId());
                 Integer movieRateNum = movie.getMovieRateNum();
                 Double movieScore = movie.getMovieScore();
