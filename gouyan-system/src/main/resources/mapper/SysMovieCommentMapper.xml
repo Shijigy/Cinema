@@ -8,6 +8,7 @@
         <result property="movieId" column="movie_id"></result>
         <result property="userId" column="user_id"></result>
         <association property="sysUser" column="user_id" select="com.gouyan.system.mapper.SysUserMapper.findById"></association>
+        <association property="sysMovie" column="movie_id" select="com.gouyan.system.mapper.SysMovieMapper.findOne"></association>
     </resultMap>
 
     <select id="findAll" resultMap="commentResult">
