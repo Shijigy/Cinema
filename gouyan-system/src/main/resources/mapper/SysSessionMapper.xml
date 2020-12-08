@@ -44,10 +44,10 @@
 
     <select id="findByVo" parameterType="SysSessionVo" resultMap="SysSessionResult">
         select * from sys_session se
-        join sys_cinema ci on se.cinema_id = ci.cinema_id
-        join sys_hall ha on se.hall_id = ha.hall_id
-        join sys_movie mo on se.movie_id = mo.movie_id
-        join sys_movie_runtime mr on se.movie_runtime_id = mr.movie_runtime_id
+        left join sys_cinema ci on se.cinema_id = ci.cinema_id
+        left join sys_hall ha on se.cinema_id = ha.cinema_id and se.hall_id = ha.hall_id
+        left join sys_movie mo on se.movie_id = mo.movie_id
+        left join sys_movie_runtime mr on se.movie_runtime_id = mr.movie_runtime_id
         <where>
             <if test="cinemaId != null and cinemaId != 0">and se.cinema_id = #{cinemaId} </if>
             <if test="hallId != null and hallId != 0">and se.hall_id = #{hallId} </if>

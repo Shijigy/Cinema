@@ -1,7 +1,7 @@
 <template>
   <el-container class="home-container">
     <el-header>
-      <div>
+      <div class="span-container">
         <img src="../assets/logo.png" alt="" height="50px" width="50px">
         <span>狗眼电影后台管理系统</span>
       </div>
@@ -295,7 +295,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .home-container{
   height: 100%;
@@ -319,8 +319,6 @@ export default {
 div > span{
   margin-left: 15px;
 }
-
-
 
 .el-aside {
   background-color: #333744;

@@ -24,13 +24,14 @@ PUT http://localhost:8181/sysHall
 Content-Type: application/json
 
 {
-  "cinemaId": 7,
+  "cinemaId": 1,
   "hallId": 2,
-  "hallName": "5号厅",
-  "hallCategoryId": 5,
+  "hallName": "2号厅",
+  "hallCategoryId": 1,
   "rowStart": "A",
-  "rowNums": 15,
-  "seatNums": 300,
+  "rowNums": 10,
+  "seatNumsRow": 20,
+  "seatNums": 200,
   "hallState": false
 }
 

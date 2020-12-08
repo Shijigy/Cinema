@@ -204,7 +204,7 @@ export default {
         hallId: '',
         hallName: '',
         hallCategoryId: '',
-        rowStart: 1,
+        rowStart: '1',
         rowNums: 10,
         seatNumsRow: 10,
         seatNums: 100,
@@ -279,7 +279,7 @@ export default {
       this.queryInfo.hallCategoryId = this.selectedHallCategoryId
       this.queryInfo.hallState = this.selectedHallState
       const _this = this;
-      axios.get(_this.url + 'sysHall', {params: _this.queryInfo}).then(resp => {
+      axios.get('sysHall', {params: _this.queryInfo}).then(resp => {
         console.log(resp)
         _this.hallList = resp.data.data;
         _this.total = resp.data.total;
@@ -312,7 +312,7 @@ export default {
         for (let j = 0; j < col; j++) {
           arr.push(0)
         }
-        seat[isNaN(parseInt(this.editForm.rowStart)) ? String.fromCharCode(i + this.editForm.rowStart.charCodeAt(0)) : i + parseInt(this.editForm.rowStart)] = arr
+        seat[isNaN(parseInt(this.addForm.rowStart)) ? String.fromCharCode(i + this.addForm.rowStart.charCodeAt(0)) : i + parseInt(this.addForm.rowStart)] = arr
       }
       this.$set(this.addForm, 'seatState', JSON.stringify(seat))
 
@@ -322,7 +322,7 @@ export default {
         if (!valid) return
         //预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        await axios.post(_this.url + 'sysHall', JSON.stringify(_this.addForm)).then(resp => {
+        await axios.post('sysHall', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
           if (resp.data.code !== 200){
             this.$message.error('添加影厅信息失败！')
@@ -338,7 +338,7 @@ export default {
     // 显示修改对话框，回显数据
     showEditDialog(id1, id2){
       const _this = this
-      axios.get(_this.url + 'sysHall/' + id1 + '/' + id2 ).then(resp => {
+      axios.get('sysHall/' + id1 + '/' + id2 ).then(resp => {
         console.log(resp)
         _this.editForm = resp.data.data
       })
@@ -368,7 +368,7 @@ export default {
         if (!valid) return
         let success = true
         axios.defaults.headers.put['Content-Type'] = 'application/json'
-        await axios.put(_this.url + '/sysHall', JSON.stringify(_this.editForm)).then(resp => {
+        await axios.put('sysHall', JSON.stringify(_this.editForm)).then(resp => {
           if (resp.data.code !== 200){
             this.$message.error('修改影厅信息失败！')
             success = false
@@ -409,7 +409,7 @@ export default {
       })
       console.log(ids)
       axios.defaults.headers.post['Content-Type'] = 'application/json'
-      await axios.post(_this.url + 'sysHall/delete', JSON.stringify(ids)).then(resp => {
+      await axios.post('sysHall/delete', JSON.stringify(ids)).then(resp => {
         if (resp.data.code !== 200){
           this.$message.success('批量删除影厅分类失败！')
         }
@@ -440,7 +440,7 @@ export default {
 
       console.log(deleteInfo)
       axios.defaults.headers.post['Content-Type'] = 'application/json'
-      await axios.post(_this.url + 'sysHall/delete', JSON.stringify(deleteInfo)).then(resp => {
+      await axios.post('sysHall/delete', JSON.stringify(deleteInfo)).then(resp => {
         if (resp.data.code !== 200){
           _this.$message.success('删除影厅信息失败！')
         }
@@ -450,14 +450,14 @@ export default {
     },
     getCinemaList(){
       const _this = this;
-      axios.get(_this.url + 'sysCinema').then(resp => {
+      axios.get('sysCinema').then(resp => {
         console.log(resp)
         _this.cinemaList = resp.data.data;
       })
     },
     getHallCategoryList(){
       const _this = this;
-      axios.get(_this.url + 'sysHallCategory').then(resp => {
+      axios.get('sysHallCategory').then(resp => {
         console.log(resp)
         _this.hallCategoryList = resp.data.data;
       })
@@ -465,7 +465,7 @@ export default {
     async hallStateChanged(hallInfo){
       const _this = this
       axios.defaults.headers.put['Content-Type'] = 'application/json'
-      await axios.put(_this.url + '/sysHall', JSON.stringify(hallInfo)).then(resp => {
+      await axios.put('/sysHall', JSON.stringify(hallInfo)).then(resp => {
         if (resp.data.code !== 200){
           _this.$message.error('更新影厅状态失败！')
         }
@@ -475,7 +475,7 @@ export default {
     },
     async arrangeSeat(id1, id2){
       const _this = this
-      await axios.get(_this.url + 'sysHall/' + id1 + '/' + id2).then(resp => {
+      await axios.get('sysHall/' + id1 + '/' + id2).then(resp => {
         _this.editSeat = resp.data.data
         _this.seats = JSON.parse(resp.data.data.seatState)
         console.log(resp)
@@ -493,7 +493,7 @@ export default {
       console.log(this.editSeat)
       const _this = this
       axios.defaults.headers.put['Content-Type'] = 'application/json'
-      axios.put(_this.url + 'sysHall', JSON.stringify(_this.editSeat)).then(resp => {
+      axios.put('sysHall', JSON.stringify(_this.editSeat)).then(resp => {
         if (resp.data.code !== 200){
           this.$message.error('安排座位失败！')
         }
