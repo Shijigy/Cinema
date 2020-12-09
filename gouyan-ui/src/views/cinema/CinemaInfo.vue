@@ -158,11 +158,9 @@
               placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
-      </el-form>
-      <el-form label-width="150px">
         <el-form-item label="影院图片">
-          <el-upload action="http://127.0.0.1:8181/upload/cinema" list-type="picture-card" :auto-upload="false"
-                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef">
+          <el-upload action="" list-type="picture-card" :auto-upload="false"
+                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef" :http-request="submitFile">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -403,8 +401,7 @@ export default {
     },
     // 监听添加按钮
     async addCinema(){
-
-      await this.$refs.pictureRef.submit()
+      await this.submitFile()
       console.log(this.pictureList)
       this.addForm.cinemaPicture = JSON.stringify(this.pictureList)
 
@@ -416,7 +413,6 @@ export default {
         axios.defaults.headers.post['Content-Type'] = 'application/json'
         await axios.post('sysCinema', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
-          console.log('jkl'+_this.addForm)
           if (resp.data.code !== 200){
             this.$message.error('添加影院信息失败！')
           }
@@ -569,6 +565,17 @@ export default {
     },
     handleError(err){
       console.log(err)
+    },
+    async submitFile(){
+      const _this = this
+      for (let i = 0; i < this.pics.length; i++){
+        let formData = new FormData()
+        let file = _this.pics[i].raw
+        formData.append('file', file)
+        await axios.post('http://127.0.0.1:8181/upload/cinema', formData).then(response =>{
+          _this.pictureList.push(response.data.data)
+        })
+      }
     }
   }
 }
