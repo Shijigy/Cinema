@@ -55,13 +55,13 @@
         <selectKey keyProperty="cinemaAreaId" keyColumn="cinema_area_id" resultType="long" order="AFTER">
             select last_insert_id();
         </selectKey>
-        insert into sys_cinema (cinema_name, cinema_brand, cinema_picture, is_ticket_changed, is_refunded, cinema_area_id, cinema_address, user_id, entry_date)
-        values (#{cinemaName}, #{cinemaBrand}, #{cinemaPicture}, #{isTicketChanged}, #{isRefunded}, #{cinemaAreaId}, #{cinemaAddress}, #{userId}, #{entryDate})
+        insert into sys_cinema (cinema_name, cinema_brand_id, cinema_picture, is_ticket_changed, is_refunded, cinema_area_id, cinema_address, user_id, entry_date)
+        values (#{cinemaName}, #{cinemaBrandId}, #{cinemaPicture}, #{isTicketChanged}, #{isRefunded}, #{cinemaAreaId}, #{cinemaAddress}, #{userId}, #{entryDate})
     </update>
 
     <update id="update" parameterType="SysCinema">
         update sys_cinema set
-        cinema_name = #{cinemaName}, cinema_brand = #{cinemaBrand}, cinema_picture = #{cinemaPicture}, is_ticket_changed = #{isTicketChanged},
+        cinema_name = #{cinemaName}, cinema_brand_id = #{cinemaBrandId}, cinema_picture = #{cinemaPicture}, is_ticket_changed = #{isTicketChanged},
         is_refunded = #{isRefunded}, cinema_area_id = #{cinemaAreaId}, cinema_address = #{cinemaAddress}, user_id = #{userId}, entry_date = #{entryDate}
         where cinema_id = #{cinemaId}
     </update>
