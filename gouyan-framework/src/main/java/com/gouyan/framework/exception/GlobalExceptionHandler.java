@@ -1,7 +1,9 @@
 package com.gouyan.framework.exception;
 
+import com.gouyan.common.constant.HttpStatus;
 import com.gouyan.common.exception.DataNotFoundException;
 import com.gouyan.common.response.ResponseResult;
+import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
@@ -62,6 +65,18 @@ public class GlobalExceptionHandler {
     public ResponseResult illegalAccessExceptionHandler(IllegalAccessException e){
         log.warn(e.getMessage());
         return ResponseResult.error("抱歉，服务器内部出现了些问题");
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseResult IOExceptionHandler(IOException e){
+        log.warn(e.getMessage());
+        return ResponseResult.error("文件信息错误，原因：" + e.getMessage());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseResult authenticationExceptionHandler(AuthenticationException e){
+        log.warn(e.getMessage());
+        return ResponseResult.error(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
 }
