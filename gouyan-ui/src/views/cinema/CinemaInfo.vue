@@ -64,7 +64,6 @@
         </el-col>
       </el-row>
 
-      <!--影厅分类列表-->
       <el-table :data="cinemaList" style="width: 100%" border stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="cinemaName" label="影院名称" width="140px"></el-table-column>
@@ -159,9 +158,11 @@
               placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="影院图片" prop="cinemaPicture">
+      </el-form>
+      <el-form label-width="150px">
+        <el-form-item label="影院图片">
           <el-upload action="http://127.0.0.1:8181/upload/cinema" list-type="picture-card" :auto-upload="false"
-          :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef">
+                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -175,6 +176,7 @@
               </span>
             </div>
           </el-upload>
+          <!--放大预览-->
           <el-dialog :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
@@ -352,16 +354,11 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       disabled: false,
-      pics: [
-        {
-          name: '1',
-          url: 'http://127.0.0.1:8181/images/cinema/2020/12/08/f78a640b813244b19483ee83fddc4b06.jpeg'
-        },
-        {
-          name: '2',
-          url: 'http://127.0.0.1:8181/images/cinema/2020/12/08/f78a640b813244b19483ee83fddc4b06.jpeg'
-        }
-      ],
+      //添加删除图片 动态绑定图片列表
+      pics: [],
+      // 发送给后端的JSON图片数组
+      pictureList: [],
+      picNums: 0
     }
   },
   created() {
@@ -405,18 +402,21 @@ export default {
       this.$refs.addFormRef.resetFields()
     },
     // 监听添加按钮
-    addCinema(){
+    async addCinema(){
+
+      await this.$refs.pictureRef.submit()
+      console.log(this.pictureList)
+      this.addForm.cinemaPicture = JSON.stringify(this.pictureList)
+
       const _this = this
       this.$refs.addFormRef.validate(async valid => {
         console.log(valid)
         if (!valid) return
-        _this.upload();
-        return;
-        _this.addForm.cinemaPicture = JSON.stringify(_this.addForm.cinemaPicture)
         // 预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
         await axios.post('sysCinema', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
+          console.log('jkl'+_this.addForm)
           if (resp.data.code !== 200){
             this.$message.error('添加影院信息失败！')
           }
@@ -555,22 +555,17 @@ export default {
       const filePath = file.url
       const idx = this.pics.findIndex(x => x.url === filePath)
       this.pics.splice(idx, 1)
-      console.log(this.pics)
     },
     handlePictureCardPreview(file) {
-      console.log(this.pics.length)
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
     handleChange(file, filelist){
       this.pics = filelist.slice(0)
-      console.log(this.pics)
-    },
-    upload(){
-      this.$refs.pictureRef.submit();
     },
     handleSuccess(response){
-      console.log(response)
+      this.pictureList.push(response.data)
+      this.addForm = JSON.stringify(this.pictureList)
     },
     handleError(err){
       console.log(err)
