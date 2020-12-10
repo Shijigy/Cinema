@@ -8,6 +8,10 @@ import './plugins/element.js'
 import './assets/css/fonts/iconfont.css'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8181/'
+axios.interceptors.request.use(config => {
+  config.headers.Token = window.sessionStorage.getItem('token')
+  return config
+})
 
 Vue.config.productionTip = false
 

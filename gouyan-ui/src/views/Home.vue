@@ -1,8 +1,8 @@
 <template>
   <el-container class="home-container">
     <el-header>
-      <div class="span-container">
-        <img src="../assets/logo.png" alt="" height="50px" width="50px">
+      <div class="span-container" style="padding: 5px">
+        <img src="../assets/logo.png" alt="" height="40px" width="40px">
         <span>狗眼电影后台管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>
@@ -285,7 +285,9 @@ export default {
   name: "Home",
   methods:{
     logout(){
-
+      //清空sessionStorage
+      window.sessionStorage.clear();
+      this.$router.push('/login')
     },
     // 菜单展开与闭合：点击事件
     toggleCollapse(){
