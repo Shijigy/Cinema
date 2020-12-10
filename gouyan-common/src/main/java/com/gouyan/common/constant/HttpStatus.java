@@ -11,6 +11,8 @@ public class HttpStatus {
      */
     public static final int SUCCESS = 200;
 
+    public static final int BAD_REQUEST = 400;
+
     /**
      * 访问受限，授权过期
      */
