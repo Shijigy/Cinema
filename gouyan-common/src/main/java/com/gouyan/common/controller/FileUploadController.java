@@ -2,19 +2,14 @@ package com.gouyan.common.controller;
 
 import com.gouyan.common.file.FileUploadUtils;
 import com.gouyan.common.response.ResponseResult;
-import com.gouyan.common.utils.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import sun.reflect.ReflectionFactory;
 
-import javax.xml.ws.Response;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
