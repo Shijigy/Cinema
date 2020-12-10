@@ -420,6 +420,8 @@ export default {
     addDialogClosed(){
       this.$refs.addFormRef.resetFields()
       this.$refs.pictureRef.clearFiles()
+      this.pics = []
+      this.pictureList = []
     },
     // 监听添加按钮
     async addCinema(){
