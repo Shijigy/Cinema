@@ -234,6 +234,27 @@
               placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
+        <el-form-item label="影院图片">
+          <el-upload action="" list-type="picture-card" :auto-upload="false"
+                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureEditRef" :http-request="submitFile">
+            <i slot="default" class="el-icon-plus"></i>
+            <div slot="file" slot-scope="{file}">
+              <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
+              <span class="el-upload-list__item-actions">
+                <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
+                  <i class="el-icon-zoom-in"></i>
+                </span>
+                <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
+                  <i class="el-icon-delete"></i>
+                </span>
+              </span>
+            </div>
+          </el-upload>
+          <!--放大预览-->
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
@@ -356,7 +377,7 @@ export default {
       pics: [],
       // 发送给后端的JSON图片数组
       pictureList: [],
-      picNums: 0
+      picNums: 0,
     }
   },
   created() {
@@ -398,6 +419,7 @@ export default {
     // 监听添加对话框的关闭事件
     addDialogClosed(){
       this.$refs.addFormRef.resetFields()
+      this.$refs.pictureRef.clearFiles()
     },
     // 监听添加按钮
     async addCinema(){
@@ -426,20 +448,33 @@ export default {
       })
     },
     // 显示修改对话框，回显数据
-    showEditDialog(id){
+    async showEditDialog(id){
       const _this = this
-      axios.get('sysCinema/' + id).then(resp => {
+      await axios.get('sysCinema/' + id).then(resp => {
         console.log(resp)
         _this.editForm = resp.data.data
       })
+      for (const item of JSON.parse(this.editForm.cinemaPicture)) {
+        let pic = {}
+        pic['name'] = ''
+        pic['url'] = 'http://127.0.0.1:8181' + item
+        this.pics.push(pic)
+      }
+      console.log("aaa")
+      console.log(this.pics)
       this.editDialogVisible = true
     },
     // 监听修改对话框的关闭事件
     editDialogClosed(){
       this.$refs.editFormRef.resetFields()
+      this.$refs.pictureEditRef.clearFiles()
+      this.pics = []
+      this.pictureList = []
     },
-    // 修改影厅分类信息并提交
-    editCinemaInfo(){
+
+    async editCinemaInfo(){
+      await this.submitFile()
+      this.editForm.cinemaPicture = JSON.stringify(this.pictureList)
       this.$refs.editFormRef.validate(async valid => {
         const _this = this
         if (!valid) return
@@ -549,19 +584,23 @@ export default {
     },
     handleRemove(file) {
       const filePath = file.url
+      console.log(filePath)
       const idx = this.pics.findIndex(x => x.url === filePath)
       this.pics.splice(idx, 1)
     },
     handlePictureCardPreview(file) {
+      console.log(this.pics)
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
     handleChange(file, filelist){
       this.pics = filelist.slice(0)
+      console.log(this.pics)
     },
     handleSuccess(response){
       this.pictureList.push(response.data)
       this.addForm = JSON.stringify(this.pictureList)
+      this.editForm = JSON.stringify(this.pictureList)
     },
     handleError(err){
       console.log(err)
@@ -570,7 +609,12 @@ export default {
       const _this = this
       for (let i = 0; i < this.pics.length; i++){
         let formData = new FormData()
-        let file = _this.pics[i].raw
+        if (this.pics[i].status === 'success') {
+          let s = this.pics[i].url
+          this.pictureList.push(s.substring(s.indexOf('/images')))
+          continue
+        }
+        let file = this.pics[i].raw
         formData.append('file', file)
         await axios.post('http://127.0.0.1:8181/upload/cinema', formData).then(response =>{
           _this.pictureList.push(response.data.data)
