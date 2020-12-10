@@ -208,4 +208,23 @@ public class FileUploadUtils
         }
         return extension;
     }
+
+    /**
+     * 删除文件
+     *
+     * @param filePath 文件
+     * @return
+     */
+    public static boolean deleteFile(String filePath)
+    {
+        boolean flag = false;
+        File file = new File(filePath);
+        // 路径为文件且不为空则进行删除
+        if (file.isFile() && file.exists())
+        {
+            file.delete();
+            flag = true;
+        }
+        return flag;
+    }
 }

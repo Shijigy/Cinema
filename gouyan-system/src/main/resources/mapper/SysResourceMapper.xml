@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysResourceMapper">
+
+    <resultMap id="findAllMap" type="SysResource">
+        <id property="id" column="resource_id"></id>
+        <result property="name" column="resource_name"></result>
+        <result property="path" column="path"></result>
+        <result property="parentId" column="parent_id"></result>
+        <association property="parent" column="parent_id">
+            <id property="id" column="cid"></id>
+            <result property="name" column="cname"></result>
+            <result property="path" column="cpath"></result>
+            <result property="parentId" column="cparent_id"></result>
+        </association>
+    </resultMap>
+
+    <resultMap id="findWithChildrenMap" type="SysResource">
+        <id property="id" column="resource_id"></id>
+        <result property="name" column="resource_name"></result>
+        <result property="path" column="path"></result>
+        <result property="parentId" column="parent_id"></result>
+        <collection property="children" column="resource_id" ofType="SysResource">
+            <id property="id" column="cid"></id>
+            <result property="name" column="cname"></result>
+            <result property="path" column="cpath"></result>
+            <result property="parentId" column="cparent_id"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="findAllMap">
+        select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.path cpath, sr1.parent_id cparent_id
+        from sys_resource sr left join sys_resource sr1 on sr.parent_id = sr1.resource_id
+    </select>
+
+    <select id="findWithChildren" resultMap="findWithChildrenMap">
+        select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.path cpath, sr1.parent_id cparent_id
+        from sys_resource sr join sys_resource sr1 on sr.resource_id = sr1.parent_id;
+    </select>
+
+    <select id="findById" resultMap="findAllMap" parameterType="long">
+        select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.path cpath, sr1.parent_id cparent_id
+        from sys_resource sr left join sys_resource sr1 on sr.parent_id = sr1.resource_id where sr.resource_id = #{id}
+    </select>
+
+    <update id="add" parameterType="SysResource">
+        insert into sys_resource(
+        <if test="id != null and id != 0">resource_id, </if>
+        resource_name, path, parent_id)
+        values(
+        <if test="id != null and id != 0">#{id}, </if>
+        #{name}, #{path}, #{parentId})
+    </update>
+
+    <update id="update" parameterType="SysResource">
+        update sys_resource set resource_name = #{name}, path = #{path}, parent_id = #{parentId} where resource_id = #{id}
+    </update>
+
+    <update id="delete" parameterType="Long">
+        delete from sys_resource where resource_id = #{id}
+    </update>
+</mapper>

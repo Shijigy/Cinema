@@ -187,8 +187,8 @@
       </span>
     </el-dialog>
 
-    <!--修改场次对话框-->
-    <el-dialog title="修改场次" :visible.sync="editDialogVisible" width="60%" @close="editDialogClosed">
+    <!--修改影院对话框-->
+    <el-dialog title="修改影院" :visible.sync="editDialogVisible" width="60%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="150px">
         <el-form-item label="影院名称" prop="cinemaName">
           <el-input v-model="editForm.cinemaName"></el-input>
@@ -257,7 +257,7 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button @click="cancelEdit">取 消</el-button>
         <el-button type="primary" @click="editCinemaInfo">确 定</el-button>
       </span>
     </el-dialog>
@@ -378,6 +378,7 @@ export default {
       // 发送给后端的JSON图片数组
       pictureList: [],
       picNums: 0,
+      deletePicList: []
     }
   },
   created() {
@@ -473,7 +474,12 @@ export default {
       this.pics = []
       this.pictureList = []
     },
+    // 取消修改
+    cancelEdit(){
+      this.editDialogVisible = false
+      this.deletePicList.splice(0, this.deletePicList.length)
 
+    },
     async editCinemaInfo(){
       await this.submitFile()
       this.editForm.cinemaPicture = JSON.stringify(this.pictureList)
@@ -492,6 +498,9 @@ export default {
         this.editDialogVisible = false
         this.getCinemaList()
         this.$message.success('修改影院信息成功！')
+        for(let s of this.deletePicList){
+          await axios.get('/upload/delete?filePath=' + s.substring(s.indexOf('/images')))
+        }
       })
     },
     // 监听多选框变化
@@ -588,6 +597,9 @@ export default {
       const filePath = file.url
       console.log(filePath)
       const idx = this.pics.findIndex(x => x.url === filePath)
+      if(file.status === 'success'){
+        this.deletePicList.push(file.url)
+      }
       this.pics.splice(idx, 1)
     },
     handlePictureCardPreview(file) {
