@@ -29,6 +29,8 @@ public class SysUser implements Serializable {
     //密码
     @NotBlank(message = "密码不能为空")
     private String password;
+    //盐
+    private String salt;
     //邮箱
     @Email(message = "邮箱格式有误")
     private String email;

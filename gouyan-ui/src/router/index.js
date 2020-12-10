@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import { Message }from 'element-ui'
 
+import Login from '@/views/Login';
 import Welcome from "@/views/Welcome";
 import ActorInfo from "@/views/actor/ActorInfo";
 import ActorRole from "@/views/actor/ActorRole";
@@ -28,6 +30,15 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    component: Login,
+    redirect: '/login'
+  },
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/home',
     component: Home,
     redirect: '/welcome',
     children: [
@@ -57,6 +68,22 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: 'history',
+})
+
+//挂载路由导航守卫
+router.beforeEach((to, from, next) =>{
+  //to 将要访问的路径
+  //from 从哪个页面来
+  //next 一个放行函数
+
+  if(to.path == '/login') return next();
+  //获取token
+  const token = window.sessionStorage.getItem("token")
+  if(!token){
+    Message.error('抱歉，请先登录')
+    return next('/login');
+  }
+  next();
 })
 
 export default router
