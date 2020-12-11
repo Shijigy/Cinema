@@ -28,6 +28,9 @@ public class SysResource implements Serializable {
 
     private String path;
 
+    //菜单权限等级
+    private Integer level;
+
     private Long parentId;
 
     //父菜单

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "RoleAuthority"
+  name: "RoleInfo"
 }
 </script>
 

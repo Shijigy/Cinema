@@ -18,11 +18,12 @@ import MovieCategory from "@/views/movie/MovieCategory";
 import MovieComment from "@/views/movie/MovieComment";
 import MovieInfo from "@/views/movie/MovieInfo";
 import MovieRuntime from "@/views/movie/MovieRuntime";
-import RoleAuthority from "@/views/role/RoleAuthority";
 import SessionInfo from "@/views/session/SessionInfo";
 import BillInfo from "@/views/user/BillInfo";
 import UserHobby from "@/views/user/UserHobby";
 import UserInfo from "@/views/user/UserInfo";
+import ResourceInfo from "@/views/role/ResourceInfo";
+import RoleInfo from "@/views/role/RoleInfo";
 
 
 Vue.use(VueRouter)
@@ -60,7 +61,8 @@ const routes = [
       { path: '/user', component: UserInfo},
       { path: '/bill', component: BillInfo},
       { path: '/hobby', component: UserHobby},
-      { path: '/role', component: RoleAuthority}
+      { path: '/role', component: RoleInfo},
+      { path: '/resource', component: ResourceInfo}
     ]
   }
 ]
