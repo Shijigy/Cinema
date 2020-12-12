@@ -25,5 +25,10 @@ public interface SysUserMapper {
 
     LoginUser findLoginUser(SysUserVo sysUserVo);
 
-    int findUserNameCnt(String userName);
+    /**
+     * 查出指定名字用户的所有id
+     * @param userName
+     * @return
+     */
+    List<Long> findUsersByName(String userName);
 }
