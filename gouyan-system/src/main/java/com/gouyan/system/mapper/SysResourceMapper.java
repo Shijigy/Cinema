@@ -17,35 +17,30 @@ public interface SysResourceMapper {
     List<SysResource> findAll();
 
     /**
-     * 查出所有菜单并包含其children
+     * 查出所有菜单并包含其直接children
      * @return
      */
     List<SysResource> findWithChildren();
 
     /**
-     * 根据id查询
+     * 根据父资源权限id查询权限
      * @param id
      * @return
      */
+    List<SysResource> findByParentId(Long id);
+
+    /**
+     * 查询所有按父子关系的权限
+     * @return
+     */
+    List<SysResource> findAllWithAllChildren();
+
     SysResource findById(Long id);
 
-    /**
-     * 添加演员角色
-     * @param sysResource
-     * @return 影响行数
-     */
     int add(SysResource sysResource);
 
-    /**
-     * 修改演员角色
-     * @param sysResource
-     */
     int update(SysResource sysResource);
 
-    /**
-     * 删除指定id的演员角色
-     * @param id
-     */
     int delete(Long id);
 
 }

@@ -16,6 +16,9 @@ Accept: application/json
 ### 查询所有资源包含其子菜单
 GET http://localhost:8181/sysResource/children
 
+### 按层级查询所有权限
+GET http://localhost:8181/sysResource/tree
+
 ### 查询一个
 GET http://localhost:8181/sysResource/11
 Accept: application/json

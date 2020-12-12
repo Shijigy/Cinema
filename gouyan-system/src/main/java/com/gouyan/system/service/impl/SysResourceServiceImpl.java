@@ -31,6 +31,11 @@ public class SysResourceServiceImpl implements SysResourceService {
     }
 
     @Override
+    public List<SysResource> findAllWithAllChildren() {
+        return sysResourceMapper.findAllWithAllChildren();
+    }
+
+    @Override
     public SysResource findById(Long id) {
         return sysResourceMapper.findById(id);
     }

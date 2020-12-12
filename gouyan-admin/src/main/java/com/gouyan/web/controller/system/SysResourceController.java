@@ -33,6 +33,11 @@ public class SysResourceController extends BaseController {
         return getResult(sysResourceService.findById(id));
     }
 
+    @GetMapping("/sysResource/tree")
+    public ResponseResult findAllWithAllChildren(){
+        return getResult(sysResourceService.findAllWithAllChildren());
+    }
+
     @PostMapping("/sysResource")
     public ResponseResult add(@Validated @RequestBody SysResource sysResource){
         return getResult(sysResourceService.add(sysResource));

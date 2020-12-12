@@ -13,6 +13,8 @@ public interface SysResourceService {
 
     List<SysResource> findWithChildren();
 
+    List<SysResource> findAllWithAllChildren();
+
     SysResource findById(Long id);
 
     int add(SysResource sysResource);
