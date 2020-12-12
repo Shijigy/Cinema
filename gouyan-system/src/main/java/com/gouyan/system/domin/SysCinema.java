@@ -30,8 +30,8 @@ public class SysCinema implements Serializable {
     @NotBlank(message = "影院名称不能为空")
     private String cinemaName;
 
-    @NotBlank(message = "影院品牌不能为空")
-    private String cinemaBrandId;
+    @NotNull(message = "影院品牌不能为空")
+    private Long cinemaBrandId;
 
     private String cinemaPicture;
 
