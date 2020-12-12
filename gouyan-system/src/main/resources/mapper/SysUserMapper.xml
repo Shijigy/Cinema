@@ -5,6 +5,8 @@
 <mapper namespace="com.gouyan.system.mapper.SysUserMapper">
 
     <resultMap id="SysUserMap" type="SysUser">
+        <id property="userId" column="user_id"></id>
+        <result property="roleId" column="role_id"></result>
         <association property="sysRole" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findById"></association>
     </resultMap>
 
