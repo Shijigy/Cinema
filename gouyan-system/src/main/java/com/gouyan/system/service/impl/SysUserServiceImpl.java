@@ -46,7 +46,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public int add(SysUser sysUser) {
-        if(!isUserNameUnique(sysUser.getUserName())){
+        if(!isUserNameUnique(sysUser.getUserName(), -1L)){
             throw new AuthenticationException("用户名重复");
         }
         //处理密码：md5 + salt + hash散列
@@ -60,8 +60,22 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public int update(SysUser sysUser) {
-        if(!isUserNameUnique(sysUser.getUserName())){
+        if(!isUserNameUnique(sysUser.getUserName(), sysUser.getUserId())){
             throw new AuthenticationException("用户名重复");
+        }
+        SysUser originUser = sysUserMapper.findById(sysUser.getUserId());
+        if(originUser == null){
+            throw new AuthenticationException("用户不存在");
+        }
+
+        if(!originUser.getPassword().equals(sysUser.getPassword())){
+            //修改了密码
+            //重新处理密码存储
+            String salt = SaltUtils.getSalt(8);
+            Md5Hash md5Hash = new Md5Hash(sysUser.getPassword(), salt, 1024);
+
+            sysUser.setPassword(md5Hash.toHex());
+            sysUser.setSalt(salt);
         }
         return sysUserMapper.update(sysUser);
     }
@@ -105,7 +119,13 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public boolean isUserNameUnique(String userName) {
-        return sysUserMapper.findUserNameCnt(userName) == 0;
+    public boolean isUserNameUnique(String userName, Long userId) {
+        List<Long> userIds = sysUserMapper.findUsersByName(userName);
+        for(Long id : userIds){
+            if(id.equals(userId)){
+                return true;
+            }
+        }
+        return userIds.isEmpty();
     }
 }

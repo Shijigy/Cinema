@@ -491,9 +491,19 @@ export default {
     async saveSeat(){
       this.editSeat.seatState = JSON.stringify(this.seats)
       console.log(this.editSeat)
+      let totalSeats = 0
+      for(let key in this.seats){
+        for(let j = 0; j < this.seats[key].length; j++){
+          if(this.seats[key][j] == 0){
+            totalSeats++
+          }
+        }
+      }
+
+      this.$set(this.editSeat, 'seatNums', totalSeats)
       const _this = this
       axios.defaults.headers.put['Content-Type'] = 'application/json'
-      axios.put('sysHall', JSON.stringify(_this.editSeat)).then(resp => {
+      await axios.put('sysHall', JSON.stringify(_this.editSeat)).then(resp => {
         if (resp.data.code !== 200){
           this.$message.error('安排座位失败！')
         }

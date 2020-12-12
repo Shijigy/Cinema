@@ -21,16 +21,16 @@
             :router="true"
             :default-active="$route.path">
           <!--一级菜单-->
-          <el-submenu :index="String(item.data.id)" v-for="item in menulist" :key="item.data.id">
+          <el-submenu :index="String(item.id)" v-for="item in menulist" :key="item.id">
             <!--一级菜单的模板区域-->
             <template slot="title">
               <!--图标-->
-              <i :class="iconlist[item.data.id]"></i>
+              <i :class="iconlist[item.id]"></i>
               <!--文本-->
-              <span>{{item.data.name}}</span>
+              <span>{{item.name}}</span>
             </template>
             <!--二级菜单-->
-            <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.data.children" :key="subItem.id">
+            <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id">
               <template slot="title">
                 <!--图标-->
                 <i class="el-icon-menu"></i>
@@ -55,221 +55,7 @@ export default {
   data(){
     return {
       //左侧菜单数据
-      menulist: [
-        {
-          "data":
-              {
-                "id": 1,
-                "name": "影院管理",
-                "path": null,
-                "children": [
-                  {
-                    "id": 11,
-                    "name": "影院信息管理",
-                    "path": "cinema",
-                    "children": []
-                  },
-                  {
-                    "id": 12,
-                    "name": "影院区域管理",
-                    "path": "cinemaArea",
-                    "children": []
-                  },
-                  {
-                    "id": 13,
-                    "name": "影院品牌管理",
-                    "path": "cinemaBrand",
-                    "children": []
-                  },
-                ]
-              },
-          "meta":
-              {
-                "msg": "获取菜单列表成功",
-                "status": 200
-              }
-        },
-        {
-          "data":
-              {
-                "id": 2,
-                "name": "电影管理",
-                "path": null,
-                "children": [
-                  {
-                    "id": 21,
-                    "name": "电影信息管理",
-                    "path": "movie",
-                    "children": []
-                  },
-                  {
-                    "id": 22,
-                    "name": "电影评论管理",
-                    "path": "movieComment",
-                    "children": []
-                  },
-                  {
-                    "id": 23,
-                    "name": "电影年代管理",
-                    "path": "movieAge",
-                    "children": []
-                  },
-                  {
-                    "id": 24,
-                    "name": "电影区域管理",
-                    "path": "movieArea",
-                    "children": []
-                  },
-                  {
-                    "id": 25,
-                    "name": "电影类别管理",
-                    "path": "movieCategory",
-                    "children": []
-                  },
-                  {
-                    "id": 26,
-                    "name": "电影播放时段管理",
-                    "path": "movieRuntime",
-                    "children": []
-                  }
-                ]
-              },
-          "meta":
-              {
-                "msg": "获取菜单列表成功",
-                "status": 200
-              }
-        },
-        {
-          "data":
-              {
-                "id": 3,
-                "name": "影厅管理",
-                "path": null,
-                "children": [
-                  {
-                    "id": 31,
-                    "name": "影厅信息管理",
-                    "path": "hall",
-                    "children": []
-                  },
-                  {
-                    "id": 32,
-                    "name": "影厅类别管理",
-                    "path": "hallCategory",
-                    "children": []
-                  }
-                ]
-              },
-          "meta":
-              {
-                "msg": "获取菜单列表成功",
-                "status": 200
-              }
-        },
-        {
-          "data":
-              {
-                "id": 4,
-                "name": "场次管理",
-                "path": null,
-                "children": [
-                  {
-                    "id": 41,
-                    "name": "场次信息管理",
-                    "path": "session",
-                    "children": []
-                  }
-                ]
-              },
-          "meta":
-              {
-                "msg": "获取菜单列表成功",
-                "status": 200
-              }
-        },
-        {
-          "data":
-              {
-                "id": 5,
-                "name": "演员管理",
-                "path": null,
-                "children": [
-                  {
-                    "id": 51,
-                    "name": "演员信息管理",
-                    "path": "actor",
-                    "children": []
-                  },
-                  {
-                    "id": 52,
-                    "name": "演员角色管理",
-                    "path": "actorRole",
-                    "children": []
-                  }
-                ]
-              },
-          "meta":
-              {
-                "msg": "获取菜单列表成功",
-                "status": 200
-              }
-        },
-        {
-          "data":
-              {
-                "id": 6,
-                "name": "用户管理",
-                "path": null,
-                "children": [
-                  {
-                    "id": 61,
-                    "name": "用户信息管理",
-                    "path": "user",
-                    "children": []
-                  },
-                  {
-                    "id": 62,
-                    "name": "订单管理",
-                    "path": "bill",
-                    "children": []
-                  },
-                  {
-                    "id": 63,
-                    "name": "用户爱好管理",
-                    "path": "hobby",
-                    "children": []
-                  }
-                ]
-              },
-          "meta":
-              {
-                "msg": "获取菜单列表成功",
-                "status": 200
-              }
-        },
-        {
-          "data":
-              {
-                "id": 7,
-                "name": "权限管理",
-                "path": null,
-                "children": [
-                  {
-                    "id": 71,
-                    "name": "角色信息管理",
-                    "path": "role",
-                    "children": []
-                  }
-                ]
-              },
-          "meta":
-              {
-                "msg": "获取菜单列表成功",
-                "status": 200
-              }
-        },
-      ],
+      menulist:[],
       iconlist: {
         '1': 'el-icon-s-home',
         '2': 'el-icon-video-camera-solid',
@@ -283,11 +69,20 @@ export default {
     }
   },
   name: "Home",
+  created(){
+    this.getMenuList()
+  },
   methods:{
     logout(){
       //清空sessionStorage
       window.sessionStorage.clear();
       this.$router.push('/login')
+    },
+    async getMenuList(){
+      const { data : res} = await axios.get('sysResource/children')
+      if(res.code !== 200) return this.$message.error(res.msg)
+      this.menulist = res.data
+      console.log(this.menulist)
     },
     // 菜单展开与闭合：点击事件
     toggleCollapse(){

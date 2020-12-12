@@ -28,5 +28,5 @@ public interface SysUserService {
 
     LoginUser findLoginUser(SysUserVo sysUserVo);
 
-    boolean isUserNameUnique(String userName);
+    boolean isUserNameUnique(String userName, Long userId);
 }
