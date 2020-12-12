@@ -26,12 +26,9 @@ Content-Type: application/json
 
 {
   "userId": 4,
-  "userName": "张三",
+  "userName": "李四七",
   "password": "aaa",
-  "email": "1184848785@qq.com",
-  "phoneNumber": "13333333333",
-  "sex": true,
-  "userPicture": "http:...",
+  "userPicture": "[]",
   "information": "{\"birthday\":\"1999-2-10\", \"state\":\"很开心\", \"hobbies\": [1,2,3], \"signature\":\"夹断哥花式擦屁股\"}"
 }
 

@@ -41,6 +41,11 @@ public class SysUser implements Serializable {
     private Boolean sex;
     //用户头像
     private String userPicture;
+    //用户对应的角色id，为简化操作，采用1对1
+    private Long roleId;
     //用户信息
     private String information;
+
+    //用户的角色
+    private SysRole sysRole;
 }

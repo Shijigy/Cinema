@@ -63,6 +63,20 @@ public class SysUserServiceImpl implements SysUserService {
         if(!isUserNameUnique(sysUser.getUserName(), sysUser.getUserId())){
             throw new AuthenticationException("用户名重复");
         }
+        SysUser originUser = sysUserMapper.findById(sysUser.getUserId());
+        if(originUser == null){
+            throw new AuthenticationException("用户不存在");
+        }
+
+        if(!originUser.getPassword().equals(sysUser.getPassword())){
+            //修改了密码
+            //重新处理密码存储
+            String salt = SaltUtils.getSalt(8);
+            Md5Hash md5Hash = new Md5Hash(sysUser.getPassword(), salt, 1024);
+
+            sysUser.setPassword(md5Hash.toHex());
+            sysUser.setSalt(salt);
+        }
         return sysUserMapper.update(sysUser);
     }
 

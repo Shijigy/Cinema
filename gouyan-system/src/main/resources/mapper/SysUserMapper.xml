@@ -4,7 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gouyan.system.mapper.SysUserMapper">
 
-    <select id="findAll" resultType="SysUser" parameterType="SysUser">
+    <resultMap id="SysUserMap" type="SysUser">
+        <association property="sysRole" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findById"></association>
+    </resultMap>
+
+    <select id="findAll" resultMap="SysUserMap" parameterType="SysUser">
         select * from sys_user
         <where>
             <if test="userName != null and userName != ''">
@@ -16,17 +20,17 @@
             <if test="phoneNumber != null and phoneNumber != ''">
                 and phone_number like concat('%', #{phoneNumber}, '%')
             </if>
-            <if test="sex != null and sex != ''">
+            <if test="sex != null">
                 and sex = #{sex}
             </if>
         </where>
     </select>
 
-    <select id="findById" resultType="SysUser" parameterType="long">
+    <select id="findById" resultMap="SysUserMap" parameterType="long">
         select * from sys_user where user_id = #{id}
     </select>
 
-    <select id="findByName" resultType="SysUser" parameterType="String">
+    <select id="findByName" resultMap="SysUserMap" parameterType="String">
         select * from sys_user where user_name = #{userName}
     </select>
 
@@ -43,6 +47,7 @@
         <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
         <if test="userPicture != null and userPicture != ''">user_picture,</if>
         <if test="information != null and information != ''" >information,</if>
+        role_id,
         sex
         )
         values(
@@ -53,6 +58,7 @@
         <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
         <if test="userPicture != null and userPicture != ''">#{userPicture},</if>
         <if test="information != null and information != ''" >#{information},</if>
+        #{roleId},
         #{sex})
     </update>
 
@@ -65,6 +71,7 @@
         <if test="phoneNumber != null and phoneNumber != ''">phone_number = #{phoneNumber}, </if>
         <if test="userPicture != null and userPicture != ''">user_picture = #{userPicture},</if>
         <if test="information != null and information != ''" >information = #{information},</if>
+        <if test="roleId != null and roleId != 0">role_id = #{roleId}, </if>
         sex = #{sex}
         where user_id = #{userId}
     </update>
@@ -85,6 +92,7 @@
         <result property="sysUser.information" column="information"></result>
         <result property="cinemaId" column="cinema_id"></result>
         <result property="cinemaName" column="cinema_name"></result>
+        <association property="sysRole" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findById"></association>
     </resultMap>
 
     <!-- 查询登录用户信息 -->
