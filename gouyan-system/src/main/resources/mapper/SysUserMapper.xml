@@ -49,7 +49,7 @@
         <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
         <if test="userPicture != null and userPicture != ''">user_picture,</if>
         <if test="information != null and information != ''" >information,</if>
-        role_id,
+        <if test="roleId != null and roleId != 0"> role_id, </if>
         sex
         )
         values(
@@ -60,7 +60,7 @@
         <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
         <if test="userPicture != null and userPicture != ''">#{userPicture},</if>
         <if test="information != null and information != ''" >#{information},</if>
-        #{roleId},
+        <if test="roleId != null and roleId != 0">#{roleId}, </if>
         #{sex})
     </update>
 
