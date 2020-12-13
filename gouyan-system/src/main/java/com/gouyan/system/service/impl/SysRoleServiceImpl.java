@@ -6,6 +6,7 @@ import com.gouyan.system.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -43,6 +44,24 @@ public class SysRoleServiceImpl implements SysRoleService {
         int rows = 0;
         for(Long id : ids){
             rows += sysRoleMapper.delete(id);
+        }
+        return rows;
+    }
+
+    @Override
+    public int allotRight(Long roleId, Long[] keys) {
+        int rows = 0;
+        HashSet<Long> originResources = new HashSet<>(sysRoleMapper.findAllRights(roleId));
+
+        for(Long id : keys){
+            if(originResources.contains(id)){
+                originResources.remove(id);
+            }else{
+                rows += sysRoleMapper.addRight(roleId, id);
+            }
+        }
+        for(Long id : originResources){
+            rows += sysRoleMapper.deleteRight(roleId, id);
         }
         return rows;
     }

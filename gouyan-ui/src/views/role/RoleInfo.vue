@@ -34,7 +34,8 @@
                          @click="deleteRoleById(scope.row.roleId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="分配权限" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="warning" icon="el-icon-setting" size="mini" @click="showSetRightDialog(scope.row)"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="mini"
+                         @click="showSetRightDialog(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -94,12 +95,19 @@
     <el-dialog
         title="提示"
         :visible.sync="setRightDialogVisible"
-        width="50%">
+        width="50%"
+        @close="setRightDialogClosed">
       <!-- 树形控件 -->
-      <el-tree :data="resourcelist" :props="treeProps" node-key="id" :default-checked-keys="defKeys" show-checkbox default-expand-all></el-tree>
+      <el-tree :data="resourcelist"
+               :props="treeProps"
+               node-key="id"
+               :default-checked-keys="defKeys"
+               ref="treeRef"
+               show-checkbox
+               default-expand-all></el-tree>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRightDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="setRightDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="submitRights">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -157,7 +165,9 @@ export default {
       },
       multipleSelection: [],
       //分配权限对话框的显示与隐藏
-      setRightDialogVisible : false
+      setRightDialogVisible: false,
+      //当前分配权限的id
+      roleId: ''
     }
   },
   created() {
@@ -289,20 +299,39 @@ export default {
     },
     //展示分配权限对话框
     async showSetRightDialog(role) {
-      const {data : res} = await axios.get('sysResource/tree')
+      this.roleId = role.roleId
+      const {data: res} = await axios.get('sysResource/tree')
       this.resourcelist = res.data
-
-      this.getLeafKeys(role, this.defKeys)
-
+      console.log(role)
+      await this.getLeafKeys(role, this.defKeys)
+      console.log('defKeys' + this.defKeys)
       this.setRightDialogVisible = true
     },
     //获取角色对应的所有具体权限id
-    getLeafKeys(node, arr){
-      if(!node.children){
+    getLeafKeys(node, arr) {
+      if(!node) return
+      if (!node.children) {
         return arr.push(node.id)
       }
 
       node.children.forEach(item => this.getLeafKeys(item, arr))
+    },
+    //关闭分配权限对话框，刷新defKeys
+    setRightDialogClosed() {
+      this.defKeys = []
+    },
+    async submitRights() {
+      const keys = [
+          ...this.$refs.treeRef.getCheckedKeys(true)
+      ]
+      const _this = this
+      axios.defaults.headers.post['Content-Type'] = 'application/json'
+      const {data : res} = await axios.post('sysRole/' + _this.roleId, JSON.stringify(keys))
+      if(res.code != 200) return this.$message.error("更新权限失败！")
+
+      this.$message.success("更新权限成功！")
+      this.getRoleList()
+      this.setRightDialogVisible = false
     }
   }
 }

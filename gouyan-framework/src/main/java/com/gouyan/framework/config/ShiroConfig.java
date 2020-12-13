@@ -32,8 +32,8 @@ public class ShiroConfig {
 
         //配置受限资源
         Map<String, String> map = new HashMap<>();
-        //map.put("/sysUser/login", "anon");//放行
-        //map.put("/**", "jwt");//请求这个资源需要认证与授权
+        map.put("/sysUser/login", "anon");//放行
+        map.put("/**", "jwt");//请求这个资源需要认证与授权
 
         // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<String, Filter>(1);

@@ -11,10 +11,10 @@
     <el-card class="box-card">
       <el-row :gutter="20">
         <el-col :span="2">
-          <el-button type="primary" @click="addDialogVisible = true">添加年代</el-button>
+          <el-button type="primary" @click="addDialogVisible = true" v-has>添加年代</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="danger" @click="multipleDelete">批量删除年代</el-button>
+          <el-button type="danger" @click="multipleDelete" v-has>批量删除年代</el-button>
         </el-col>
       </el-row>
 
@@ -26,10 +26,10 @@
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <el-tooltip effect="dark" content="修改电影年代" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.movieAgeId)"></el-button>
+              <el-button v-has type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.movieAgeId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除年代" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteMovieAgeById(scope.row.movieAgeId)"></el-button>
+              <el-button v-has type="danger" icon="el-icon-delete" size="mini" @click="deleteMovieAgeById(scope.row.movieAgeId)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>

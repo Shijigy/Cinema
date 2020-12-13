@@ -27,3 +27,9 @@ Content-Type: application/json
   "roleName": "普通影厅",
   "roleDesc": "测试一下"
 }
+
+### 给角色分配权限
+POST http://localhost:8181/sysRole/1
+Content-Type: application/json
+
+[111, 121, 131]

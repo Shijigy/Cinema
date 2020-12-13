@@ -43,4 +43,15 @@ public class SysRoleController extends BaseController {
         return getResult(sysRoleService.delete(ids));
     }
 
+    /**
+     * 给指定 id 的角色分配权限，包括增加或者删除权限
+     * @param roleId
+     * @param keys
+     * @return
+     */
+    @PostMapping("/sysRole/{roleId}")
+    public ResponseResult allotRight(@PathVariable Long roleId, @RequestBody Long[] keys){
+        return getResult(sysRoleService.allotRight(roleId, keys));
+    }
+
 }

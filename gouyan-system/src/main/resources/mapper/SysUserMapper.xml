@@ -92,9 +92,11 @@
         <result property="sysUser.sex" column="sex"></result>
         <result property="sysUser.userPicture" column="user_picture"></result>
         <result property="sysUser.information" column="information"></result>
+        <result property="sysUser.roleId" column="role_id"></result>
         <result property="cinemaId" column="cinema_id"></result>
         <result property="cinemaName" column="cinema_name"></result>
         <association property="sysUser.sysRole" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findById"></association>
+        <association property="sysUser.sysRole.children" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findByRoleId"></association>
     </resultMap>
 
     <!-- 查询登录用户信息 -->

@@ -30,4 +30,8 @@ public class SysRole implements Serializable {
     //角色描述
     @NotBlank(message = "角色描述不能为空")
     private String roleDesc;
+
+
+    //角色拥有的权限，分多级权限存储，取名为children方便读取所有权限
+    private List<SysResource> children;
 }

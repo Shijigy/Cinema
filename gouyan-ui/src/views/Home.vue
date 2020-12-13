@@ -79,10 +79,8 @@ export default {
       this.$router.push('/login')
     },
     async getMenuList(){
-      const { data : res} = await axios.get('sysResource/children')
-      if(res.code !== 200) return this.$message.error(res.msg)
-      this.menulist = res.data
-      console.log(this.menulist)
+      const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
+      this.menulist = loginUser.sysUser.sysRole.children
     },
     // 菜单展开与闭合：点击事件
     toggleCollapse(){

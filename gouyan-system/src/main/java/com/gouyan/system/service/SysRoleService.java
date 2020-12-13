@@ -18,4 +18,6 @@ public interface SysRoleService {
     int update(SysRole sysRole);
 
     int delete(Long[] ids);
+
+    int allotRight(Long roleId, Long[] resourceIds);
 }

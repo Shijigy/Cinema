@@ -24,7 +24,7 @@ import UserHobby from "@/views/user/UserHobby";
 import UserInfo from "@/views/user/UserInfo";
 import ResourceInfo from "@/views/role/ResourceInfo";
 import RoleInfo from "@/views/role/RoleInfo";
-
+import Error404 from "@/views/Error404";
 
 Vue.use(VueRouter)
 
@@ -44,26 +44,30 @@ const routes = [
     redirect: '/welcome',
     children: [
       { path: '/welcome', component: Welcome },
-      { path: '/cinema', component: CinemaInfo},
-      { path: '/cinemaArea', component: CinemaArea},
-      { path: '/cinemaBrand', component: CinemaBrand},
-      { path: '/movie', component: MovieInfo},
-      { path: '/movieComment', component: MovieComment},
-      { path: '/movieAge', component: MovieAge},
-      { path: '/movieArea', component: MovieArea},
-      { path: '/movieCategory', component: MovieCategory},
-      { path: '/movieRuntime', component: MovieRuntime},
+      { path: '/cinema', component: CinemaInfo, meta: { btnPermission: 'admin' }},
+      { path: '/cinemaArea', component: CinemaArea, meta: { btnPermission: 'admin' }},
+      { path: '/cinemaBrand', component: CinemaBrand, meta: { btnPermission: 'admin' }},
+      { path: '/movie', component: MovieInfo, meta: { btnPermission: 'admin' }},
+      { path: '/movieComment', component: MovieComment, meta: { btnPermission: 'admin' }},
+      { path: '/movieAge', component: MovieAge, meta: { btnPermission: 'admin' }},
+      { path: '/movieArea', component: MovieArea, meta: { btnPermission: 'admin' }},
+      { path: '/movieCategory', component: MovieCategory, meta: { btnPermission: 'admin' }},
+      { path: '/movieRuntime', component: MovieRuntime, meta: { btnPermission: 'admin' }},
       { path: '/hall', component: HallInfo},
-      { path: '/hallCategory', component: HallCategory},
+      { path: '/hallCategory', component: HallCategory, meta: { btnPermission: 'admin' }},
       { path: '/session', component: SessionInfo},
-      { path: '/actor', component: ActorInfo},
-      { path: '/actorRole', component: ActorRole},
-      { path: '/user', component: UserInfo},
-      { path: '/bill', component: BillInfo},
-      { path: '/hobby', component: UserHobby},
-      { path: '/role', component: RoleInfo},
-      { path: '/resource', component: ResourceInfo}
+      { path: '/actor', component: ActorInfo, meta: { btnPermission: 'admin' }},
+      { path: '/actorRole', component: ActorRole, meta: { btnPermission: 'admin' }},
+      { path: '/user', component: UserInfo, meta: { btnPermission: 'admin' }},
+      { path: '/bill', component: BillInfo, meta: { btnPermission: 'admin' }},
+      { path: '/hobby', component: UserHobby, meta: { btnPermission: 'admin' }},
+      { path: '/role', component: RoleInfo, meta: { btnPermission: 'admin' }},
+      { path: '/resource', component: ResourceInfo, meta: { btnPermission: 'admin' }}
     ]
+  },
+  {
+    path: '/*',
+    component: Error404
   }
 ]
 
@@ -78,7 +82,7 @@ router.beforeEach((to, from, next) =>{
   //from 从哪个页面来
   //next 一个放行函数
 
-  if(to.path == '/login') return next();
+  if(to.path == '/login' || to.path == '/404') return next();
   //获取token
   const token = window.sessionStorage.getItem("token")
   if(!token){
