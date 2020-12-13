@@ -60,7 +60,7 @@ public class JwtUtil {
     /**
      * 生成token签名EXPIRE_TIME 分钟后过期
      *
-     * @param username 用户名(电话号码)
+     * @param username 用户名
      * @param secret   用户的密码
      * @return 加密的token
      */

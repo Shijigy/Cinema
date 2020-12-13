@@ -17,7 +17,7 @@ Vue.prototype.$_has = function (value) {
     if (btnPermission == undefined || btnPermission == null) {
         return false;
     }
-    console.log(value + " " + btnPermission)
+    //console.log(value + " " + btnPermission)
     let res = value == btnPermission
     if(res) return true
     return false

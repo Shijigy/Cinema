@@ -11,7 +11,7 @@
     <el-card class="box-card">
       <el-row :gutter="20">
         <el-col :span="4">
-          <el-select v-model="selectedCinemaId" placeholder="请选择影院名称" clearable >
+          <el-select v-model="selectedCinemaId" placeholder="请选择影院名称" clearable v-has>
             <el-option
                 v-for="item in cinemaList"
                 :key="item.cinemaId"
@@ -79,10 +79,10 @@
         </el-table-column>
         <!--是否启用-->
 
-        <el-table-column label="操作" width="180">
+        <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-tooltip effect="dark" content="修改场次信息" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.sessionId)"></el-button>
+              <el-button v-if="isCinemaOwner(scope.row.cinemaId)" type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.sessionId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除影厅" placement="top" :enterable="false" :open-delay="500">
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteSessionById(scope.row.sessionId)"></el-button>
@@ -113,14 +113,7 @@
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="150px">
         <!--prop：在addFormRules中定义校验规则， v-model：双向绑定数据-->
         <el-form-item label="影院名称" prop="cinemaId">
-          <el-select v-model="addForm.cinemaId" placeholder="请选择影院名称" clearable >
-            <el-option
-                v-for="item in cinemaList"
-                :key="item.cinemaId"
-                :label="item.cinemaName"
-                :value="item.cinemaId">
-            </el-option>
-          </el-select>
+          <el-input v-model="curCinemaName" disabled></el-input>
         </el-form-item>
         <el-form-item label="影厅名称" prop="hallId">
           <el-select v-model="addForm.hallId" placeholder="请选择影厅名称" clearable >
@@ -181,14 +174,7 @@
     <el-dialog title="修改场次" :visible.sync="editDialogVisible" width="60%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="150px">
         <el-form-item label="影院名称" prop="cinemaId">
-          <el-select v-model="editForm.cinemaId" placeholder="请选择影院名称" clearable >
-            <el-option
-                v-for="item in cinemaList"
-                :key="item.cinemaId"
-                :label="item.cinemaName"
-                :value="item.cinemaId">
-            </el-option>
-          </el-select>
+          <el-input v-model="curCinemaName" disabled></el-input>
         </el-form-item>
         <el-form-item label="影厅名称" prop="hallId">
           <el-select v-model="editForm.hallId" placeholder="请选择影厅名称" clearable >
@@ -302,9 +288,6 @@ export default {
       },
       //验证表单规则对象
       addFormRules: {
-        cinemaId: [
-          { required: true, message: '请选择影院名称', trigger: 'change' }
-        ],
         hallId: [
           { required: true, message: '请选择影厅名称', trigger: 'change' }
         ],
@@ -322,17 +305,11 @@ export default {
         ],
         sessionPrice: [
           { required: true, message: '请输入场次价格', trigger: 'blur' }
-        ],
-        sessionTips: [
-          { required: true, message: '请输入提示信息', trigger: 'blur' }
         ]
       },
       editDialogVisible: false,
       editForm: {},
       editFormRules: {
-        cinemaId: [
-          { required: true, message: '请选择影院名称', trigger: 'change' }
-        ],
         hallId: [
           { required: true, message: '请选择影厅名称', trigger: 'change' }
         ],
@@ -350,9 +327,6 @@ export default {
         ],
         sessionPrice: [
           { required: true, message: '请输入场次价格', trigger: 'blur' }
-        ],
-        sessionTips: [
-          { required: true, message: '请输入提示信息', trigger: 'blur' }
         ]
       },
       selectedCinemaId: '',
@@ -392,6 +366,8 @@ export default {
       rowNums: '',
       colNums: '',
       rowStart: '',
+      curCinemaName: '',
+      loginUser: JSON.parse(window.sessionStorage.getItem('loginUser'))
     }
   },
   created() {
@@ -400,10 +376,15 @@ export default {
     this.getCinemaList()
     this.getMovieList()
     this.getMovieRuntimeList()
+    this.curCinemaName = this.loginUser.cinemaName
   },
   methods: {
     getSessionList() {
       this.queryInfo.cinemaId = this.selectedCinemaId
+      //非系统管理员只能查看自己影院的场次信息
+      if(window.sessionStorage.getItem("btnPermission") === 'normal'){
+        this.queryInfo.cinemaId = JSON.parse(window.sessionStorage.getItem('loginUser')).cinemaId
+      }
       this.queryInfo.movieId = this.selectedMovieId
       this.queryInfo.movieRuntimeId = this.selectedMovieRuntimeId
       this.queryInfo.sessionDate = this.selectedDate
@@ -443,6 +424,9 @@ export default {
         console.log(valid)
         if (!valid) return
 
+        //验证通过，将登录用户的影院id赋值给表单
+        this.addForm.cinemaId = this.loginUser.cinemaId
+
         //查询影厅信息，查出对应排数和排座位数，填充sessionSeats字段
         await axios.get('sysHall/' + this.addForm.cinemaId + '/' + this.addForm.hallId).then(resp => {
           _this.rowNums = resp.data.data.rowNums
@@ -480,20 +464,19 @@ export default {
       })
     },
     // 显示修改对话框，回显数据
-    showEditDialog(id){
+    async showEditDialog(id){
       const _this = this
-      // axios.get('sysHall/' + id1 + '/' + id2 ).then(resp => {
-      //   console.log(resp)
-      //   _this.editForm = resp.data.data
-      // })
+      const { data : res} = await axios.get('sysSession/' + id)
+      this.editForm = res.data
       this.editDialogVisible = true
     },
     // 监听修改对话框的关闭事件
     editDialogClosed(){
       this.$refs.editFormRef.resetFields()
     },
-    // 修改影厅分类信息并提交
+    // 修改场次信息并提交
     editSessionInfo(){
+      this.editForm.cinemaId = this.loginUser.cinemaId
       let row = this.editForm.rowNums
       let col = this.editForm.seatNumsRow
       this.$set(this.editForm, 'seatNums', row * col)
@@ -512,16 +495,16 @@ export default {
         if (!valid) return
         let success = true
         axios.defaults.headers.put['Content-Type'] = 'application/json'
-        await axios.put('/sysHall', JSON.stringify(_this.editForm)).then(resp => {
+        await axios.put('/sysSession', JSON.stringify(_this.editForm)).then(resp => {
           if (resp.data.code !== 200){
-            this.$message.error('修改影厅信息失败！')
+            this.$message.error('修改场次信息失败！')
             success = false
           }
         })
         if (!success) return
         this.editDialogVisible = false
-        this.getHallList()
-        this.$message.success('修改影厅信息成功！')
+        this.getSessionList()
+        this.$message.success('修改场次信息成功！')
       })
     },
     // 监听多选框变化
@@ -589,7 +572,7 @@ export default {
     },
     getHallList(){
       const _this = this
-      axios.get('sysHall/').then(resp => {
+      axios.get('sysHall?cinemaId=' + this.loginUser.cinemaId).then(resp => {
         _this.hallList = resp.data.data;
       })
     },
@@ -627,6 +610,9 @@ export default {
       console.log(this.col)
       this.checkDialogWidth = 200 + this.col * 40 + 'px'
       this.checkDialogVisible = true
+    },
+    isCinemaOwner(cinemaId){
+      return this.loginUser.cinemaId === cinemaId
     }
   }
 }

@@ -17,10 +17,10 @@
           <el-button icon="el-icon-search" @click="getActorList">搜索</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="primary" @click="addDialogVisible = true">添加演员</el-button>
+          <el-button type="primary" @click="addDialogVisible = true" v-has>添加演员</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="danger" @click="multipleDelete">批量删除</el-button>
+          <el-button type="danger" @click="multipleDelete" v-has>批量删除</el-button>
         </el-col>
       </el-row>
 
@@ -48,10 +48,10 @@
         <el-table-column label="操作" width="120">
           <template slot-scope="scope">
             <el-tooltip effect="dark" content="修改演员信息" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.actorId)"></el-button>
+              <el-button v-has type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.actorId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除演员" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteActorById(scope.row.actorId)"></el-button>
+              <el-button v-has type="danger" icon="el-icon-delete" size="mini" @click="deleteActorById(scope.row.actorId)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -111,8 +111,15 @@
           <el-input v-model="addForm.actorInformation"></el-input>
         </el-form-item>
         <el-form-item label="演员图片">
-          <el-upload action="" list-type="picture-card" :auto-upload="false"
-                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef" :http-request="submitFile">
+          <el-upload action="" list-type="picture-card"
+                     :auto-upload="false"
+                     :file-list="pics"
+                     :limit="1"
+                     :on-change="handleChange"
+                     :on-success="handleSuccess"
+                     :on-error="handleError"
+                     :on-exceed="handleExceed"
+                     ref="pictureRef" :http-request="submitFile">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -178,8 +185,17 @@
           <el-input v-model="editForm.actorInformation"></el-input>
         </el-form-item>
         <el-form-item label="演员图片">
-          <el-upload action="" list-type="picture-card" :auto-upload="false"
-                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureEditRef" :http-request="submitFile">
+          <el-upload action=""
+                     list-type="picture-card"
+                     :auto-upload="false"
+                     :file-list="pics"
+                     :limit="1"
+                     :on-change="handleChange"
+                     :on-success="handleSuccess"
+                     :on-error="handleError"
+                     :on-exceed="handleExceed"
+                     ref="pictureEditRef"
+                     :http-request="submitFile">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -287,7 +303,7 @@ export default {
   },
   methods: {
     getActorList() {
-      this.queryInfo.actorName
+      this.queryInfo.actorName = this.inputActorName
       this.queryInfo.actorId = this.selectedActorId
       const _this = this;
       axios.get('sysActor', {params: _this.queryInfo}).then(resp => {
@@ -464,6 +480,9 @@ export default {
     handleError(err){
       console.log(err)
     },
+    handleExceed(){
+      this.$message.error("用户头像最多上传一张！")
+    },
     async submitFile(){
       const _this = this
       for (let i = 0; i < this.pics.length; i++){
@@ -475,7 +494,7 @@ export default {
         }
         let file = this.pics[i].raw
         formData.append('file', file)
-        await axios.post('http://127.0.0.1:8181/upload/cinema', formData).then(response =>{
+        await axios.post('http://127.0.0.1:8181/upload/actor', formData).then(response =>{
           _this.pictureList.push(response.data.data)
         })
       }
