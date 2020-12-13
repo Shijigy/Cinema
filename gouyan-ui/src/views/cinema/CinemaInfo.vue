@@ -141,7 +141,7 @@
           <el-input v-model="addForm.cinemaAddress"></el-input>
         </el-form-item>
         <el-form-item label="用户" prop="userId">
-          <el-select v-model="addForm.userId" placeholder="请选择影院区域" clearable >
+          <el-select v-model="addForm.userId" placeholder="请选择用户" clearable >
             <el-option
                 v-for="item in userList"
                 :key="item.userId"
