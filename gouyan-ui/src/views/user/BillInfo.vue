@@ -29,7 +29,7 @@
           <el-button icon="el-icon-search" @click="getBillList">搜索</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="danger" @click="multipleDelete">批量删除</el-button>
+          <el-button type="danger" @click="multipleDelete" v-has>批量删除</el-button>
         </el-col>
       </el-row>
 
@@ -53,7 +53,7 @@
         <el-table-column label="操作" width="70px">
           <template slot-scope="scope">
             <el-tooltip effect="dark" content="删除影厅" placement="top" :enterable="false" :open-delay="500">
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteBillById(scope.row.billId)"></el-button>
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteBillById(scope.row.billId)" v-has></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
