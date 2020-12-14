@@ -1,7 +1,7 @@
 <template>
   <el-container class="home-container">
     <el-header>
-      <div class="span-container" style="padding: 5px">
+      <div class="span-container" style="padding: 5px" @click="toWelcome">
         <img src="../assets/logo.png" alt="" height="40px" width="40px">
         <span>狗眼电影后台管理系统</span>
       </div>
@@ -85,6 +85,9 @@ export default {
     // 菜单展开与闭合：点击事件
     toggleCollapse(){
       this.isCollapsed = !this.isCollapsed
+    },
+    toWelcome(){
+      this.$router.push('/welcome')
     }
   }
 }
