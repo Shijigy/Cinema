@@ -120,7 +120,7 @@
             <if test=" movieNameCn != null and movieNameCn != ''">movie_name_cn,</if>
             <if test=" movieNameEn != null and movieNameEn != ''">movie_name_en,</if>
             <if test=" movieLength != null and movieLength != 0">movie_length,</if>
-            <if test=" moviePoster != null and moviePoster != ''">moviePoster,</if>
+            <if test=" moviePoster != null and moviePoster != ''">movie_poster,</if>
             <if test=" movieAreaId != null and movieAreaId != 0">movie_area_id,</if>
             <if test=" movieIntroduction != null and movieIntroduction != ''">movie_introduction,</if>
             <if test=" releaseDate != null">release_date,</if>
