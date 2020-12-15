@@ -142,4 +142,8 @@ div > span{
   background: url("../assets/welcome.jpg");
   background-size: cover;
 }
+
+.el-menu{
+  border: solid 0 grey;
+}
 </style>

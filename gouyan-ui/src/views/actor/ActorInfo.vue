@@ -45,7 +45,7 @@
         <el-table-column prop="actorBloodType" label="血型"></el-table-column>
         <el-table-column prop="actorConstellation" label="星座"></el-table-column>
         <el-table-column prop="actorNationality" label="国籍"></el-table-column>
-        <el-table-column prop="actorInformation" label="信息"></el-table-column>
+        <el-table-column prop="actorInformation" label="信息" :show-overflow-tooltip="true"></el-table-column>
         <!--是否启用-->
 
         <el-table-column label="操作" width="120">
@@ -330,6 +330,8 @@ export default {
     // 监听添加对话框的关闭事件
     addDialogClosed(){
       this.$refs.addFormRef.resetFields()
+      this.pictureList = []
+      this.pics = []
     },
     // 监听添加按钮
     async addActor() {
@@ -428,11 +430,11 @@ export default {
       console.log(ids)
       await axios.delete('sysActor/' + ids).then(resp => {
         if (resp.data.code !== 200){
-          this.$message.success('批量删除演员分类失败！')
+          this.$message.success('批量删除演员失败！')
         }
       })
       this.getActorList()
-      this.$message.success('批量删除演员分类成功！')
+      this.$message.success('批量删除演员成功！')
     },
     //根据id删除对应的演员分类
     async deleteActorById(id){
