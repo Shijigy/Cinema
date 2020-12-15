@@ -171,9 +171,9 @@
 
     <select id="findMovieById" parameterType="Long" resultMap="MovieMap">
         select m.*, a.*, ar.* from sys_movie m
-        join sys_actor_movie am on m.movie_id = am.movie_id
-        join sys_actor a on a.actor_id = am.actor_id
-        join sys_actor_role ar on ar.actor_role_id = am.actor_role_id
+        left join sys_actor_movie am on m.movie_id = am.movie_id
+        left join sys_actor a on a.actor_id = am.actor_id
+        left join sys_actor_role ar on ar.actor_role_id = am.actor_role_id
         where m.movie_id = #{id}
     </select>
 
