@@ -118,7 +118,7 @@
         <el-form-item label="上映时间" prop="releaseDate">
           <el-date-picker
               v-model="addForm.releaseDate"
-              value-format="yyyy-MM-dd hh:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
               placeholder="选择日期">
           </el-date-picker>
@@ -178,7 +178,7 @@
     </el-dialog>
 
 
-<!--    &lt;!&ndash;修改影厅对话框&ndash;&gt;-->
+    <!-- 修改电影信息对话框 -->
     <el-dialog title="修改电影信息" :visible.sync="editDialogVisible" width="60%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
         <el-form-item label="电影中文名称" prop="movieNameCn">
@@ -199,7 +199,7 @@
         <el-form-item label="上映时间" prop="releaseDate">
           <el-date-picker
               v-model="editForm.releaseDate"
-              value-format="yyyy-MM-dd hh:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
               type="datetime"
               placeholder="选择日期">
           </el-date-picker>

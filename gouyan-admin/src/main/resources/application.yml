@@ -51,3 +51,8 @@ pagehelper:
 
 server:
   port: 8181
+
+# anji-plus验证码配置
+aj:
+  captcha:
+    water-mark:

@@ -22,6 +22,7 @@ export default {
 <style>
 
 #nprogress .bar{
+  position: absolute !important;
   top: 60px !important;
   height: 3px !important;
 }

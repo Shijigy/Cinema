@@ -83,7 +83,7 @@
         </el-table-column>
         <el-table-column prop="sysCinemaArea.city" label="城市"></el-table-column>
         <el-table-column prop="sysCinemaArea.cinemaAreaName" label="区域"></el-table-column>
-        <el-table-column prop="cinemaAddress" label="影院地址"></el-table-column>
+        <el-table-column prop="cinemaAddress" label="影院地址" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column prop="user.userName" label="管理员"></el-table-column>
         <el-table-column prop="entryDate" label="入驻日期"></el-table-column>
 

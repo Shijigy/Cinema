@@ -19,7 +19,7 @@ html, body, #app{
 }
 
 .board{
-    margin-top: 20px;
+    margin-top: 0px;
     border-bottom: gray solid 0;
     background-color: white;
     padding: 5px 5px;
