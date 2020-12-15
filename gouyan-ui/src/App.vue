@@ -21,4 +21,9 @@ export default {
 
 <style>
 
+#nprogress .bar{
+  top: 60px !important;
+  height: 3px !important;
+}
+
 </style>

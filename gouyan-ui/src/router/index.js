@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import { Message }from 'element-ui'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 import Login from '@/views/Login';
 import Welcome from "@/views/Welcome";
@@ -83,6 +85,9 @@ router.beforeEach((to, from, next) =>{
   //next 一个放行函数
 
   if(to.path == '/login' || to.path == '/404') return next();
+
+  //顶部进度条
+  NProgress.start()
   //获取token
   const token = window.sessionStorage.getItem("token")
   if(!token){
@@ -90,6 +95,10 @@ router.beforeEach((to, from, next) =>{
     return next('/login');
   }
   next();
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

@@ -17,17 +17,31 @@
         </el-form-item>
         <!-- 按扭区域 -->
         <el-form-item class="btns">
-          <el-button size="medium" :round="true" type="primary" @click="login">点击登录</el-button>
+          <el-button size="medium" :round="true" type="primary" @click="useVerify">点击登录</el-button>
           <el-button size="medium" :round="true" type="info" @click="resetLoginForm">恢复默认</el-button>
         </el-form-item>
       </el-form>
+    </div>
+
+    <div>
+      <!-- 拼图验证码 -->
+      <Verify
+          @success="success"
+          :mode="'pop'"
+          :captchaType="'blockPuzzle'"
+          :imgSize="{ width: '330px', height: '155px' }"
+          ref="verify" ></Verify>
     </div>
   </div>
 </template>
 
 <script>
+import Verify from "./../components/verifition/Verify";
 export default {
   name: "Login",
+  components: {
+    Verify
+  },
   data() {
     return {
       //登录表单数据对象
@@ -51,6 +65,12 @@ export default {
     }
   },
   methods:{
+    success(params){
+      this.login()
+    },
+    useVerify(){
+      this.$refs.verify.show()
+    },
     //点击重置按钮，重置表单
     resetLoginForm(){
       // console.log(this.$refs)
