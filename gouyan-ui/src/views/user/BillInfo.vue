@@ -19,7 +19,7 @@
           </el-select>
         </el-col>
 
-        <el-col :span="4">
+        <el-col :span="5">
           <el-date-picker
               v-model="selectedDate"
               type="date"
