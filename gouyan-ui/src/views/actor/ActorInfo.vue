@@ -494,7 +494,7 @@ export default {
         }
         let file = this.pics[i].raw
         formData.append('file', file)
-        await axios.post('http://127.0.0.1:8181/upload/actor', formData).then(response =>{
+        await axios.post('upload/actor', formData).then(response =>{
           _this.pictureList.push(response.data.data)
         })
       }
