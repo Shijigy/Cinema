@@ -125,7 +125,7 @@
         </el-form-item>
         <el-form-item label="电影封面">
           <el-upload action="" list-type="picture-card"   :auto-upload="false" :limit="1"
-                     :file-list="poster" :on-exceed="handleExceed" :on-change="handleChangeP" :on-success="handleSuccessP" :on-error="handleError" ref="pictureRef" :http-request="submitFileP">
+                     :file-list="poster" :on-exceed="handleExceed" :on-change="handleChangeP" :on-success="handleSuccessP" :on-error="handleError" ref="posterRef" :http-request="submitFileP">
             <i slot="default" class="el-icon-plus" ></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -147,7 +147,7 @@
         <!--        修改图集-->
         <el-form-item label="电影图集">
           <el-upload action="" list-type="picture-card" :auto-upload="false"
-                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="posterRef" :http-request="submitFile">
+                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef" :http-request="submitFile">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -422,7 +422,7 @@ export default {
       for (let i = 0; i < this.poster.length; i++) {
         let formData = new FormData()
         if (this.poster[i].status === 'success') {
-          let s = this.pics[i].url
+          let s = this.poster[i].url
           this.posterL.push(s.substring(s.indexOf('/images')))
           continue
         }
@@ -440,6 +440,8 @@ export default {
       this.$refs.posterRef.clearFiles()
       this.poster = []
       this.pics = []
+      this.posterL = []
+      this.pictureList = []
     },
     // 监听添加按钮
     async addMovie() {
@@ -515,11 +517,12 @@ export default {
     },
     handleSuccess(response) {
       this.pictureList.push(response.data)
+      console.log('图片列表：' + this.pictureList)
       this.addForm = JSON.stringify(this.pictureList)
       this.editForm = JSON.stringify(this.pictureList)
     },
     handleSuccessP(response) {
-      this.posterL = response.data
+      this.posterL.push(response.data)
       this.addForm = JSON.stringify(this.posterL)
       this.editForm = JSON.stringify(this.posterL)
     },
@@ -539,6 +542,7 @@ export default {
         this.deletePicList.push(file.url)
       }
       this.pics.splice(idx, 1)
+      console.log(this.pics)
     },
     handleRemoveP(file) {
       const filePath = file.url
@@ -548,6 +552,7 @@ export default {
         this.deletePostList.push(file.url)
       }
       this.poster.splice(idx,1)
+      console.log(this.poster)
     },
     handleError(err) {
       console.log(err)
