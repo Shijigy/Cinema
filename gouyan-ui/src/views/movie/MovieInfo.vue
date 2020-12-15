@@ -1,11 +1,14 @@
 <template>
   <div>
-<!--    面包屑导航区-->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>电影管理</el-breadcrumb-item>
-      <el-breadcrumb-item>电影信息</el-breadcrumb-item>
-    </el-breadcrumb>
+    <!--面包屑导航区-->
+    <div class="board">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>电影管理</el-breadcrumb-item>
+        <el-breadcrumb-item>电影信息</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+
 
     <el-card class="box-card">
       <el-row :addDialogVisible="20">

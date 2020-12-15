@@ -1,13 +1,16 @@
-<style scoped>
 
-</style><template>
+
+<template>
   <div>
     <!--面包屑导航区域-->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>电影管理</el-breadcrumb-item>
-      <el-breadcrumb-item>播放时段</el-breadcrumb-item>
-    </el-breadcrumb>
+    <div class="board">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>电影管理</el-breadcrumb-item>
+        <el-breadcrumb-item>播放时段</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+
 
     <!--卡片视图-->
     <el-card class="box-card">

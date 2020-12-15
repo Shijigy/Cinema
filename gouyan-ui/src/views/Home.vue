@@ -8,7 +8,7 @@
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <el-container>
-      <el-aside :width="isCollapsed ? '65px' : '250px'">
+      <el-aside :width="isCollapsed ? '64px' : '250px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!--侧边栏菜单-->
         <el-menu
@@ -80,6 +80,7 @@ export default {
     },
     async getMenuList(){
       const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
+      console.log(loginUser)
       this.menulist = loginUser.sysUser.sysRole.children
     },
     // 菜单展开与闭合：点击事件
@@ -122,9 +123,6 @@ div > span{
   background-color: #333744;
 }
 
-.el-main{
-  background-color: #EAEDF1;
-}
 
 .toggle-button{
   background-color: #4A5064;
@@ -132,8 +130,16 @@ div > span{
   line-height: 24px;
   color: #fff;
   text-align: center;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   cursor: pointer;
+}
 
+.span-container{
+  cursor: pointer;
+}
+
+.el-main{
+  background: url("../assets/welcome.jpg");
+  background-size: cover;
 }
 </style>

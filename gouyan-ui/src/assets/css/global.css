@@ -7,12 +7,22 @@ html, body, #app{
 }
 
 .el-breadcrumb{
-    margin-bottom: 15px;
+    margin: 15px 0 10px 15px;
+    /*margin-bottom: 15px;*/
     font-size: 10px;
 }
 
 .el-card{
     box-shadow: 0 1px 1px rgba(0,0,0,0.15) !important;
+    border-top: gray solid 0;
+    border-radius: 0px !important;
+}
+
+.board{
+    margin-top: 20px;
+    border-bottom: gray solid 0;
+    background-color: white;
+    padding: 5px 5px;
 }
 
 .el-table{

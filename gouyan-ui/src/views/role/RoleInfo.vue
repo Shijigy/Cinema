@@ -1,11 +1,14 @@
 <template>
   <div>
     <!--面包屑导航区域-->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>角色信息管理</el-breadcrumb-item>
-    </el-breadcrumb>
+    <div class="board">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+        <el-breadcrumb-item>角色信息管理</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+
 
     <!-- 卡片视图 -->
     <el-card>
