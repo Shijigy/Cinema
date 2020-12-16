@@ -6,10 +6,7 @@ import com.gouyan.system.service.impl.SysActorMovieServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lxd
@@ -32,7 +29,7 @@ public class SysActorMovieController extends BaseController {
         return getResult(sysActorMovieService.add(sysActorMovie));
     }
 
-    @PostMapping("/sysActorMovie/delete")
+    @DeleteMapping("/sysActorMovie")
     public ResponseResult delete(@RequestBody SysActorMovie sysActorMovie){
         return getResult(sysActorMovieService.delete(sysActorMovie));
     }
