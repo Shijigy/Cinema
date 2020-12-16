@@ -29,9 +29,9 @@ public class SysActorMovieController extends BaseController {
         return getResult(sysActorMovieService.add(sysActorMovie));
     }
 
-    @DeleteMapping("/sysActorMovie")
-    public ResponseResult delete(@RequestBody SysActorMovie sysActorMovie){
-        return getResult(sysActorMovieService.delete(sysActorMovie));
+    @DeleteMapping("/sysActorMovie/{movieId}/{actorId}/{actorRoleId}")
+    public ResponseResult delete(@PathVariable Long movieId, @PathVariable Long actorId, @PathVariable Long actorRoleId){
+        return getResult(sysActorMovieService.delete(new SysActorMovie(movieId, actorId, actorRoleId)));
     }
 
 }
