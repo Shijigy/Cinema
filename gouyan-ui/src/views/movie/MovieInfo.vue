@@ -79,6 +79,9 @@
           <el-tooltip effect="dark" content="删除电影" placement="top" :enterable="false" :open-delay="500">
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteMovieById(scope.row.movieId)"></el-button>
           </el-tooltip>
+          <el-tooltip effect="dark" content="演员管理" placement="top" :enterable="false" :open-delay="500">
+            <el-button type="warning" icon="el-icon-setting" size="mini" @click="showEditActorDialog(scope.row.movieId)"></el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
@@ -258,7 +261,47 @@
       </span>
     </el-dialog>
 
-
+<!--    演员管理界面-->
+    <el-dialog title="演员信息管理" :visible.sync="editActorVisible" width="60%" @close="editActorDialogClosed">
+      <el-form   ref="editActorFormRef" label-width="100px">
+        <el-form-item label="演员属性" prop="movieActor">
+          <el-select v-model="selectedMovieActor" placeholder="请选择演员姓名" clearable>
+            <el-option
+                v-for="item in actorList"
+                :key="item.actorId"
+                :label="item.actorName"
+                :value="item.actorId">
+            </el-option>
+          </el-select>
+          <el-select v-model="selectedMovieRole" placeholder="请选择角色名称" clearable>
+            <el-option
+                v-for="item in roleList"
+                :key="item.actorRoleId"
+                :label="item.actorRoleName"
+                :value="item.actorRoleId">
+            </el-option>
+          </el-select>
+          <el-button type="primary" @click="addActor">保存</el-button>
+          <el-table :data="editActorForm" style="width: 100%" border stripe>
+            <el-table-column type="expand">
+              <template slot-scope="scope">
+                <el-tag
+                    v-for="tag in scope.row.actorList"
+                    :key="tag.actorName"
+                    closable
+                    @close="deleteActor(scope.row.actorRoleId,tag.actorId)">
+                  {{tag.actorName}}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column
+                label="职务名称"
+                prop="actorRoleName">
+            </el-table-column>
+          </el-table>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -285,14 +328,21 @@ export default {
       selectedMovieId: '',
       selectedMovieArea: '',
       selectedMovieAge: '',
+      selectedMovieActor:'',
+      selectedMovieRole:'',
       selectedDate: [],
       selectedMovieNameCn: '',
       selectedMovieNameEn: '',
       movieList: [],
       movieAreaList: [],
       movieAgeList: [],
+      actorList: [],
+      roleList: [],
       editForm: {},
+      editActorForm:null,
+      actorMovieId:'',
       editDialogVisible: false,
+      editActorVisible: false,
       multipleSelection: [],
       dialogVisible: false,
       dialogImageUrl: '',
@@ -360,6 +410,8 @@ export default {
     this.getMovieList();
     this.getMovieAgeList();
     this.getMovieAreaList();
+    this.getactorList();
+    this.getroleList();
   },
   methods: {
     getMovieList() {
@@ -394,6 +446,20 @@ export default {
         _this.movieAgeList = resp.data.data;
       })
     },
+    getactorList(){
+      const _this = this;
+      axios.get('sysActor').then(resp =>{
+        console.log(resp.data.data)
+        _this.actorList = resp.data.data;
+      })
+    },
+    getroleList(){
+      const _this = this;
+      axios.get('sysActorRole').then(resp =>{
+        console.log(resp.data.data)
+        _this.roleList = resp.data.data;
+      })
+    },
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize
       this.getMovieList()
@@ -415,7 +481,7 @@ export default {
         }
         let file = this.pics[i].raw
         formData.append('file', file)
-        await axios.post('http://127.0.0.1:8181/upload/movie', formData).then(response => {
+        await axios.post('upload/movie', formData).then(response => {
           _this.pictureList.push(response.data.data)
         })
       }
@@ -431,7 +497,7 @@ export default {
         }
         let file = this.poster[i].raw
         formData.append('file', file)
-        await axios.post('http://127.0.0.1:8181/upload/movie', formData).then(response => {
+        await axios.post('upload/movie', formData).then(response => {
           _this.posterL.push(response.data.data)
         })
       }
@@ -442,8 +508,8 @@ export default {
       this.$refs.pictureRef.clearFiles()
       this.$refs.posterRef.clearFiles()
       this.poster = []
+      this.posterL=[]
       this.pics = []
-      this.posterL = []
       this.pictureList = []
     },
     // 监听添加按钮
@@ -481,6 +547,29 @@ export default {
       this.posterL = []
       this.poster = []
     },
+    //监听修改演员对话框的关闭事件
+    editActorDialogClosed(){
+      this.$refs.editActorFormRef.resetFields()
+    },
+    //修改演员对话框
+    async editActorInfo() {
+      this.$refs.editActorFormRef.validate(async valid => {
+        const _this = this
+        if(!valid) return
+        let success = true
+        axios.defaults.headers.put['Content-Type'] = 'application/json'
+        await axios.post('sysActorMovie',JSON.stringify(_this.editActorForm)).then(resp =>{
+          if(resp.data.code !== 200){
+            this.$message.error('修改演员信息失败!')
+            success = false
+          }
+        })
+        if(!success) return
+        this.editActorVisible = false
+        this.$message.success('修改演员信息成功!')
+      })
+    },
+
     // 修改电影信息对话框
     async editHallInfo() {
       await this.submitFile()
@@ -520,7 +609,6 @@ export default {
     },
     handleSuccess(response) {
       this.pictureList.push(response.data)
-      console.log('图片列表：' + this.pictureList)
       this.addForm = JSON.stringify(this.pictureList)
       this.editForm = JSON.stringify(this.pictureList)
     },
@@ -545,7 +633,6 @@ export default {
         this.deletePicList.push(file.url)
       }
       this.pics.splice(idx, 1)
-      console.log(this.pics)
     },
     handleRemoveP(file) {
       const filePath = file.url
@@ -555,7 +642,6 @@ export default {
         this.deletePostList.push(file.url)
       }
       this.poster.splice(idx,1)
-      console.log(this.poster)
     },
     handleError(err) {
       console.log(err)
@@ -580,6 +666,17 @@ export default {
         this.poster.push(pic)
       }
       this.editDialogVisible = true
+    },
+    //显示修改演员对话框,回显数据
+    async showEditActorDialog(id1){
+      const _this = this
+      _this.actorMovieId = id1
+      await axios.get('sysMovie/find/'+id1).then(response=>{
+        console.log('电影演员列表')
+          console.log(response.data.data)
+        _this.editActorForm = response.data.data.actorRoleList
+        })
+      this.editActorVisible = true
     },
     //取消修改
     cancelEdit(){
@@ -650,6 +747,53 @@ export default {
       })
       this.getMovieList()
       this.$message.success('删除电影信息成功！')
+    },
+    async deleteActor(rid,aid){
+      console.log('aid:'+aid)
+      for(let i = 0;i < this.editActorForm.length;i++){
+        if(rid == this.editActorForm[i].actorRoleId){
+          console.log('this.editForm.actorList:'+this.editActorForm[i].actorList)
+          for(let j = 0;j < this.editActorForm[i].actorList.length;j++){
+            if(aid == this.editActorForm[i].actorList[j].actorId){
+              this.editActorForm[i].actorList.splice(j,1)
+              if(this.editActorForm[i].actorList.length==0){
+                this.editActorForm.splice(i,1)
+              }
+              break
+            }
+          }
+        }
+      }
+      const _this = this
+      console.log(111)
+      await axios.delete('sysActorMovie/'+_this.actorMovieId+'/'+aid+'/'+rid).then(resp =>{
+        if(resp.data.code!== 200){
+          _this.$message.success('删除演员信息失败!')
+        }
+      })
+      this.$message.success('删除演员信息成功')
+    },
+    async addActor(){
+      if(this.selectedMovieRole&&this.selectedMovieActor){
+      let obj = {
+        movieId :this.actorMovieId,
+        actorId:this.selectedMovieActor,
+        actorRoleId:this.selectedMovieRole
+      }
+      const _this = this
+      await axios.post('sysActorMovie',obj).then(resp=>{
+        if(resp.data.code!== 200){
+          _this.$message.success('添加演员信息失败!')
+          return
+        }
+      })
+        await axios.get('sysMovie/find/'+_this.actorMovieId).then(response=>{
+          console.log('电影演员列表')
+          console.log(response.data.data)
+          _this.editActorForm = response.data.data.actorRoleList
+        })
+      this.$message.success('添加演员信息成功')
+      }
     },
     handleExceed(){
       this.$message.error('电影封面不能超过一张!')
