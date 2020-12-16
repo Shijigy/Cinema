@@ -24,9 +24,9 @@ public class SysMovieToCategoryController extends BaseController {
         return getResult(sysMovieToCategoryService.findAll(sysMovieToCategory));
     }
 
-    @PostMapping("/sysMovieToCategory")
-    public ResponseResult add(@Validated @RequestBody SysMovieToCategory sysMovieToCategory){
-        return getResult(sysMovieToCategoryService.add(sysMovieToCategory));
+    @PostMapping("/sysMovieToCategory/{movieId}/{movieCategoryId}")
+    public ResponseResult add(@PathVariable Long movieId, @PathVariable Long movieCategoryId){
+        return getResult(sysMovieToCategoryService.add(new SysMovieToCategory(movieId, movieCategoryId)));
     }
 
     @DeleteMapping("/sysMovieToCategory/{movieId}/{movieCategoryId}")
