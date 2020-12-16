@@ -15,5 +15,5 @@ public interface SysActorMovieService {
 
     int add(SysActorMovie sysActorMovie);
 
-    int delete(SysActorMovie[] sysActorMovie);
+    int delete(SysActorMovie sysActorMovie);
 }

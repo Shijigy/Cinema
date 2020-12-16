@@ -29,11 +29,7 @@ public class SysActorMovieServiceImpl implements SysActorMovieService {
     }
 
     @Override
-    public int delete(SysActorMovie[] sysActorMovie) {
-        int rows = 0;
-        for (SysActorMovie actorMovie : sysActorMovie) {
-            rows += sysActorMovieMapper.delete(actorMovie);
-        }
-        return rows;
+    public int delete(SysActorMovie sysActorMovie) {
+        return sysActorMovieMapper.delete(sysActorMovie);
     }
 }

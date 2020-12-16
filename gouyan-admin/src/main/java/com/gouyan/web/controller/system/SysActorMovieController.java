@@ -33,8 +33,8 @@ public class SysActorMovieController extends BaseController {
     }
 
     @PostMapping("/sysActorMovie/delete")
-    public ResponseResult delete(@RequestBody SysActorMovie[] sysActorMovies){
-        return getResult(sysActorMovieService.delete(sysActorMovies));
+    public ResponseResult delete(@RequestBody SysActorMovie sysActorMovie){
+        return getResult(sysActorMovieService.delete(sysActorMovie));
     }
 
 }
