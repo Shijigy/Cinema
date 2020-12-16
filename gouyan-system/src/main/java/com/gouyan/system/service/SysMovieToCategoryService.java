@@ -15,6 +15,6 @@ public interface SysMovieToCategoryService {
 
     int add(SysMovieToCategory sysMovieToCategory);
 
-    int delete(SysMovieToCategory[] sysMovieToCategory);
+    int delete(SysMovieToCategory sysMovieToCategory);
 
 }

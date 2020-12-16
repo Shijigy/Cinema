@@ -29,11 +29,7 @@ public class SysMovieToCategoryServiceImpl implements SysMovieToCategoryService 
     }
 
     @Override
-    public int delete(SysMovieToCategory[] sysMovieToCategory) {
-        int rows = 0;
-        for(SysMovieToCategory s : sysMovieToCategory){
-            rows += sysMovieToCategoryMapper.delete(s);
-        }
-        return rows;
+    public int delete(SysMovieToCategory sysMovieToCategory) {
+        return sysMovieToCategoryMapper.delete(sysMovieToCategory);
     }
 }
