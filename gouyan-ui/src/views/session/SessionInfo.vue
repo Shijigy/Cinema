@@ -430,24 +430,28 @@ export default {
         //验证通过，将登录用户的影院id赋值给表单
         this.addForm.cinemaId = this.loginUser.cinemaId
 
+        let seats = ''
         //查询影厅信息，查出对应排数和排座位数，填充sessionSeats字段
         await axios.get('sysHall/' + this.addForm.cinemaId + '/' + this.addForm.hallId).then(resp => {
           _this.rowNums = resp.data.data.rowNums
           _this.colNums = resp.data.data.seatNumsRow
           _this.rowStart = resp.data.data.rowStart
+          seats = resp.data.data.seatState
         })
 
-        let row = this.rowNums
-        let col = this.colNums
-        let seat = {}
-        for (let i = 0; i < row; i++) {
-          let arr = []
-          for (let j = 0; j < col; j++) {
-            arr.push(0)
-          }
-          seat[isNaN(parseInt(_this.rowStart)) ? String.fromCharCode(i + _this.rowStart.charCodeAt(0)) : i + parseInt(_this.rowStart)] = arr
-        }
-        this.$set(this.addForm, 'sessionSeats', JSON.stringify(seat))
+        // let row = this.rowNums
+        // let col = this.colNums
+        // let seat = {}
+        // for (let i = 0; i < row; i++) {
+        //   let arr = []
+        //   for (let j = 0; j < col; j++) {
+        //     arr.push(0)
+        //   }
+        //   seat[isNaN(parseInt(_this.rowStart)) ? String.fromCharCode(i + _this.rowStart.charCodeAt(0)) : i + parseInt(_this.rowStart)] = arr
+        // }
+        // this.$set(this.addForm, 'sessionSeats', JSON.stringify(seat))
+        //新建场次时，将影厅的座位信息赋值给场次
+        this.$set(this.addForm, 'sessionSeats', seats)
         console.log(_this.addForm.sessionSeats)
 
         // 预校验成功，发网络请求
