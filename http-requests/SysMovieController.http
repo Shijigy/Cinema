@@ -33,6 +33,7 @@ DELETE http://localhost:8181/sysMovie/5,1,2,3
 
 ### 前台查询完整数据
 GET http://localhost:8181/sysMovie/find/1
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDgxMDMyMTMsInVzZXJuYW1lIjoiYWRtaW4ifQ.Em6B0pgTBBVUwxa6S4vsd_chvKOfDprMGK_BoZnC89I
 
 ### 查询榜单
 GET http://localhost:8181/sysMovie/rankingList/4

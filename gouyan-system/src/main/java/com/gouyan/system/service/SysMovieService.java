@@ -23,7 +23,7 @@ public interface SysMovieService {
 
     int delete(Long[] ids);
 
-    List<SysMovie> findMovieById(Long id);
+    SysMovie findMovieById(Long id);
 
     //获取单个影院上映的所有电影信息
     List<SysMovie> findByCinemaId(Long id);

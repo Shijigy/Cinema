@@ -57,7 +57,7 @@ public interface SysMovieMapper {
      * @param id
      * @return
      */
-    List<SysMovie> findMovieById(Long id);
+    SysMovie findMovieById(Long id);
 
     /**
      * 根据影院id查询影院上映的所有电影
