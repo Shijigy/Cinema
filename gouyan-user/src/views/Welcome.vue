@@ -154,4 +154,8 @@ export default {
   -o-transform: rotate(180deg) scale(1);
   -transform: rotate(180deg) scale(1);
 }
+
+.el-main{
+  padding: 0px;
+}
 </style>
