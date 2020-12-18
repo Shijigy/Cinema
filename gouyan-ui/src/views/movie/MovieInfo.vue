@@ -262,7 +262,36 @@
     </el-dialog>
 
 <!--    演员管理界面-->
-    <el-dialog title="演员信息管理" :visible.sync="editActorVisible" width="60%" @close="editActorDialogClosed">
+    <el-dialog title="电影类型&演员信息 管理" :visible.sync="editActorVisible" width="60%" @close="editActorDialogClosed">
+<!--      <template>-->
+<!--        <el-checkbox-group-->
+<!--            v-model="selectedMovieCategory">-->
+<!--          <el-checkbox v-for="category in movieCategoryList" :label="category.movieCategoryName" :key="category.movieCategoryId">{{category.movieCategoryName}}</el-checkbox>-->
+<!--        </el-checkbox-group>-->
+<!--      </template>-->
+      <el-form label-width="100px">
+        <el-form-item label="电影类型" prop="movieActor">
+          <el-select v-model="selectedMovieCategory" placeholder="请选择类型名称" clearable>
+            <el-option
+                v-for="item in categoryList"
+                :key="item.movieCategoryId"
+                :label="item.movieCategoryName"
+                :value="item.movieCategoryId"
+                v-if="ifShow(item.movieCategoryId)">
+            </el-option>
+          </el-select>
+        <el-button type="primary" @click="addCategory()">添加</el-button>
+        </el-form-item>
+        <el-form-item>
+              <el-tag
+                  v-for="tag in editCategoryForm"
+                  :key="tag.movieCategoryName"
+                  closable
+                  @close="deleteCategory(tag.movieCategoryId)">
+                {{tag.movieCategoryName}}}
+              </el-tag>
+        </el-form-item>
+      </el-form>
       <el-form   ref="editActorFormRef" label-width="100px">
         <el-form-item label="演员属性" prop="movieActor">
           <el-select v-model="selectedMovieActor" placeholder="请选择演员姓名" clearable>
@@ -325,7 +354,7 @@ export default {
       url: 'http://localhost:8181/',
       //控制对话框的显示与隐藏
       addDialogVisible: false,
-      selectedMovieId: '',
+      selectedMovieCategory:[],
       selectedMovieArea: '',
       selectedMovieAge: '',
       selectedMovieActor:'',
@@ -333,6 +362,7 @@ export default {
       selectedDate: [],
       selectedMovieNameCn: '',
       selectedMovieNameEn: '',
+      categoryList:[],
       movieList: [],
       movieAreaList: [],
       movieAgeList: [],
@@ -340,6 +370,7 @@ export default {
       roleList: [],
       editForm: {},
       editActorForm:null,
+      editCategoryForm:[],
       actorMovieId:'',
       editDialogVisible: false,
       editActorVisible: false,
@@ -412,6 +443,7 @@ export default {
     this.getMovieAreaList();
     this.getactorList();
     this.getroleList();
+    this.getCategoryList();
   },
   methods: {
     getMovieList() {
@@ -430,6 +462,13 @@ export default {
         _this.total = resp.data.total;
         _this.queryInfo.pageSize = resp.data.pageSize;
         _this.queryInfo.pageNum = resp.data.pageNum;
+      })
+    },
+    getCategoryList() {
+      const _this = this
+      axios.get('sysMovieCategory').then(resp=>{
+        _this.categoryList = resp.data.data;
+        console.log(_this.categoryList)
       })
     },
     getMovieAreaList() {
@@ -459,6 +498,16 @@ export default {
         console.log(resp.data.data)
         _this.roleList = resp.data.data;
       })
+    },
+    ifShow(id){
+      let i = 0
+      let l = true
+      for(i=0;i<this.editCategoryForm.length;i++){
+        if(id==this.editCategoryForm[i].movieCategoryId){
+          l =false
+        }
+      }
+      return l
     },
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize
@@ -552,23 +601,23 @@ export default {
       this.$refs.editActorFormRef.resetFields()
     },
     //修改演员对话框
-    async editActorInfo() {
-      this.$refs.editActorFormRef.validate(async valid => {
-        const _this = this
-        if(!valid) return
-        let success = true
-        axios.defaults.headers.put['Content-Type'] = 'application/json'
-        await axios.post('sysActorMovie',JSON.stringify(_this.editActorForm)).then(resp =>{
-          if(resp.data.code !== 200){
-            this.$message.error('修改演员信息失败!')
-            success = false
-          }
-        })
-        if(!success) return
-        this.editActorVisible = false
-        this.$message.success('修改演员信息成功!')
-      })
-    },
+    // async editActorInfo() {
+    //   this.$refs.editActorFormRef.validate(async valid => {
+    //     const _this = this
+    //     if(!valid) return
+    //     let success = true
+    //     axios.defaults.headers.put['Content-Type'] = 'application/json'
+    //     await axios.post('sysActorMovie',JSON.stringify(_this.editActorForm)).then(resp =>{
+    //       if(resp.data.code !== 200){
+    //         this.$message.error('修改演员信息失败!')
+    //         success = false
+    //       }
+    //     })
+    //     if(!success) return
+    //     this.editActorVisible = false
+    //     this.$message.success('修改演员信息成功!')
+    //   })
+    // },
 
     // 修改电影信息对话框
     async editHallInfo() {
@@ -675,6 +724,7 @@ export default {
         console.log('电影演员列表')
           console.log(response.data.data)
         _this.editActorForm = response.data.data.actorRoleList
+        _this.editCategoryForm = response.data.data.movieCategoryList
         })
       this.editActorVisible = true
     },
@@ -795,8 +845,30 @@ export default {
       this.$message.success('添加演员信息成功')
       }
     },
+    async deleteCategory(categoryId){
+      console.log('类型id')
+      console.log(categoryId)
+      const _this = this
+      await axios.delete('sysMovieToCategory/'+this.actorMovieId+'/'+categoryId).then(resp=>{
+        console.log(resp)
+        _this.$message.success('删除类型成功')
+      })
+      await axios.get('sysMovie/find/'+this.actorMovieId).then(response=>{
+        _this.editCategoryForm = response.data.data.movieCategoryList
+      })
+    },
     handleExceed(){
       this.$message.error('电影封面不能超过一张!')
+    },
+    async addCategory(){
+      const _this = this
+      await axios.post('sysMovieToCategory/'+this.actorMovieId+'/'+this.selectedMovieCategory).then(resp=>{
+        console.log(resp)
+
+      })
+      axios.get('sysMovie/find/'+this.actorMovieId).then(response=>{
+        _this.editCategoryForm = response.data.data.movieCategoryList
+      })
     }
   }
 }
