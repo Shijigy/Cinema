@@ -79,7 +79,7 @@
           <el-tooltip effect="dark" content="删除电影" placement="top" :enterable="false" :open-delay="500">
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteMovieById(scope.row.movieId)"></el-button>
           </el-tooltip>
-          <el-tooltip effect="dark" content="演员管理" placement="top" :enterable="false" :open-delay="500">
+          <el-tooltip effect="dark" content="演员&影片分类" placement="top" :enterable="false" :open-delay="500">
             <el-button type="warning" icon="el-icon-setting" size="mini" @click="showEditActorDialog(scope.row.movieId)"></el-button>
           </el-tooltip>
         </template>
@@ -288,7 +288,7 @@
                   :key="tag.movieCategoryName"
                   closable
                   @close="deleteCategory(tag.movieCategoryId)">
-                {{tag.movieCategoryName}}}
+                {{tag.movieCategoryName}}
               </el-tag>
         </el-form-item>
       </el-form>
@@ -598,6 +598,9 @@ export default {
     },
     //监听修改演员对话框的关闭事件
     editActorDialogClosed(){
+      this.selectedMovieCategory = ''
+      this.selectedMovieActor = ''
+      this.selectedMovieRole = ''
       this.$refs.editActorFormRef.resetFields()
     },
     //修改演员对话框
@@ -831,12 +834,14 @@ export default {
         actorRoleId:this.selectedMovieRole
       }
       const _this = this
+        let success = true
       await axios.post('sysActorMovie',obj).then(resp=>{
         if(resp.data.code!== 200){
-          _this.$message.success('添加演员信息失败!')
-          return
+          _this.$message.error('添加演员信息失败!')
+          success = false;
         }
       })
+        if(!success) return
         await axios.get('sysMovie/find/'+_this.actorMovieId).then(response=>{
           console.log('电影演员列表')
           console.log(response.data.data)
