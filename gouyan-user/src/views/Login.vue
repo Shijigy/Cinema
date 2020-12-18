@@ -78,7 +78,7 @@ export default {
         const { data: res} = await axios.post('sysUser/login', JSON.stringify(this.loginForm));
         if(res.code != 200) return this.$message.error(res.msg);
 
-        this.$message.success("登录成功");
+        this.$message.success({message: "登录成功", duration: 1000});
         //console.log(res.data);
         //保存token
         window.sessionStorage.setItem("token", res.data.token);

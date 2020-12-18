@@ -6,13 +6,12 @@
           <img style="width: 200px; height: 68px; margin-top: 6px;" src="../assets/homeLogo.jpg">
         </a>
         <el-menu
-            :default-active="$route.path"
+            :default-active="activeUrl"
             class="nav-menu"
             mode="horizontal"
             :router="true"
             active-text-color="#409EFF"
-            text-color="#000000"
-            @select="handleSelect">
+            text-color="#000000">
           <el-menu-item :index="item.path" v-for="item in menuList" :key="item.id">{{item.name}}</el-menu-item>
         </el-menu>
         <div class="searchContainer">
@@ -50,6 +49,7 @@ export default {
   data() {
     return {
       url: '',
+      activeUrl:this.$route.path.substring(0, this.$route.path.indexOf('/',1) === -1 ? this.$route.path.length : this.$route.path.indexOf('/',1)),
       menuList: [
         {
           id: 1,
@@ -81,9 +81,6 @@ export default {
     this.url = 'http://127.0.0.1:8181' + picture[0]
   },
   methods: {
-    handleSelect(key, keyPath){
-      console.log(key, keyPath);
-    },
     search(){
       //搜索电影、影人、影院
     },
@@ -179,7 +176,6 @@ export default {
 }
 
 .el-main{
-
   padding: 0px;
 }
 </style>

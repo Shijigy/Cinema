@@ -11,6 +11,9 @@ import Cinema from "../views/cinema/Cinema";
 import RankingList from "../views/rankinglist/Rankinglist";
 import UserInfo from "../views/user/UserInfo";
 import BillInfo from "../views/user/BillInfo";
+import MovieOngoing from "../views/movie/MovieOngoing";
+import MovieUpcoming from "../views/movie/MovieUpcoming";
+import MovieClassics from "../views/movie/MovieClassics";
 
 Vue.use(VueRouter)
 
@@ -25,14 +28,22 @@ const routes = [
   {
     path: '/welcome',
     component: Welcome,
-    redirect: '/home',
+    redirect: { name: 'home'},
     children: [
-      { path: '/home', component: Home },
-      { path: '/movie', component: Movie },
-      { path: '/cinema', component: Cinema },
-      { path: '/rankingList', component: RankingList },
-      { path: '/user', component: UserInfo},
-      { path: '/bill', component: BillInfo}
+      { path: '/home/', name: 'home', component: Home },
+      {
+        path: '/movie/',
+        component: Movie,
+        name: 'movie',
+        redirect: {name: '正在热映'},
+        children: [
+          { path: 'movieOngoing', name:'正在热映', component: MovieOngoing },
+          { path: 'movieUpcoming', name: '即将上映', component: MovieUpcoming },
+          { path: 'movieClassics', name: '经典影片', component: MovieClassics }
+        ]},
+      { path: '/cinema/', component: Cinema },
+      { path: '/rankingList/', component: RankingList },
+      { path: '/menu/', component: UserInfo}
     ]
   },
   {
