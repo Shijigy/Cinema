@@ -32,7 +32,7 @@ public class ShiroConfig {
 
         //配置受限资源
         Map<String, String> map = new HashMap<>();
-        map.put("/sysUser/login", "anon");//放行
+        map.put("/sysUser/**", "anon");//放行
         map.put("/images/**", "anon");//放行图片查询
         map.put("/captcha/**", "anon");//放行验证码请求
         map.put("/**", "jwt");//请求这个资源需要认证与授权
