@@ -21,7 +21,7 @@
         </div>
         <el-dropdown @command="handleCommand">
           <span class="el-dropdown-link">
-            <el-avatar :src="url" :size="50"></el-avatar>
+            <el-avatar :src="url" :size="50">{{url === '' || url === null ? 'user': ''}}</el-avatar>
             <i class="el-icon-arrow-down el-icon--right icon-arrow"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -35,7 +35,12 @@
     <el-main>
       <router-view></router-view>
     </el-main>
-    <el-footer>Footer</el-footer>
+    <el-footer>
+      <div class="footer-mini"></div>
+      <div class="footer">
+        <img style="width: 357px; height: 50px" src="../assets/register-footer.png">
+      </div>
+    </el-footer>
   </el-container>
 </template>
 
@@ -44,7 +49,7 @@ export default {
   name: "Welcome",
   data() {
     return {
-      url: 'https://img.meituan.net/avatar/39059eea3ac5ebd84a1170f267b3a8f615138.jpg',
+      url: '',
       menuList: [
         {
           id: 1,
@@ -68,6 +73,12 @@ export default {
         }
       ]
     }
+  },
+  created() {
+    const userPicture = JSON.parse(window.sessionStorage.getItem('loginUser')).userPicture
+    const picture = JSON.parse(userPicture)
+    if(picture === null || picture.length === 0) return;
+    this.url = 'http://127.0.0.1:8181' + picture[0]
   },
   methods: {
     handleSelect(key, keyPath){
@@ -108,7 +119,7 @@ export default {
 .nav-menu{
   border-bottom: 0px solid #eee !important;
   height: 60px;
-  margin: 9px 100px;
+  margin: 9px 12%;
 }
 
 .el-menu-item{
@@ -153,5 +164,17 @@ export default {
   -moz-transform: rotate(180deg) scale(1);
   -o-transform: rotate(180deg) scale(1);
   -transform: rotate(180deg) scale(1);
+}
+
+.footer-mini{
+  border-top: 1px solid #EEE;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.footer{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 </style>

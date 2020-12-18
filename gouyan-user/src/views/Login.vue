@@ -82,6 +82,7 @@ export default {
         //console.log(res.data);
         //保存token
         window.sessionStorage.setItem("token", res.data.token);
+        res.data.sysUser.sysRole = null
         window.sessionStorage.setItem("loginUser", JSON.stringify(res.data.sysUser));
         //导航跳转到首页
         this.$router.push('/welcome');
