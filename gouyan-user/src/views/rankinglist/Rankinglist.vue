@@ -18,7 +18,6 @@
 
 <script>
 export default {
-  name: "Rankinglist",
   data(){
     return{
       activeIndex: '1'
