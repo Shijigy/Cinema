@@ -179,6 +179,7 @@ export default {
 }
 
 .el-main{
+
   padding: 0px;
 }
 </style>
