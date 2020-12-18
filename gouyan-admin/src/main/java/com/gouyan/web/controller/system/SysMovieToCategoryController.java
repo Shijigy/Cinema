@@ -30,7 +30,7 @@ public class SysMovieToCategoryController extends BaseController {
     }
 
     @DeleteMapping("/sysMovieToCategory/{movieId}/{movieCategoryId}")
-    public ResponseResult delete(@PathVariable Long movieId, Long movieCategoryId){
+    public ResponseResult delete(@PathVariable Long movieId, @PathVariable Long movieCategoryId){
         return getResult(sysMovieToCategoryService.delete(new SysMovieToCategory(movieId, movieCategoryId)));
     }
 
