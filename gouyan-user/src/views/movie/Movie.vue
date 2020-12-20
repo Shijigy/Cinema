@@ -12,6 +12,7 @@
       </el-menu>
     </el-header>
     <el-main>
+      <!-- 分类查询 -->
       <div class="tags-container">
         <div class="tags-line">
           <div class="tags-title">类型:</div>
@@ -35,6 +36,13 @@
           </el-radio-group>
         </div>
       </div>
+
+      <!-- 按条件排序 -->
+      <div class="order-by-container">
+        <el-radio v-model="orderByColumn" label="releaseDate">按时间排序</el-radio>
+        <el-radio v-model="orderByColumn" label="movieScore">按评价排序</el-radio>
+      </div>
+
       <router-view></router-view>
     </el-main>
   </el-container>
@@ -67,7 +75,8 @@ export default {
       areaRadio: '0',
       areaList: [],
       ageRadio: '0',
-      ageList: []
+      ageList: [],
+      orderByColumn: 'releaseDate'
     }
   },
   created() {
@@ -113,9 +122,12 @@ export default {
   color: #FFFFFF !important;
 }
 
-.tags-container{
+.el-main{
   width: 80%;
   margin: 0 auto;
+}
+
+.tags-container{
   border: solid #EEEEEE 1px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
 }
@@ -156,5 +168,9 @@ export default {
 .el-radio-button >>> .el-radio-button__inner {
   border: solid #eee 0px !important;
   border-radius: 50px !important;
+}
+
+.order-by-container{
+  margin: 30px 10px 0 10px;
 }
 </style>

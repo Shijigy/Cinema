@@ -14,6 +14,7 @@ import BillInfo from "../views/user/BillInfo";
 import MovieOngoing from "../views/movie/MovieOngoing";
 import MovieUpcoming from "../views/movie/MovieUpcoming";
 import MovieClassics from "../views/movie/MovieClassics";
+import MovieInfo from "../views/movie/MovieInfo";
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
       { path: '/rankingList/', component: RankingList },
       { path: '/menu/', component: UserInfo}
     ]
+  },
+  {
+    path: '/movieInfo',
+    name: '电影详细信息',
+    component: MovieInfo
   },
   {
     path: '/register',

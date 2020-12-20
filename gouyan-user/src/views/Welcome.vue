@@ -80,6 +80,11 @@ export default {
     if(picture === null || picture.length === 0) return;
     this.url = 'http://127.0.0.1:8181' + picture[0]
   },
+  watch: {
+    '$route'() {
+      this.activeUrl = this.$route.path.substring(0, this.$route.path.indexOf('/',1) === -1 ? this.$route.path.length : this.$route.path.indexOf('/',1))
+    }
+  },
   methods: {
     search(){
       //搜索电影、影人、影院
