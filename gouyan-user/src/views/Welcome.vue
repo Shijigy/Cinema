@@ -39,6 +39,7 @@
       <div class="footer">
         <img style="width: 357px; height: 50px" src="../assets/register-footer.png">
       </div>
+      <el-backtop></el-backtop>
     </el-footer>
   </el-container>
 </template>
@@ -49,7 +50,7 @@ export default {
   data() {
     return {
       url: '',
-      activeUrl:this.$route.path.substring(0, this.$route.path.indexOf('/',1) === -1 ? this.$route.path.length : this.$route.path.indexOf('/',1)),
+      activeUrl: this.$route.path.substring(0, this.$route.path.indexOf('/',1) === -1 ? this.$route.path.length : this.$route.path.indexOf('/',1)),
       menuList: [
         {
           id: 1,
@@ -86,6 +87,9 @@ export default {
     }
   },
   methods: {
+    handleSelect(key, keyPath){
+      console.log(key, keyPath);
+    },
     search(){
       //搜索电影、影人、影院
     },

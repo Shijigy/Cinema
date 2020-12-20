@@ -1,18 +1,16 @@
 <template>
   <div>
     <el-menu
-        :default-active="activeIndex"
+        :default-active="$route.path"
         class="el-menu-demo"
         mode="horizontal"
-        @select="handleSelect"
         background-color="#545c64"
         text-color="#fff"
-        active-text-color="#ffd04b">
-      <el-menu-item index="1">热映口碑榜</el-menu-item>
-      <el-menu-item index="2">国内票房榜</el-menu-item>
-      <el-menu-item index="3">北美票房榜</el-menu-item>
-      <el-menu-item index="4">TOP100榜</el-menu-item>
+        active-text-color="#ffd04b"
+        router>
+      <el-menu-item v-for="item in menuList" :key="item.id" :index="item.path">{{ item.name }}</el-menu-item>
     </el-menu>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -20,9 +18,34 @@
 export default {
   data(){
     return {
-      activeIndex: '1'
+      menuList: [
+        {
+          id: 1,
+          name: '热映口碑榜',
+          path: '/rankingList/reputationList'
+        },
+        {
+          id: 2,
+          name: '国内票房榜',
+          path: '/rankingList/domesticBoxOfficeList'
+        },
+        {
+          id: 3,
+          name: '北美票房榜',
+          path: '/rankingList/americanBoxOfficeList'
+        },
+        {
+          id: 4,
+          name: 'TOP100榜',
+          path: '/rankingList/top100List'
+        }
+      ],
     }
-  }
+  },
+  methods:{
+
+  },
+
 }
 </script>
 
@@ -33,7 +56,7 @@ export default {
 }
 
 .el-menu-item{
-  font-size: 18px;
+  font-size: 16px;
 }
 
 

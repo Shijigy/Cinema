@@ -11,6 +11,11 @@ import Cinema from "../views/cinema/Cinema";
 import RankingList from "../views/rankinglist/Rankinglist";
 import UserInfo from "../views/user/UserInfo";
 import BillInfo from "../views/user/BillInfo";
+import * as path from "path";
+import ReputationList from "@/views/rankinglist/ReputationList";
+import DomesticBoxOfficeList from "@/views/rankinglist/DomesticBoxOfficeList";
+import AmericanBoxOfficeList from "@/views/rankinglist/AmericanBoxOfficeList";
+import Top100List from "@/views/rankinglist/Top100List";
 import MovieOngoing from "../views/movie/MovieOngoing";
 import MovieUpcoming from "../views/movie/MovieUpcoming";
 import MovieClassics from "../views/movie/MovieClassics";
@@ -42,8 +47,23 @@ const routes = [
           { path: 'movieUpcoming', name: '即将上映', component: MovieUpcoming },
           { path: 'movieClassics', name: '经典影片', component: MovieClassics }
         ]},
-      { path: '/cinema/', component: Cinema },
-      { path: '/rankingList/', component: RankingList },
+      {
+        path: '/cinema/',
+        component: Cinema,
+        name: 'cinema'
+      },
+      {
+        path: '/rankingList/',
+        component: RankingList,
+        name: 'rankingList',
+        redirect: '/rankingList/reputationList',
+        children: [
+          { path: 'reputationList', name: '口碑热映榜', component: ReputationList},
+          { path: 'domesticBoxOfficeList', name: '国内票房榜', component: DomesticBoxOfficeList},
+          { path: 'americanBoxOfficeList', name: '北美票房榜', component: AmericanBoxOfficeList},
+          { path: 'top100List', name: 'Top100榜', component: Top100List}
+        ]
+      },
       { path: '/menu/', component: UserInfo}
     ]
   },
