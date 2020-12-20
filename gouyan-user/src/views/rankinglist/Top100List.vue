@@ -45,7 +45,7 @@ export default {
         pageSize: 10,
       },
       top100List: [],
-      total: ''
+      total: 0
     }
   },
   created() {
