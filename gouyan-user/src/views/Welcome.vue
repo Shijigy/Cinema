@@ -125,7 +125,7 @@ export default {
 .nav-menu{
   border-bottom: 0px solid #eee !important;
   height: 60px;
-  margin: 9px 12%;
+  margin: 9px auto;
 }
 
 .el-menu-item{

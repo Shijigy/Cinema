@@ -43,10 +43,16 @@
 <script>
 export default {
   name: "movie-item",
+  props:{
+    movieItem: Object
+  },
   data() {
     return {
-      isHover: false
+      isHover: false,
     }
+  },
+  created(){
+    console.log(this.movieItem)
   }
 }
 </script>
@@ -96,7 +102,7 @@ a{
   left: -29px;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+  box-shadow: 0 0 16px #fff, 0 0 6px rgba(0,0,0,.2);
 }
 
 .poster-hover{

@@ -17,21 +17,21 @@
         <div class="tags-line">
           <div class="tags-title">类型:</div>
           <el-radio-group v-model="categoryRadio">
-            <el-radio-button label="0">全部</el-radio-button>
+            <el-radio-button :label="0">全部</el-radio-button>
             <el-radio-button :label="item.movieCategoryId" v-for="item in categoryList" :key="item.movieCategoryId">{{item.movieCategoryName}}</el-radio-button>
           </el-radio-group>
         </div>
         <div class="tags-line">
           <div class="tags-title">区域:</div>
           <el-radio-group v-model="areaRadio">
-            <el-radio-button label="0">全部</el-radio-button>
+            <el-radio-button :label="0">全部</el-radio-button>
             <el-radio-button :label="item.movieAreaId" v-for="item in areaList" :key="item.movieAreaId">{{item.movieAreaName}}</el-radio-button>
           </el-radio-group>
         </div>
         <div class="tags-line">
           <div class="tags-title">年代:</div>
           <el-radio-group v-model="ageRadio">
-            <el-radio-button label="0">全部</el-radio-button>
+            <el-radio-button :label="0">全部</el-radio-button>
             <el-radio-button :label="item.movieAgeId" v-for="item in ageList" :key="item.movieAgeId">{{item.movieAgeName}}</el-radio-button>
           </el-radio-group>
         </div>
@@ -43,7 +43,7 @@
         <el-radio v-model="orderByColumn" label="movieScore">按评价排序</el-radio>
       </div>
 
-      <router-view></router-view>
+      <router-view :movieCategoryId="categoryRadio" :movieAreaId="areaRadio" :movieAgeId="ageRadio" :orderByColumn="orderByColumn"></router-view>
     </el-main>
   </el-container>
 </template>
@@ -70,11 +70,11 @@ export default {
           path: '/movie/movieClassics'
         }
       ],
-      categoryRadio: '0',
+      categoryRadio: 0,
       categoryList: [],
-      areaRadio: '0',
+      areaRadio: 0,
       areaList: [],
-      ageRadio: '0',
+      ageRadio: 0,
       ageList: [],
       orderByColumn: 'releaseDate'
     }
@@ -123,7 +123,7 @@ export default {
 }
 
 .el-main{
-  width: 80%;
+  width: 1200px;
   margin: 0 auto;
 }
 
