@@ -142,7 +142,6 @@ export default {
 }
 
 .tags-line{
-  width: 100%;
   display: flex;
   padding: 10px;
   border-bottom: solid #EEEEEE 1px;
