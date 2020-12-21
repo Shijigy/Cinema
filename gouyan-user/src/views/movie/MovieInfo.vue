@@ -1,6 +1,6 @@
 <template>
   <div>
-    <movie-item></movie-item>
+    这里是电影详情页面，电影id为: {{this.$route.params.movieId}}
   </div>
 </template>
 
@@ -10,6 +10,13 @@ export default {
   name: "MovieInfo",
   components:{
     movieItem
+  },
+  data() {
+    return {
+
+    }
+  },
+  created(){
   }
 }
 </script>

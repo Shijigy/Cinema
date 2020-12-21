@@ -10,8 +10,6 @@ import Movie from "../views/movie/Movie";
 import Cinema from "../views/cinema/Cinema";
 import RankingList from "../views/rankinglist/Rankinglist";
 import UserInfo from "../views/user/UserInfo";
-import BillInfo from "../views/user/BillInfo";
-import * as path from "path";
 import ReputationList from "@/views/rankinglist/ReputationList";
 import DomesticBoxOfficeList from "@/views/rankinglist/DomesticBoxOfficeList";
 import AmericanBoxOfficeList from "@/views/rankinglist/AmericanBoxOfficeList";
@@ -68,7 +66,7 @@ const routes = [
     ]
   },
   {
-    path: '/movieInfo',
+    path: '/movieInfo/:movieId',
     name: '电影详细信息',
     component: MovieInfo
   },
