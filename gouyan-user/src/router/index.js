@@ -44,7 +44,13 @@ const routes = [
           { path: 'movieOngoing', name:'正在热映', component: MovieOngoing },
           { path: 'movieUpcoming', name: '即将上映', component: MovieUpcoming },
           { path: 'movieClassics', name: '经典影片', component: MovieClassics }
-        ]},
+          ]
+      },
+      {
+        path: '/movieInfo/:movieId',
+        name: '电影详细信息',
+        component: MovieInfo
+      },
       {
         path: '/cinema/',
         component: Cinema,
@@ -64,11 +70,6 @@ const routes = [
       },
       { path: '/menu/', component: UserInfo}
     ]
-  },
-  {
-    path: '/movieInfo/:movieId',
-    name: '电影详细信息',
-    component: MovieInfo
   },
   {
     path: '/register',
