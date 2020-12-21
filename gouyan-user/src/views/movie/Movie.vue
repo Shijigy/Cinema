@@ -100,6 +100,15 @@ export default {
       if(res.code !== 200) return this.$message.error('获取服务器信息失败')
       this.ageList = res.data
     },
+  },
+  watch:{
+    '$route'(){
+      //页面发生变化时初始化类别选项
+      this.categoryRadio = 0
+      this.areaRadio = 0
+      this.ageRadio = 0
+      this.orderByColumn = 'releaseDate'
+    }
   }
 }
 </script>
