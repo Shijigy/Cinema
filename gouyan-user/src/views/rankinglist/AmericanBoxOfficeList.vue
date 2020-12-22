@@ -41,7 +41,7 @@ export default {
   },
   methods:{
     async getAmericanBoxOfficeList(){
-      const {data: resp} = await axios.get('sysMovie/rankingList/4', {params: this.queryInfo})
+      const {data: resp} = await axios.get('sysMovie/rankingList/3', {params: this.queryInfo})
       console.log(resp)
       if(resp.code != 200) return this.$message.error(resp.msg)
       this.americanBoxOfficeList = resp.data

@@ -47,7 +47,7 @@
         <p class="cinema-address">地址：{{ item.cinemaAddress }}</p>
         <el-tag size="small" effect="plain" type="danger" v-if="item.isRefunded">可退票</el-tag>
         <el-tag size="small" effect="plain" type="danger" v-if="item.isTicketChanged">可改签</el-tag>
-        <el-tag size="small" effect="plain" type="danger" v-for="hall in item.sysHallCategoryList">{{hall.hallCategoryName}}</el-tag>
+        <el-tag size="small" effect="plain" type="danger" v-for="hall in item.sysHallCategoryList" :key="hall.hallId">{{hall.hallCategoryName}}</el-tag>
       </div>
       <div class="list-right">
         <el-button type="primary" round size="medium"><a href="#" class="buy-ticket">选座购票</a></el-button>

@@ -4,6 +4,10 @@
       <movie-item :movieItem="item" v-for="item in movieList" :key="item.movieId"></movie-item>
     </div>
 
+    <div class="no-cinema" v-if="sorry">
+      <p>抱歉，没有找到相关结果，请尝试用其他条件筛选。</p>
+    </div>
+
     <div class="pageHelper">
       <el-pagination
           @current-change="handleCurrentChange"
@@ -37,7 +41,8 @@ export default {
       pageSize: 30,
       pageNum: 1,
       startDate: moment().format("YYYY-MM-DD"),
-      movieList: []
+      movieList: [],
+      sorry: false
     }
   },
   computed: {
@@ -63,11 +68,14 @@ export default {
         orderByColumn: this.orderByColumn,
         pageSize: this.pageSize,
         pageNum: this.pageNum,
-        startDate: this.startDate
+        startDate: this.startDate,
+        isAsc: 'desc'
       }
       const { data : res } = await axios.get('sysMovie', {params: queryInfo})
       this.movieList = res.data
       this.total = res.total
+      if(this.movieList.length === 0) this.sorry = true
+      else this.sorry = false
     },
     handleCurrentChange(newPage) {
       this.pageNum = newPage
@@ -87,5 +95,14 @@ export default {
   display: flex;
   justify-content: center;
   margin: 40px 0px;
+}
+
+.no-cinema{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 16px;
+  color: #333;
 }
 </style>

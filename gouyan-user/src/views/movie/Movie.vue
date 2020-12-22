@@ -142,8 +142,10 @@ export default {
 }
 
 .tags-line{
+  width: 100%;
   display: flex;
   padding: 10px;
+  box-sizing: border-box;
   border-bottom: solid #EEEEEE 1px;
 }
 
@@ -161,7 +163,7 @@ export default {
 }
 
 .el-radio-group{
-  width: 90%;
+  width: 92%;
   margin-left: 20px;
 }
 

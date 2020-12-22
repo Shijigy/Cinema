@@ -175,6 +175,7 @@
         left join sys_actor a on a.actor_id = am.actor_id
         left join sys_actor_role ar on ar.actor_role_id = am.actor_role_id
         where m.movie_id = #{id}
+        order by ar.actor_role_id
     </select>
 
     <!--查询指定影院的所有上映电影，包含主演名字、影片类别-->

@@ -3,7 +3,7 @@
     <div class="main">
       <div class="board" v-for="(item, index) in top100List">
         <div class="left">
-          <i class="board-index">{{index+1}}</i>
+          <i class="board-index">{{ index+1 + frontNum}}</i>
         </div>
         <div class="middle1">
           <a href="#">
@@ -45,11 +45,13 @@ export default {
         pageSize: 10,
       },
       top100List: [],
-      total: 0
+      total: 0,
+      frontNum: 0
     }
   },
   created() {
     this.getTop100List()
+    this.frontNum = (this.queryInfo.pageNum - 1) * this.queryInfo.pageSize
   },
   methods:{
     async getTop100List(){
@@ -60,6 +62,7 @@ export default {
       this.total = resp.total
       this.queryInfo.pageSize = resp.pageSize
       this.queryInfo.pageNum = resp.pageNum
+      this.frontNum = (this.queryInfo.pageNum - 1) * this.queryInfo.pageSize
     },
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize

@@ -18,6 +18,7 @@ import MovieOngoing from "../views/movie/MovieOngoing";
 import MovieUpcoming from "../views/movie/MovieUpcoming";
 import MovieClassics from "../views/movie/MovieClassics";
 import MovieInfo from "../views/movie/MovieInfo";
+import ActorInfo from "../views/actor/ActorInfo";
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,11 @@ const routes = [
         path: '/movieInfo/:movieId',
         name: '电影详细信息',
         component: MovieInfo
+      },
+      {
+        path: '/actor/:actorId',
+        name: '演员详细信息',
+        component: ActorInfo
       },
       {
         path: '/cinema/',
