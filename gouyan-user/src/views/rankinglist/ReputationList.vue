@@ -12,7 +12,7 @@
         </div>
         <div class="middle2">
           <a href="#"><p class="name">{{ item.movieNameCn }}</p></a>
-          <p class="star">主演：{{ item.majorActorNameList[0] }}, {{item.majorActorNameList[1]}}, {{item.majorActorNameList[2]}}</p>
+          <p class="star">主演：{{ subArr(item.majorActorNameList) }}</p>
           <p class="releaseTime">上映时间：{{ item.releaseDate.split(" ")[0] }}</p>
         </div>
         <div class="right">
@@ -45,8 +45,12 @@ export default {
       console.log(resp)
       if(resp.code != 200) return this.$message.error(resp.msg)
       this.reputationList = resp.data
+    },
+    subArr(item){
+      let len = item.length
+      return item.slice(0, Math.min(3, len)).join()
     }
-  }
+  },
 }
 </script>
 
