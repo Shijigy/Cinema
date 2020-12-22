@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-carousel indicator-position="outside" height="520px">
+    <el-carousel :height="carouselHeight">
       <el-carousel-item v-for="item in posterList" :key="item.url">
         <img :src="item.url" alt/>
       </el-carousel-item>
@@ -13,7 +13,7 @@
             <a href="#">全部</a>
           </div>
           <div class="panel-content">
-            <movie-item :movieItem="item" v-for="item in ongoingMovieList"></movie-item>
+            <movie-item :movieItem="item" v-for="(item, index) in ongoingMovieList" :key="index"></movie-item>
           </div>
         </div>
         <div class="panel">
@@ -23,7 +23,7 @@
           </div>
           <div class="panel-content">
             <div class="panel-content">
-              <movie-item :movieItem="item" v-for="item in upcomingMovieList"></movie-item>
+              <movie-item :movieItem="item" v-for="(item,index) in upcomingMovieList" :key="index"></movie-item>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
           </div>
           <div class="panel-content">
             <div class="panel-content">
-              <movie-item :movieItem="item" v-for="item in classicMovieList"></movie-item>
+              <movie-item :movieItem="item" v-for="(item,index) in classicMovieList" :key="index"></movie-item>
             </div>
           </div>
         </div>
@@ -82,13 +82,15 @@ export default {
       ],
       ongoingMovieList: [],
       upcomingMovieList: [],
-      classicMovieList: []
+      classicMovieList: [],
+      carouselHeight: ''
     }
   },
   created() {
     this.getOngoingMovieList()
     this.getUpcomingMovieList()
     this.getClassicMovieList()
+    this.getHeight()
   },
   methods:{
     async getOngoingMovieList(){
@@ -105,6 +107,12 @@ export default {
       const { data : res } = await axios.get('sysMovie', {params: this.queryInfo3})
       this.classicMovieList = res.data
       this.total = res.total
+    },
+    getHeight(){
+      let clientWidth =   `${document.documentElement.clientWidth}`
+      clientWidth *= 0.8
+      this.carouselHeight = clientWidth / 1700 * 520 + 'px'
+
     }
   }
 }
