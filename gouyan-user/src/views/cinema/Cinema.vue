@@ -124,6 +124,9 @@ export default {
         this.queryInfo.isTicketChanged = true
       }else if (this.serviceRadio == 2){
         this.queryInfo.isRefunded = true
+      }else{
+        this.queryInfo.isTicketChanged = null
+        this.queryInfo.isRefunded = null
       }
       const {data: res} = await axios.get('sysCinema', { params: this.queryInfo })
       if (res.code !== 200) return this.$message.error('获取服务器信息失败')
