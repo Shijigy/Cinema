@@ -131,7 +131,7 @@ export default {
       const {data: res} = await axios.get('sysCinema', { params: this.queryInfo })
       if (res.code !== 200) return this.$message.error('获取服务器信息失败')
       this.cinemaList = res.data
-      if (this.cinemaList.length == 0) this.sorry = true
+      if (this.cinemaList.length == 0 ) this.sorry = true
       else this.sorry = false
     }
   }
