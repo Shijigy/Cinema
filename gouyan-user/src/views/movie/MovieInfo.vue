@@ -479,7 +479,7 @@ ul li{
   margin: 0 auto;
 }
 
-.movie-info-detail-container{
+.movie-info-detail{
   margin-top: 80px;
 }
 
