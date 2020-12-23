@@ -104,10 +104,14 @@
                   </div>
                   <div class="mod-content">
                     <div class="pictures-list">
+                      <div v-if="movieInfo.moviePictures.length == 0">
+                        暂无图片资源
+                      </div>
                       <el-image
                           class="default-img"
                           :src="movieInfo.moviePictures[0]"
-                          :preview-src-list="movieInfo.moviePictures">
+                          :preview-src-list="movieInfo.moviePictures"
+                          v-if="movieInfo.moviePictures.length > 0">
                       </el-image>
                       <div class="little-pictures">
                         <el-image
@@ -180,6 +184,9 @@
               <div class="tab-body">
                 <div class="pictures-list">
                   <div class="little-pictures">
+                    <div v-if="movieInfo.moviePictures.length == 0">
+                      暂无图片资源
+                    </div>
                     <el-image
                         fit="cover"
                         class="default-img"

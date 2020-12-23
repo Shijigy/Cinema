@@ -6,12 +6,12 @@
           <i class="board-index">{{index+1}}</i>
         </div>
         <div class="middle1">
-          <a href="#">
+          <a :href="'/movieInfo/' + item.movieId">
             <img :src="'http://127.0.0.1:8181' + JSON.parse(item.moviePoster)[0]" :alt="item.movieNameCn">
           </a>
         </div>
         <div class="middle2">
-          <a href="#"><p class="name">{{ item.movieNameCn }}</p></a>
+          <a :href="'/movieInfo/' + item.movieId"><p class="name">{{ item.movieNameCn }}</p></a>
           <p class="star">主演：{{ subArr(item.majorActorNameList) }}</p>
           <p class="releaseTime">上映时间：{{ item.releaseDate.split(" ")[0] }}</p>
         </div>
