@@ -21,22 +21,22 @@
 
         <div class="seat-content">
             <div class="row" v-for="(value, key) in seats">
-              <span style="margin-right: 100px">{{key}}</span>
+              <span style="width:10px;margin-right: 50px">{{key}}</span>
               <div style="display: flex; justify-content: flex-end">
                 <span class="seat" :class="isSelected[seats[key][index]]" @click="pressSeat(key, index)" v-for="(item, index) in value"></span>
               </div>
             </div>
         </div>
-
       </div>
+
       <div class="right">
         <div class="right-content">
           <div class="right-header">
-            <div><img :src="JSON.parse(session.sysMovie.moviePoster)[0]" alt=""> </div>
-            <div>
-              <p>神奇女侠1984</p>
-              <span>类型：动作,奇幻,冒险</span>
-              <span>时长：151分钟</span>
+            <div class="poster"><img :src="'http://127.0.0.1:8181' + JSON.parse(session.sysMovie.moviePoster)[0]" alt=""> </div>
+            <div class="movie-info">
+              <p>{{session.sysMovie.movieNameCn}}</p>
+              <span>类型：{{session.sysMovie.movieCategoryList.join('/')}}</span>
+              <span>时长：{{session.sysMovie.movieLength}}分钟</span>
             </div>
           </div>
         </div>
@@ -59,7 +59,9 @@ export default {
       },
       seats: {},
       sessionId: this.$route.params.sessionId,
-      session: {}
+      session: {
+        sysMovie:{}
+      }
     }
   },
   created() {
@@ -72,6 +74,9 @@ export default {
       if(resp.code != 200) return this.$message.error(resp.msg)
       this.session = resp.data
       this.seats = JSON.parse(resp.data.sessionSeats)
+      this.session.sysMovie.movieCategoryList = this.session.sysMovie.movieCategoryList.map((obj, index) => {
+        return obj.movieCategoryName
+      })
       console.log(this.seats)
     },
     pressSeat(key, idx){
@@ -88,13 +93,14 @@ export default {
 }
 
 .whole{
-  width: 80%;
+  width: 1200px;
   margin: 0 auto;
   border: 1px solid #e5e5e5;
+  display: flex;
 }
 
 .left {
-  width: 60%;
+  width: 820px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,7 +109,9 @@ export default {
 }
 
 .right{
-  width: 40%;
+  width: 340px;
+  background-color: #f9f9f9;
+  padding: 20px;
 }
 
 .seat {
@@ -158,12 +166,34 @@ export default {
   padding: 0 10px;
   text-align: center;
   display: flex;
-  justify-content: space-between;
 }
 
 
 .seat-content{
   margin-bottom: 40px;
+  overflow-x: scroll;
+  width: 90%;
+  padding: 10px;
 }
 
+.poster{
+  width: 115px;
+  height: 158px;
+}
+
+.poster>img{
+  width: 100%;
+  height: 100%;
+}
+
+.right-header{
+  display: flex;
+}
+
+.movie-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+}
 </style>

@@ -93,20 +93,20 @@ export default {
     return {
       queryInfo1: {
         total: 0,
-        pageSize: 10,
+        pageSize: 8,
         pageNum: 1,
         startDate: moment().subtract(30, "days").format("YYYY-MM-DD"),
         endDate: moment().format('YYYY-MM-DD'),
       },
       queryInfo2: {
         total: 0,
-        pageSize: 10,
+        pageSize: 8,
         pageNum: 1,
         startDate: moment().format('YYYY-MM-DD'),
       },
       queryInfo3: {
         total: 0,
-        pageSize: 10,
+        pageSize: 8,
         pageNum: 1,
       },
       queryInfo4:{
@@ -185,7 +185,7 @@ export default {
 }
 
 .whole{
-  width: 70%;
+  width: 1200px;
   margin: 30px auto;
   display: flex;
 }
@@ -218,7 +218,16 @@ h2{
   justify-content: space-between;
   align-items: center;
   /*margin-right: 20px;*/
-  margin-left: 20px;
+  /*margin-left: 20px;*/
+}
+
+.movie-item{
+  margin-left: 0;
+  margin-right: 30px;
+}
+
+.movie-item:nth-child(4n){
+  margin-right: 0;
 }
 
 .board{
@@ -229,7 +238,6 @@ h2{
 .board-left{
   display: flex;
   align-items: center;
-  margin-left: 25px;
 }
 
 
@@ -238,7 +246,7 @@ h2{
   /*align-items: center;*/
   /*justify-content: center;*/
   margin-left: 10px;
-  width: 200px;
+  width: 150px;
   font-size: 18px;
 }
 
@@ -253,9 +261,8 @@ h2{
   display: flex;
   font-size: 14px;
   font-weight: 700;
-  /*font-style: italic;*/
   color: #ffb400;
-  margin-left: 60px;
+  margin-left: 40px;
   align-items: center;
 }
 

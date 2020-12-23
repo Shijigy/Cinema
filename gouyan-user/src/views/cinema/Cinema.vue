@@ -50,7 +50,7 @@
         <el-tag size="small" effect="plain" type="danger" v-for="hall in item.sysHallCategoryList" :key="hall.hallId">{{hall.hallCategoryName}}</el-tag>
       </div>
       <div class="list-right">
-        <el-button type="primary" round size="medium"><a href="#" class="buy-ticket">选座购票</a></el-button>
+        <el-button type="primary" round size="medium"><a :href="'/cinemaInfo/' + item.cinemaId" class="buy-ticket">选座购票</a></el-button>
       </div>
     </div>
     <div class="no-cinema" v-if="sorry">

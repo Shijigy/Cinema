@@ -19,6 +19,8 @@ import MovieUpcoming from "../views/movie/MovieUpcoming";
 import MovieClassics from "../views/movie/MovieClassics";
 import MovieInfo from "../views/movie/MovieInfo";
 import ActorInfo from "../views/actor/ActorInfo";
+import CinemaInfo from "../views/cinema/CinemaInfo";
+import ChooseSeat from "../views/pay/ChooseSeat";
 
 Vue.use(VueRouter)
 
@@ -63,6 +65,11 @@ const routes = [
         name: 'cinema'
       },
       {
+        path: '/cinemaInfo/:cinemaId',
+        name: '影院详细信息',
+        component: CinemaInfo
+      },
+      {
         path: '/rankingList/',
         component: RankingList,
         name: 'rankingList',
@@ -74,7 +81,11 @@ const routes = [
           { path: 'top100List', name: 'Top100榜', component: Top100List}
         ]
       },
-      { path: '/menu/', component: UserInfo}
+      {
+        path: '/ChooseSeat/:sessionId',
+        component: ChooseSeat,
+        name: 'chooseSeat',
+      }
     ]
   },
   {

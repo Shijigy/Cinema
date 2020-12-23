@@ -27,7 +27,9 @@
         <result property="sessionState" column="session_state"></result>
         <result property="sessionPrice" column="session_price"></result>
         <result property="sessionSeats" column="session_seats"></result>
+        <result property="sessionTips" column="session_tips"></result>
         <result property="seatNums" column="seat_nums"></result>
+        <association property="sysMovieRuntime" column="movie_runtime_id" select="com.gouyan.system.mapper.SysMovieRuntimeMapper.findById"></association>
         <association property="sysHall">
             <result property="cinemaId" column="cinema_id"></result>
             <result property="hallId" column="hall_id"></result>
