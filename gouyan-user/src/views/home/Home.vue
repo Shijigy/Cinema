@@ -9,8 +9,8 @@
       <div class="left">
         <div class="panel">
           <div class="panel-header">
-            <h2>正在热映</h2>
-            <a href="#">全部</a>
+            <h2 style="color: #ef4238">正在热映</h2>
+            <a href="/movie/movieOngoing">全部</a>
           </div>
           <div class="panel-content">
             <movie-item :movieItem="item" v-for="(item, index) in ongoingMovieList" :key="index"></movie-item>
@@ -18,8 +18,8 @@
         </div>
         <div class="panel">
           <div class="panel-header">
-            <h2>即将上映</h2>
-            <a href="#">全部</a>
+            <h2 style="color: #2d98f3">即将上映</h2>
+            <a href="/movie/movieUpcoming">全部</a>
           </div>
           <div class="panel-content">
             <div class="panel-content">
@@ -29,8 +29,8 @@
         </div>
         <div class="panel">
           <div class="panel-header">
-            <h2>经典影片</h2>
-            <a href="#">全部</a>
+            <h2 style="color: #ef4238">经典影片</h2>
+            <a href="/movie/movieClassics">全部</a>
           </div>
           <div class="panel-content">
             <div class="panel-content">
@@ -40,6 +40,41 @@
         </div>
       </div>
       <div class="right">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 style="color: #ffb400">TOP 100</h2>
+            <a href="/rankingList/top100List">查看完整榜单</a>
+          </div>
+          <div class="panel-content">
+            <div class="board" v-for="(item, index) in top100List">
+              <div class="board-left">
+                <i class="board-index">{{index+1}}</i>
+              </div>
+              <div class="board-middle">
+                <a :href="'/movieInfo/' + item.movieId"><p class="name">{{ item.movieNameCn }}</p></a>
+              </div>
+              <div class="board-right">
+                <p>{{ item.movieScore.toFixed(1) }} 分</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2 style="color: #ffb400">热门影人</h2>
+          </div>
+          <div class="panel-content">
+            <div class="board" v-for="(item, index) in actorList">
+              <div class="board-left">
+                <i class="board-index">{{index+1}}</i>
+              </div>
+              <div class="board-middle">
+                <a :href="'/actor/' + item.actorId"><p class="name">{{ item.actorName }}</p></a>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -74,6 +109,10 @@ export default {
         pageSize: 10,
         pageNum: 1,
       },
+      queryInfo4:{
+        pageNum: 1,
+        pageSize: 10,
+      },
       posterList: [
         {url: require('../../assets/carousel1.jpg')},
         {url: require('../../assets/carousel2.jpg')},
@@ -83,7 +122,9 @@ export default {
       ongoingMovieList: [],
       upcomingMovieList: [],
       classicMovieList: [],
-      carouselHeight: ''
+      carouselHeight: '',
+      top100List: [],
+      actorList: [],
     }
   },
   created() {
@@ -91,6 +132,8 @@ export default {
     this.getUpcomingMovieList()
     this.getClassicMovieList()
     this.getHeight()
+    this.getTop100List()
+    this.getActorList()
   },
   methods:{
     async getOngoingMovieList(){
@@ -112,7 +155,18 @@ export default {
       let clientWidth =   `${document.documentElement.clientWidth}`
       clientWidth *= 0.8
       this.carouselHeight = clientWidth / 1700 * 520 + 'px'
-
+    },
+    async getTop100List(){
+      const {data: resp} = await axios.get('sysMovie/rankingList/4', {params: this.queryInfo4})
+      console.log(resp)
+      if(resp.code != 200) return this.$message.error(resp.msg)
+      this.top100List = resp.data
+    },
+    async getActorList(){
+      const {data: resp} = await axios.get('sysActor', {params: this.queryInfo4})
+      console.log(resp)
+      if(resp.code != 200) return this.$message.error(resp.msg)
+      this.actorList = resp.data
     }
   }
 }
@@ -131,18 +185,19 @@ export default {
 }
 
 .whole{
-  width: 80%;
+  width: 70%;
   margin: 30px auto;
   display: flex;
 }
 
 .left{
-  width: 60%;
+  width: 70%;
 }
 
 .right{
-  width: 40%;
-  background-color: lightpink;
+  width: 30%;
+  margin-left: 100px;
+  /*background-color: lightpink;*/
 }
 
 h2{
@@ -162,7 +217,63 @@ h2{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-right: 20px;
+  /*margin-right: 20px;*/
+  margin-left: 20px;
+}
+
+.board{
+  display: flex;
+  margin: 10px 10px;
+}
+
+.board-left{
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+}
+
+
+.board-middle{
+  display: flex;
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  margin-left: 10px;
+  width: 200px;
+  font-size: 18px;
+}
+
+
+.board-middle > a{
+  text-decoration: none;
+  color: #333;
+}
+
+
+.board-right{
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  /*font-style: italic;*/
+  color: #ffb400;
+  margin-left: 60px;
+  align-items: center;
+}
+
+.board-index{
+  color: #ffb400;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 18px;
+  /*font-weight: 700;*/
+  align-items: center;
+}
+
+
+.panel-content{
+  margin: 0px 0px 50px 0px;
 }
 
 
