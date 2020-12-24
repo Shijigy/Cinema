@@ -34,9 +34,42 @@
           <div class="right-header">
             <div class="poster"><img :src="session.sysMovie.moviePoster" alt=""> </div>
             <div class="movie-info">
-              <p>{{session.sysMovie.movieNameCn}}</p>
+              <p style="font-size: 20px;font-weight: 700">{{session.sysMovie.movieNameCn}}</p>
               <span>类型：{{session.sysMovie.movieCategoryList.join('/')}}</span>
               <span>时长：{{session.sysMovie.movieLength}}分钟</span>
+            </div>
+          </div>
+          <div class="right-content">
+            <div class="info-item">
+              <span>影院：</span>
+              <span>{{session.sysCinema.cinemaName}}</span>
+            </div>
+            <div class="info-item">
+              <span>影厅：</span>
+              <span>{{session.sysHall.hallName}}</span>
+            </div>
+            <div class="info-item">
+              <span>版本：</span>
+              <span>{{session.languageVersion}}</span>
+            </div>
+            <div class="info-item">
+              <span>场次：</span>
+              <span>{{session.sessionDate}} {{session.sysMovieRuntime.movieRuntimeName}}</span>
+            </div>
+            <div class="info-item">
+              <span>票价：</span>
+              <span>￥{{session.sessionPrice}}/张</span>
+            </div>
+            <span style="color: #999">座位：</span>
+            <div class="seat-chose">
+              <span class="ticket" v-if="pickedSeats.length > 0" v-for="item in pickedSeats">{{ item }}</span>
+            </div>
+            <div class="info-item" style="align-items: center">
+              <span style="color: #333">总价：</span>
+              <span style="font-size: 20px;color: #f03d37">￥{{session.sessionPrice * pickedSeats.length}}</span>
+            </div>
+            <div style="text-align: center;margin-top: 30px">
+              <el-button type="danger" round @click="submitBill">提交订单</el-button>
             </div>
           </div>
         </div>
@@ -47,6 +80,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: "ChooseSeat",
   data() {
@@ -62,7 +96,16 @@ export default {
       session: {
         sysMovie:{
           movieCategoryList: []
-        }
+        },
+        sysCinema:{},
+        sysHall: {},
+        sysMovieRuntime: {}
+      },
+      pickedSeats: [],
+      addForm:{
+        userId: 0,
+        sessionId: 0,
+        seats: '',
       }
     }
   },
@@ -83,8 +126,37 @@ export default {
       console.log(this.seats)
     },
     pressSeat(key, idx){
-      if (this.seats[key][idx] === 0 || this.seats[key][idx] === 2) this.$set(this.seats[key], idx, (this.seats[key][idx] == 0 ? 2 : 0))
+      let seat_str = key + "排" + (idx+1) + "座"
+      if (this.seats[key][idx] === 0){
+        if (this.pickedSeats.length === 5){
+          this.$alert('您最多选择五个座位', '提示', {
+            confirmButtonText: '确定',
+            type: 'warning'
+          }).catch(err => err)
+          return
+        }
+        this.$set(this.seats[key], idx, 2)
+        this.pickedSeats.push(seat_str)
+      } else if (this.seats[key][idx] === 2){
+        this.$set(this.seats[key], idx, 0)
+        this.pickedSeats.splice(this.pickedSeats.indexOf(seat_str), 1)
+      }
+      console.log(this.pickedSeats)
     },
+    async submitBill(){
+      this.addForm.userId = JSON.parse(window.sessionStorage.getItem('loginUser')).userId
+      this.addForm.sessionId = this.sessionId
+      this.addForm.seats = JSON.stringify(this.pickedSeats)
+      console.log(this.addForm)
+      axios.defaults.headers.post['Content-Type'] = 'application/json'
+      const { data: res} = await axios.post('sysBill', JSON.stringify(this.addForm));
+      if(res.code != 200) {
+        this.$message.error('添加订单失败！');
+        return
+      }
+      console.log(res.data)
+      this.$router.push('/billDetail/' + res.data.billId)
+    }
   }
 }
 </script>
@@ -198,5 +270,37 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-left: 20px;
+}
+
+.info-item{
+  display: flex;
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.info-item :first-child{
+  color: #999999;
+}
+
+.seat-chose{
+  margin-top: 20px;
+  margin-left: 42px;
+  margin-bottom: 20px;
+  position: relative;
+  top: -5px;
+}
+
+.ticket{
+  cursor: default;
+  position: relative;
+  font-size: 13px;
+  color: #f03d37;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0 12px 10px 0;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAeCAYAAABwmH1PAAAAAXNSR0IArs4c6QAAAXlJREFUWAlj/Oho7cXAzLTg/89fogzDGDCys71m+PsvgeGji+2r38eP/h/u4Pexo/9BfmUCxSyLhdUwjluI11gsrRhAfmUa9j5F8+Coh9ECZNhxR2N42EUpmodGZgx/TYz9+nvzhn9ogTEsuUysDGxS/548jP4+qe/0l6zUL//fvh2WHoV5ihHGALa0GD872rQxamrm8EybzQMTH070RzsLBngeZmRk/M+7/0jVv9s3rw7n5A33MCgmQZ4GRnn7r3Vrvw+nmEX2C4qHQRLMPxlO/X38kA1Z0XBiY3h4OHkOm18wPPyXncGMWVb+FzbFw0EMxcOgkvo/A0MlW1Aw53DwHDY/wD0Mq5aYVNW1WX0D4OLYNA1lMZavtraSoGT8ydWukklTU5u7uWNY1sGwSGL5zfDrGYuM6ldQMh7OMQv3MIjBPX8xN0xguNPDNq/iirhRD+MKmeEiPhrDwyUmcflj5MUwaM7lz/FjuAJk2IiD/AjyK+NIm0wDAACxUs8MaULTAAAAAElFTkSuQmCC) no-repeat;
 }
 </style>

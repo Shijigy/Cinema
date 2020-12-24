@@ -46,7 +46,12 @@ public class SysBillController extends BaseController {
 
     @PostMapping("/sysBill")
     public ResponseResult add(@Validated @RequestBody SysBill sysBill){
-        return getResult(sysBillService.add(sysBill));
+        System.out.println(sysBill);
+        Object obj = sysBillService.add(sysBill);
+        if(obj instanceof Integer){
+            return getResult((Integer) obj);
+        }
+        return getResult(obj);
     }
 
     @PutMapping("/sysBill")
