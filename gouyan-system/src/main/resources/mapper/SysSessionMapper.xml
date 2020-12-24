@@ -9,7 +9,14 @@
         <result property="cinemaId" column="cinema_id"></result>
         <result property="hallId" column="hall_id"></result>
         <result property="movieId" column="movie_id"></result>
+        <result property="languageVersion" column="language_version"></result>
         <result property="movieRuntimeId" column="movie_runtime_id"></result>
+        <result property="sessionDate" column="session_date"></result>
+        <result property="sessionState" column="session_state"></result>
+        <result property="sessionPrice" column="session_price"></result>
+        <result property="sessionSeats" column="session_seats"></result>
+        <result property="sessionTips" column="session_tips"></result>
+        <result property="seatNums" column="seat_nums"></result>
         <association property="sysCinema" column="cinema_id" select="com.gouyan.system.mapper.SysCinemaMapper.findById"></association>
         <association property="sysHall" column="{cinemaId=cinema_id, hallId=hall_id}" select="com.gouyan.system.mapper.SysHallMapper.findByCinemaIdAndHallId"></association>
         <association property="sysMovie" column="movie_id" select="com.gouyan.system.mapper.SysMovieMapper.findById"></association>

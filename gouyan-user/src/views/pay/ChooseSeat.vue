@@ -32,7 +32,7 @@
       <div class="right">
         <div class="right-content">
           <div class="right-header">
-            <div class="poster"><img :src="'http://127.0.0.1:8181' + JSON.parse(session.sysMovie.moviePoster)[0]" alt=""> </div>
+            <div class="poster"><img :src="session.sysMovie.moviePoster" alt=""> </div>
             <div class="movie-info">
               <p>{{session.sysMovie.movieNameCn}}</p>
               <span>类型：{{session.sysMovie.movieCategoryList.join('/')}}</span>
@@ -60,7 +60,9 @@ export default {
       seats: {},
       sessionId: this.$route.params.sessionId,
       session: {
-        sysMovie:{}
+        sysMovie:{
+          movieCategoryList: []
+        }
       }
     }
   },
@@ -73,6 +75,7 @@ export default {
       console.log(resp)
       if(resp.code != 200) return this.$message.error(resp.msg)
       this.session = resp.data
+      this.session.sysMovie.moviePoster = 'http://127.0.0.1:8181' + JSON.parse(this.session.sysMovie.moviePoster)[0]
       this.seats = JSON.parse(resp.data.sessionSeats)
       this.session.sysMovie.movieCategoryList = this.session.sysMovie.movieCategoryList.map((obj, index) => {
         return obj.movieCategoryName
