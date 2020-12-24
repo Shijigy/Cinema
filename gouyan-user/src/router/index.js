@@ -9,7 +9,6 @@ import Home from "../views/home/Home";
 import Movie from "../views/movie/Movie";
 import Cinema from "../views/cinema/Cinema";
 import RankingList from "../views/rankinglist/Rankinglist";
-import UserInfo from "../views/user/UserInfo";
 import ReputationList from "@/views/rankinglist/ReputationList";
 import DomesticBoxOfficeList from "@/views/rankinglist/DomesticBoxOfficeList";
 import AmericanBoxOfficeList from "@/views/rankinglist/AmericanBoxOfficeList";
@@ -21,6 +20,7 @@ import MovieInfo from "../views/movie/MovieInfo";
 import ActorInfo from "../views/actor/ActorInfo";
 import CinemaInfo from "../views/cinema/CinemaInfo";
 import ChooseSeat from "../views/pay/ChooseSeat";
+import BillDetail from "../views/pay/BillDetail";
 
 Vue.use(VueRouter)
 
@@ -85,6 +85,11 @@ const routes = [
         path: '/ChooseSeat/:sessionId',
         component: ChooseSeat,
         name: 'chooseSeat',
+      },
+      {
+        path: '/billDetail/:billId',
+        component: BillDetail,
+        name: 'billDetail'
       }
     ]
   },
