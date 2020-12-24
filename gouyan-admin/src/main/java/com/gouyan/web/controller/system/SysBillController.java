@@ -45,9 +45,14 @@ public class SysBillController extends BaseController {
     }
 
     @PostMapping("/sysBill")
-    public ResponseResult add(@Validated @RequestBody SysBillVo sysBillVo){
-        int rows = sysBillService.add(sysBillVo.getSysBill());
-        if(rows > 0){
+    public ResponseResult add(@Validated @RequestBody SysBill sysBill){
+        return getResult(sysBillService.add(sysBill));
+    }
+
+    @PutMapping("/sysBill")
+    public ResponseResult update(@RequestBody SysBillVo sysBillVo){
+        int rows = sysBillService.update(sysBillVo.getSysBill());
+        if(rows > 0 && sysBillVo.getSysBill().getBillState()){
             //更新场次的座位状态
             SysSession curSession = sysSessionService.findOne(sysBillVo.getSysBill().getSessionId());
             if(curSession == null){
@@ -68,11 +73,6 @@ public class SysBillController extends BaseController {
 
         }
         return getResult(rows);
-    }
-
-    @PutMapping("/sysBill")
-    public ResponseResult update(@RequestBody SysBill sysBill){
-        return getResult(sysBillService.update(sysBill));
     }
 
     @DeleteMapping("/sysBill/{ids}")
