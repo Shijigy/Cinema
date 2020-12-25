@@ -1,6 +1,6 @@
 <template>
-<el-container>
-  <el-main style="width: 30%">
+<div class="user-info-container">
+  <div style="width: 30%">
     <h1>用户头像</h1>
     <el-upload action=""
                list-type="picture-card"
@@ -23,8 +23,8 @@
         </span>
       </div>
     </el-upload>
-  </el-main>
-  <el-main style="width: 70%">
+  </div>
+  <div style="width: 70%">
     <el-form :model="loginUser"  ref="editFormRef" label-width="80px">
       <el-form-item label="昵称" prop="userName">
         <el-input v-model="loginUser.userName"></el-input>
@@ -33,38 +33,38 @@
           <el-radio v-model="loginUser.sex" :label="true">男</el-radio>
           <el-radio v-model="loginUser.sex" :label="false">女</el-radio>
       </el-form-item>
-      <el-form-item label="生日" prop="information.birthday">
+      <el-form-item label="生日" prop="birthday">
         <el-date-picker
             v-model="information.birthday"
             type="date"
             placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="生活状态" prop="information.condition">
+      <el-form-item label="生活状态" prop="condition">
         <el-radio v-model="information.condition" label="1">单身</el-radio>
         <el-radio v-model="information.condition" label="2">热恋中</el-radio>
         <el-radio v-model="information.condition" label="3">已婚</el-radio>
         <el-radio v-model="information.condition" label="4">为人父母</el-radio>
       </el-form-item>
-      <el-form-item label="从事行业" prop="information.job">
+      <el-form-item label="从事行业" prop="job">
         <el-cascader
             v-model="information.job"
             :options="options">
         </el-cascader>
       </el-form-item>
-      <el-form-item label="兴趣爱好" prop="information.hobbies">
+      <el-form-item label="兴趣爱好" prop="hobbies">
         <el-checkbox-group
             v-model="information.hobbies" >
           <el-checkbox v-for="hobby in hobbyList" :label="hobby.userHobbyId" :key="hobby.userHobbyId">{{hobby.userHobbyName}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="个性签名" prop="information.autograph">
+      <el-form-item label="个性签名" prop="autograph">
         <el-input v-model="information.autograph"></el-input>
       </el-form-item>
         <el-button type="primary" @click="editUser">保存</el-button>
     </el-form>
-  </el-main>
-</el-container>
+  </div>
+</div>
 </template>
 
 <script>
@@ -181,5 +181,7 @@ export default {
 </script>
 
 <style scoped>
-
+.user-info-container{
+  display: flex;
+}
 </style>
