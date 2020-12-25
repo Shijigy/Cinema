@@ -8,6 +8,9 @@ import './plugins/element.js'
 import './assets/css/fonts/iconfont.css'
 import {Message} from 'element-ui'
 import has from './assets/js/permission'
+import global_variable from "@/components/global_variable";
+
+Vue.prototype.global = global_variable
 
 axios.defaults.baseURL = 'http://127.0.0.1:8181/'
 axios.interceptors.request.use(config => {

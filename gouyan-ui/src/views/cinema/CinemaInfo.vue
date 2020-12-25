@@ -470,7 +470,7 @@ export default {
       for (const item of JSON.parse(this.editForm.cinemaPicture)) {
         let pic = {}
         pic['name'] = ''
-        pic['url'] = 'http://127.0.0.1:8181' + item
+        pic['url'] = this.global.base + item
         this.pics.push(pic)
       }
       console.log("aaa")
