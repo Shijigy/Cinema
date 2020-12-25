@@ -25,6 +25,9 @@ import Search from "../views/search/Search";
 import SearchMovie from "../views/search/SearchMovie";
 import SearchActor from "../views/search/SearchActor";
 import SearchCinema from "../views/search/SearchCinema";
+import UserMenu from "../views/user/UserMenu";
+import UserInfo from "../views/user/UserInfo";
+import BillInfo from "../views/user/BillInfo";
 
 Vue.use(VueRouter)
 
@@ -42,6 +45,16 @@ const routes = [
     redirect: { name: 'home'},
     children: [
       { path: '/home/', name: 'home', component: Home },
+      {
+        path: '/userMenu',
+        name: 'userMenu',
+        component: UserMenu,
+        redirect: {name: 'userInfo'},
+        children:[
+          {path: '/user', component: UserInfo,name:'userInfo'},
+          {path: '/bill', component: BillInfo, name:'billInfo'}
+        ]
+      },
       {
         path: '/movie/',
         component: Movie,

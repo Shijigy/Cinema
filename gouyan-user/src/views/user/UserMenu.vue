@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  name: "menu",
+  name: "UserMenu",
   data(){
     return{
       url:'',
