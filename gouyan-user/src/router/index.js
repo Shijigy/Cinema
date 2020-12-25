@@ -11,7 +11,6 @@ import Cinema from "../views/cinema/Cinema";
 import RankingList from "../views/rankinglist/Rankinglist";
 import UserInfo from "../views/user/UserInfo";
 import BillInfo from "../views/user/BillInfo";
-import * as path from "path";
 import ReputationList from "@/views/rankinglist/ReputationList";
 import DomesticBoxOfficeList from "@/views/rankinglist/DomesticBoxOfficeList";
 import AmericanBoxOfficeList from "@/views/rankinglist/AmericanBoxOfficeList";
@@ -20,6 +19,7 @@ import MovieOngoing from "../views/movie/MovieOngoing";
 import MovieUpcoming from "../views/movie/MovieUpcoming";
 import MovieClassics from "../views/movie/MovieClassics";
 import MovieInfo from "../views/movie/MovieInfo";
+import menu from "../views/user/menu";
 
 Vue.use(VueRouter)
 
@@ -36,6 +36,19 @@ const routes = [
     component: Welcome,
     redirect: { name: 'home'},
     children: [
+      { path: '/home', component: Home },
+      { path: '/movie', component: Movie },
+      { path: '/cinema', component: Cinema },
+      { path: '/rankingList', component: RankingList },
+      {
+        path: '/menu',
+        component: menu,
+        redirect: '/bill',
+        children: [
+          {path:'/bill',component: BillInfo},
+          {path: '/user',component: UserInfo}
+        ]
+      },
       { path: '/home/', name: 'home', component: Home },
       {
         path: '/movie/',
@@ -64,7 +77,6 @@ const routes = [
           { path: 'top100List', name: 'Top100榜', component: Top100List}
         ]
       },
-      { path: '/menu/', component: UserInfo}
     ]
   },
   {

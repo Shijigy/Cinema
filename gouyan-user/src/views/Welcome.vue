@@ -24,8 +24,7 @@
             <i class="el-icon-arrow-down el-icon--right icon-arrow"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="user">个人信息</el-dropdown-item>
-            <el-dropdown-item command="bill">我的订单</el-dropdown-item>
+            <el-dropdown-item command="menu">个人中心</el-dropdown-item>
             <el-dropdown-item command="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
