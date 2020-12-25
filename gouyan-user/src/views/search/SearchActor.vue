@@ -76,7 +76,7 @@ export default {
       }
       //处理数据
       for(let actor of this.actorList){
-        actor.actorPhoto = 'http://127.0.0.1:8181' + JSON.parse(actor.actorPhoto)[0]
+        actor.actorPhoto = this.global.base + JSON.parse(actor.actorPhoto)[0]
       }
     }
   },

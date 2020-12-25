@@ -4,13 +4,13 @@
     <div v-on:mouseover="isHover = true" v-on:mouseleave="isHover = false">
       <!-- 海报 -->
       <a :href="movieInfoUrl">
-        <img class="poster" :src="'http://127.0.0.1:8181' + movieItem.moviePoster">
+        <img class="poster" :src="this.global.base + movieItem.moviePoster">
       </a>
       <!-- 鼠标划过时的效果 -->
       <div class="movie-item-hover" v-if="isHover">
         <!-- 海报 -->
         <a :href="movieInfoUrl">
-          <img class="poster-hover" :src="'http://127.0.0.1:8181' + movieItem.moviePoster">
+          <img class="poster-hover" :src="this.global.base + movieItem.moviePoster">
           <!-- 鼠标划过时显示的信息 -->
           <div class="movie-hover-info">
             <div class="title-hover">

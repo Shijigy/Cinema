@@ -80,7 +80,7 @@ export default {
     const userPicture = JSON.parse(window.sessionStorage.getItem('loginUser')).userPicture
     const picture = JSON.parse(userPicture)
     if(picture === null || picture.length === 0) return;
-    this.url = 'http://127.0.0.1:8181' + picture[0]
+    this.url = this.global.base + picture[0]
   },
   watch: {
     '$route'() {

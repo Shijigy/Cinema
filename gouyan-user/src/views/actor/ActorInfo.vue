@@ -18,7 +18,7 @@
           <div class="major-movie">
             <div>代表作</div>
             <div class="major-movie-list">
-              <img :src="'http://127.0.0.1:8181' + item.moviePoster" v-for="item in actorInfo.movieList.slice(0, Math.min(3, actorInfo.movieList.length))" :key="item.movieId">
+              <img :src="this.global.base + item.moviePoster" v-for="item in actorInfo.movieList.slice(0, Math.min(3, actorInfo.movieList.length))" :key="item.movieId">
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ export default {
       //去重
       this.actorInfo.actorRoleList = Array.from(new Set(this.actorInfo.actorRoleList))
       //处理演员照片
-      this.actorInfo.actorPhoto = 'http://127.0.0.1:8181' + JSON.parse(this.actorInfo.actorPhoto)[0]
+      this.actorInfo.actorPhoto = this.global.base + JSON.parse(this.actorInfo.actorPhoto)[0]
       this.actorInfo.actorNameEn = pinyin(this.actorInfo.actorName, {
         heteronym: true,	//打开多音字
         style: pinyin.STYLE_NORMAL	//注音不加声调
@@ -174,7 +174,7 @@ export default {
       this.relationshipList = res.data
       //取出图片路径
       for(let actor of this.relationshipList){
-        actor.actorPhoto = 'http://127.0.0.1:8181' + JSON.parse(actor.actorPhoto)[0]
+        actor.actorPhoto = this.global.base + JSON.parse(actor.actorPhoto)[0]
       }
     },
     toRelationalActor(actorId) {

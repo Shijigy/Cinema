@@ -6,6 +6,9 @@ import store from './store'
 import './plugins/element.js'
 import {Message} from 'element-ui'
 import './assets/css/fonts/iconfont.css'
+import global_variable from "@/components/global_variable";
+
+Vue.prototype.global = global_variable
 
 Vue.config.productionTip = false
 

@@ -118,7 +118,7 @@ export default {
       console.log(resp)
       if(resp.code != 200) return this.$message.error(resp.msg)
       this.session = resp.data
-      this.session.sysMovie.moviePoster = 'http://127.0.0.1:8181' + JSON.parse(this.session.sysMovie.moviePoster)[0]
+      this.session.sysMovie.moviePoster = this.global.base + JSON.parse(this.session.sysMovie.moviePoster)[0]
       this.seats = JSON.parse(resp.data.sessionSeats)
       this.session.sysMovie.movieCategoryList = this.session.sysMovie.movieCategoryList.map((obj, index) => {
         return obj.movieCategoryName
