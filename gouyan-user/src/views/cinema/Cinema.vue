@@ -50,7 +50,7 @@
         <el-tag size="small" effect="plain" type="danger" v-for="hall in item.sysHallCategoryList" :key="hall.hallId">{{hall.hallCategoryName}}</el-tag>
       </div>
       <div class="list-right">
-        <el-button type="primary" round size="medium"><a :href="'/cinemaInfo/' + item.cinemaId" class="buy-ticket">选座购票</a></el-button>
+        <el-button @click="toCinemaInfo(item.cinemaId)" type="primary" round size="medium">选座购票</el-button>
       </div>
     </div>
     <div class="no-cinema" v-if="sorry">
@@ -133,6 +133,9 @@ export default {
       this.cinemaList = res.data
       if (this.cinemaList.length == 0 ) this.sorry = true
       else this.sorry = false
+    },
+    toCinemaInfo(id){
+      this.$router.push('/cinemaInfo/' + id)
     }
   }
 }

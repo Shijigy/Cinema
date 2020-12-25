@@ -28,7 +28,7 @@
             <a href="/welcome">狗眼电影</a> &gt; <a href="/cinema">影院</a> &gt; {{cinemaInfo.cinemaName}}
           </div>
           <!-- 当前影院上映的所有电影 -->
-          <div class="movie-list-container">
+          <div class="movie-list-container" v-if="cinemaInfo.sysMovieList !== null && cinemaInfo.sysMovieList.length !== 0">
             <span class="scroll-prev scroll-btn" @click="prevPage"></span>
             <span class="scroll-next scroll-btn" @click="nextPage"></span>
             <div class="movie-list" ref="movieListRef" :style="'left:' + left + 'px'">
@@ -39,7 +39,7 @@
           </div>
 
           <!-- 当前选中电影信息 -->
-          <div class="show-list">
+          <div class="show-list" v-if="cinemaInfo.sysMovieList !== null && cinemaInfo.sysMovieList.length !== 0">
             <div class="show-movie-info">
               <div>
                 <h2 class="show-movie-name">{{movieDict[activeMovie].movieNameCn}}</h2>
@@ -64,7 +64,7 @@
               </div>
             </div>
             <!-- 展示场次的日期 -->
-            <div class="show-date">
+            <div class="show-date" v-if="sessions !== null && sessions.length !== 0">
               <span>观影时间 :</span>
               <span class="date-item" :class="{active: activeDate === key}" @click="activeDate = key" v-for="(item, key) in sessionDict" :key="key">{{calculateDate(key)}}</span>
             </div>
@@ -175,6 +175,9 @@ export default {
       })
       if(this.sessions !== null)
         this.activeMovie = this.sessions[0].movieId
+      if(this.sessions === null){
+        this.sessions = []
+      }
 
       for(let movie of this.cinemaInfo.sysMovieList) {
         movie.movieCategoryList = movie.movieCategoryList.map((obj, index) => {
