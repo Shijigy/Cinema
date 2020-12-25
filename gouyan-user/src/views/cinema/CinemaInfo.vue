@@ -437,7 +437,7 @@ ul li{
 }
 
 .movie-list-container .scroll-btn {
-  z-index: 10;
+  z-index: 8;
   display: inline-block;
   position: absolute;
   width: 30px;
