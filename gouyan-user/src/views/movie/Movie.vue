@@ -100,6 +100,15 @@ export default {
       if(res.code !== 200) return this.$message.error('获取服务器信息失败')
       this.ageList = res.data
     },
+  },
+  watch:{
+    '$route'(){
+      //页面发生变化时初始化类别选项
+      this.categoryRadio = 0
+      this.areaRadio = 0
+      this.ageRadio = 0
+      this.orderByColumn = 'releaseDate'
+    }
   }
 }
 </script>
@@ -136,6 +145,7 @@ export default {
   width: 100%;
   display: flex;
   padding: 10px;
+  box-sizing: border-box;
   border-bottom: solid #EEEEEE 1px;
 }
 
@@ -153,7 +163,7 @@ export default {
 }
 
 .el-radio-group{
-  width: 90%;
+  width: 92%;
   margin-left: 20px;
 }
 

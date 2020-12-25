@@ -3,16 +3,16 @@
     <div class="main">
       <div class="board" v-for="(item, index) in top100List">
         <div class="left">
-          <i class="board-index">{{index+1}}</i>
+          <i class="board-index">{{ index+1 + frontNum}}</i>
         </div>
         <div class="middle1">
-          <a href="#">
+          <a :href="'/movieInfo/' + item.movieId">
             <img :src="'http://127.0.0.1:8181' + JSON.parse(item.moviePoster)[0]" :alt="item.movieNameCn">
           </a>
         </div>
         <div class="middle2">
-          <a href="#"><p class="name">{{ item.movieNameCn }}</p></a>
-          <p class="star">主演：{{ item.majorActorNameList[0] }}, {{item.majorActorNameList[1]}}, {{item.majorActorNameList[2]}}</p>
+          <a :href="'/movieInfo/' + item.movieId"><p class="name">{{ item.movieNameCn }}</p></a>
+          <p class="star">主演：{{ subArr(item.majorActorNameList) }}</p>
           <p class="releaseTime">上映时间：{{ item.releaseDate.split(" ")[0] }}</p>
         </div>
         <div class="right">
@@ -45,11 +45,13 @@ export default {
         pageSize: 10,
       },
       top100List: [],
-      total: 0
+      total: 0,
+      frontNum: 0
     }
   },
   created() {
     this.getTop100List()
+    this.frontNum = (this.queryInfo.pageNum - 1) * this.queryInfo.pageSize
   },
   methods:{
     async getTop100List(){
@@ -60,6 +62,7 @@ export default {
       this.total = resp.total
       this.queryInfo.pageSize = resp.pageSize
       this.queryInfo.pageNum = resp.pageNum
+      this.frontNum = (this.queryInfo.pageNum - 1) * this.queryInfo.pageSize
     },
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize
@@ -68,6 +71,10 @@ export default {
     handleCurrentChange(newPage) {
       this.queryInfo.pageNum = newPage
       this.getTop100List()
+    },
+    subArr(item){
+      let len = item.length
+      return item.slice(0, Math.min(3, len)).join()
     }
   }
 }

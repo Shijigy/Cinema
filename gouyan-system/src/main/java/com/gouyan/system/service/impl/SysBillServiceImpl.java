@@ -29,8 +29,9 @@ public class SysBillServiceImpl implements SysBillService {
     }
 
     @Override
-    public int add(SysBill sysBill) {
-        return sysBillMapper.add(sysBill);
+    public Object add(SysBill sysBill) {
+        int rows = sysBillMapper.add(sysBill);
+        return rows > 0 ? sysBill : rows;
     }
 
     @Override

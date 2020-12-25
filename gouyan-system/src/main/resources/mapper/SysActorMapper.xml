@@ -28,12 +28,17 @@
             <result property="releaseDate" column="release_date"></result>
             <result property="movieScore" column="movie_score"></result>
             <result property="movieRateNum" column="movie_rate_num"></result>
+            <result property="movieBoxOffice" column="movie_box_office"></result>
             <result property="movieIntroduction" column="movie_introduction"></result>
             <result property="moviePictures" column="movie_pictures"></result>
+            <association property="sysMovieArea" column="movie_area_id" select="com.gouyan.system.mapper.SysMovieAreaMapper.findById"></association>
+            <association property="sysMovieAge" column="movie_age_id" select="com.gouyan.system.mapper.SysMovieAgeMapper.findById"></association>
             <collection property="actorRoleList" ofType="SysActorRole">
                 <id property="actorRoleId" column="actor_role_id"></id>
                 <result property="actorRoleName" column="actor_role_name"></result>
             </collection>
+            <collection property="majorActorNameList" ofType="String" column="movie_id" select="com.gouyan.system.mapper.SysActorMapper.findaMajorActorNames"></collection>
+            <collection property="movieCategoryList" ofType="SysMovieCategory" column="movie_id" select="com.gouyan.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
         </collection>
 <!--        <collection property="actorRoleList" ofType="SysActorRole">-->
 <!--            <id property="actorRoleId" column="actor_role_id"></id>-->

@@ -9,8 +9,6 @@ import Home from "../views/home/Home";
 import Movie from "../views/movie/Movie";
 import Cinema from "../views/cinema/Cinema";
 import RankingList from "../views/rankinglist/Rankinglist";
-import UserInfo from "../views/user/UserInfo";
-import BillInfo from "../views/user/BillInfo";
 import ReputationList from "@/views/rankinglist/ReputationList";
 import DomesticBoxOfficeList from "@/views/rankinglist/DomesticBoxOfficeList";
 import AmericanBoxOfficeList from "@/views/rankinglist/AmericanBoxOfficeList";
@@ -19,7 +17,14 @@ import MovieOngoing from "../views/movie/MovieOngoing";
 import MovieUpcoming from "../views/movie/MovieUpcoming";
 import MovieClassics from "../views/movie/MovieClassics";
 import MovieInfo from "../views/movie/MovieInfo";
-import menu from "../views/user/menu";
+import ActorInfo from "../views/actor/ActorInfo";
+import CinemaInfo from "../views/cinema/CinemaInfo";
+import ChooseSeat from "../views/pay/ChooseSeat";
+import BillDetail from "../views/pay/BillDetail";
+import Search from "../views/search/Search";
+import SearchMovie from "../views/search/SearchMovie";
+import SearchActor from "../views/search/SearchActor";
+import SearchCinema from "../views/search/SearchCinema";
 
 Vue.use(VueRouter)
 
@@ -36,19 +41,6 @@ const routes = [
     component: Welcome,
     redirect: { name: 'home'},
     children: [
-      { path: '/home', component: Home },
-      { path: '/movie', component: Movie },
-      { path: '/cinema', component: Cinema },
-      { path: '/rankingList', component: RankingList },
-      {
-        path: '/menu',
-        component: menu,
-        redirect: '/bill',
-        children: [
-          {path:'/bill',component: BillInfo},
-          {path: '/user',component: UserInfo}
-        ]
-      },
       { path: '/home/', name: 'home', component: Home },
       {
         path: '/movie/',
@@ -59,11 +51,27 @@ const routes = [
           { path: 'movieOngoing', name:'正在热映', component: MovieOngoing },
           { path: 'movieUpcoming', name: '即将上映', component: MovieUpcoming },
           { path: 'movieClassics', name: '经典影片', component: MovieClassics }
-        ]},
+          ]
+      },
+      {
+        path: '/movieInfo/:movieId',
+        name: '电影详细信息',
+        component: MovieInfo
+      },
+      {
+        path: '/actor/:actorId',
+        name: '演员详细信息',
+        component: ActorInfo
+      },
       {
         path: '/cinema/',
         component: Cinema,
         name: 'cinema'
+      },
+      {
+        path: '/cinemaInfo/:cinemaId',
+        name: '影院详细信息',
+        component: CinemaInfo
       },
       {
         path: '/rankingList/',
@@ -77,12 +85,40 @@ const routes = [
           { path: 'top100List', name: 'Top100榜', component: Top100List}
         ]
       },
+      {
+        path: '/ChooseSeat/:sessionId',
+        component: ChooseSeat,
+        name: 'chooseSeat',
+      },
+      {
+        path: '/billDetail/:billId',
+        component: BillDetail,
+        name: 'billDetail'
+      },
+      {
+        path: '/search/',
+        component: Search,
+        name: 'search',
+        redirect: {name:'searchMovie'},
+        children: [
+          {
+            path:'searchMovie',
+            component: SearchMovie,
+            name: 'searchMovie',
+          },
+          {
+            path: 'searchActor',
+            component: SearchActor,
+            name: 'searchActor'
+          },
+          {
+            path: 'searchCinema',
+            component: SearchCinema,
+            name: 'searchCinema'
+          }
+        ]
+      }
     ]
-  },
-  {
-    path: '/movieInfo',
-    name: '电影详细信息',
-    component: MovieInfo
   },
   {
     path: '/register',
@@ -116,4 +152,8 @@ router.beforeEach((to, from, next) =>{
   next();
 })
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location){
+  return originalPush.call(this, location).catch(err => err)
+}
 export default router

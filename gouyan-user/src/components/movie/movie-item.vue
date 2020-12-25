@@ -3,27 +3,27 @@
   <div class="movie-item">
     <div v-on:mouseover="isHover = true" v-on:mouseleave="isHover = false">
       <!-- 海报 -->
-      <a href="/movieInfo">
-        <img class="poster" src="https://p0.meituan.net/movie/df84690ded848edf709187eae23a7969866455.jpg@464w_644h_1e_1c">
+      <a :href="movieInfoUrl">
+        <img class="poster" :src="'http://127.0.0.1:8181' + movieItem.moviePoster">
       </a>
       <!-- 鼠标划过时的效果 -->
       <div class="movie-item-hover" v-if="isHover">
         <!-- 海报 -->
-        <a href="/movieInfo">
-          <img class="poster-hover" src="https://p0.meituan.net/movie/df84690ded848edf709187eae23a7969866455.jpg@464w_644h_1e_1c">
+        <a :href="movieInfoUrl">
+          <img class="poster-hover" :src="'http://127.0.0.1:8181' + movieItem.moviePoster">
           <!-- 鼠标划过时显示的信息 -->
           <div class="movie-hover-info">
             <div class="title-hover">
-              <span class="name-tags">送你一朵小红花</span>
+              <span class="name-tags">{{movieItem.movieNameCn}}</span>
             </div>
             <div class="title-hover">
-              <span class="name-tags">类型: </span>剧情/爱情/纪录片
+              <span class="name-tags">类型: </span>{{movieItem.movieCategoryList}}
             </div>
             <div class="title-hover">
-              <span class="name-tags">主演: </span>易烊千玺/王源/王一博
+              <span class="name-tags">主演: </span>{{movieItem.majorActorNameList}}
             </div>
             <div class="title-hover">
-              <span class="name-tags">上映时间: </span>2020/12/19
+              <span class="name-tags">上映时间: </span>{{movieItem.releaseDate}}
             </div>
           </div>
         </a>
@@ -31,16 +31,17 @@
     </div>
     <!-- 标题 -->
     <div class="title-style">
-      <a href="/movieInfo">送你一朵小红花</a>
+      <a href="/movieInfo">{{movieItem.movieNameCn}}</a>
     </div>
     <!-- 评分 -->
     <div class="title-style score">
-      9.5
+      {{movieItem.movieScore.toFixed(1)}}
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: "movie-item",
   props:{
@@ -49,10 +50,36 @@ export default {
   data() {
     return {
       isHover: false,
+      movieInfoUrl: ''
     }
   },
   created(){
-    console.log(this.movieItem)
+    this.movieItem.moviePoster = JSON.parse(this.movieItem.moviePoster)[0]
+    this.movieItem.moviePictures = JSON.parse(this.movieItem.moviePictures)
+    this.movieItem.releaseDate = moment(this.movieItem.releaseDate).format('YYYY-MM-DD')
+    const tmp = this.movieItem.majorActorNameList
+    this.movieItem.majorActorNameList = (tmp.slice(0, Math.min(tmp.length, 3))).join('/')
+    this.movieItem.movieCategoryList = this.movieItem.movieCategoryList.map((obj,index) => {
+      return obj.movieCategoryName;
+    }).join("/")
+
+    //赋值目标链接
+    this.movieInfoUrl = '/movieInfo/' + this.movieItem.movieId
+  },
+  watch:{
+    'movieItem'(){
+      this.movieItem.moviePoster = JSON.parse(this.movieItem.moviePoster)[0]
+      this.movieItem.moviePictures = JSON.parse(this.movieItem.moviePictures)
+      this.movieItem.releaseDate = moment(this.movieItem.releaseDate).format('YYYY-MM-DD')
+      const tmp = this.movieItem.majorActorNameList
+      this.movieItem.majorActorNameList = (tmp.slice(0, Math.min(tmp.length, 3))).join('/')
+      this.movieItem.movieCategoryList = this.movieItem.movieCategoryList.map((obj,index) => {
+        return obj.movieCategoryName;
+      }).join("/")
+
+      //赋值目标链接
+      this.movieInfoUrl = '/movieInfo/' + this.movieItem.movieId
+    }
   }
 }
 </script>

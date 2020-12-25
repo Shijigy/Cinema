@@ -25,6 +25,18 @@
     <!-- 查询单个影院的详细信息，包含影院上映的所有电影信息 -->
     <resultMap id="SysCinemaMap" type="SysCinema">
         <id property="cinemaId" column="cinema_id"></id>
+        <result property="cinemaName" column="cinema_name"></result>
+        <result property="cinemaBrandId" column="cinema_brand_id"></result>
+        <result property="cinemaPicture" column="cinema_picture"></result>
+        <result property="isTicketChanged" column="is_ticket_changed"></result>
+        <result property="isRefunded" column="is_refunded"></result>
+        <result property="cinemaAreaId" column="cinema_area_id"></result>
+        <result property="cinemaAddress" column="cinema_address"></result>
+        <result property="userId" column="user_id"></result>
+        <result property="entryDate" column="entry_date"></result>
+        <association property="user" column="user_id" select="com.gouyan.system.mapper.SysUserMapper.findById"></association>
+        <association property="sysCinemaBrand" column="cinema_brand_id" select="com.gouyan.system.mapper.SysCinemaBrandMapper.findById"></association>
+        <association property="sysCinemaArea" column="cinema_area_id" select="com.gouyan.system.mapper.SysCinemaAreaMapper.findById"></association>
         <collection property="sysMovieList" ofType="SysMovie" column="cinema_id" select="com.gouyan.system.mapper.SysMovieMapper.findByCinemaId"></collection>
     </resultMap>
 

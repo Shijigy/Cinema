@@ -6,13 +6,13 @@
           <i class="board-index">{{index+1}}</i>
         </div>
         <div class="middle1">
-          <a href="#">
+          <a :href="'/movieInfo/' + item.movieId">
             <img :src="'http://127.0.0.1:8181' + JSON.parse(item.moviePoster)[0]" :alt="item.movieNameCn">
           </a>
         </div>
         <div class="middle2">
-          <a href="#"><p class="name">{{ item.movieNameCn }}</p></a>
-          <p class="star">主演：{{ item.majorActorNameList[0] }}, {{item.majorActorNameList[1]}}, {{item.majorActorNameList[2]}}</p>
+          <a :href="'/movieInfo/' + item.movieId"><p class="name">{{ item.movieNameCn }}</p></a>
+          <p class="star">主演：{{ subArr(item.majorActorNameList) }}</p>
           <p class="releaseTime">上映时间：{{ item.releaseDate.split(" ")[0] }}</p>
         </div>
         <div class="right">
@@ -41,10 +41,14 @@ export default {
   },
   methods:{
     async getDomesticBoxOfficeList(){
-      const {data: resp} = await axios.get('sysMovie/rankingList/4', {params: this.queryInfo})
+      const {data: resp} = await axios.get('sysMovie/rankingList/2', {params: this.queryInfo})
       console.log(resp)
       if(resp.code != 200) return this.$message.error(resp.msg)
       this.domesticBoxOfficeList = resp.data
+    },
+    subArr(item){
+      let len = item.length
+      return item.slice(0, Math.min(3, len)).join()
     }
   }
 }

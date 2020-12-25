@@ -14,7 +14,7 @@ public interface SysBillService {
 
     SysBill findById(Long id);
 
-    int add(SysBill sysBill);
+    Object add(SysBill sysBill);
 
     int update(SysBill sysBill);
 

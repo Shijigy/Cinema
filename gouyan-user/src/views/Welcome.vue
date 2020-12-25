@@ -15,7 +15,7 @@
           <el-menu-item :index="item.path" v-for="item in menuList" :key="item.id">{{item.name}}</el-menu-item>
         </el-menu>
         <div class="searchContainer">
-          <el-input class="searchBar" placeholder="找电影、影人、影院"></el-input>
+          <el-input v-model="kw" class="searchBar" placeholder="找电影、影人、影院"></el-input>
           <el-button id="searchBtn" icon="el-icon-search" type="primary" circle @click="search"></el-button>
         </div>
         <el-dropdown @command="handleCommand">
@@ -71,7 +71,9 @@ export default {
           name: '榜单',
           path: '/rankingList'
         }
-      ]
+      ],
+      //搜索关键字
+      kw:''
     }
   },
   created() {
@@ -90,7 +92,9 @@ export default {
       console.log(key, keyPath);
     },
     search(){
-      //搜索电影、影人、影院
+      let tmp = this.kw
+      this.$router.push('/search/searchMovie?kw=' + tmp)
+      this.kw = ''
     },
     handleCommand(command){
       if(command === 'logout'){

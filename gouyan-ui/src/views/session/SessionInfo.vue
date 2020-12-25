@@ -357,7 +357,7 @@ export default {
       isSelected: {
         0: 'seat-default',
         1: 'seat-choose',
-        2: 'seat-sold'
+        3: 'seat-sold'
       },
       editSeat: {},
       checkDialogWidth: '',
