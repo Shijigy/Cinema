@@ -83,7 +83,7 @@
                         <div class="actors-list clearfix">
                           <div class="actor" v-for="actor in item.actorList">
                             <a @click="toActor(actor.actorId)" target="_blank" class="portrait">
-                              <img class="default-img" :alt="actor.actorName" :src="'http://127.0.0.1:8181' + JSON.parse(actor.actorPhoto)[0]">
+                              <img class="default-img" :alt="actor.actorName" :src="this.global.base + JSON.parse(actor.actorPhoto)[0]">
                             </a>
                             <div class="info">
                               <a @click="toActor(actor.actorId)" target="_blank" class="actor-name">
@@ -167,7 +167,7 @@
                     <div class="actors-list clearfix">
                       <div class="actor" v-for="actor in item.actorList">
                         <a @click="toActor(actor.actorId)" target="_blank" class="portrait">
-                          <img class="default-img" :alt="actor.actorName" :src="'http://127.0.0.1:8181' + JSON.parse(actor.actorPhoto)[0]">
+                          <img class="default-img" :alt="actor.actorName" :src="this.global.base + JSON.parse(actor.actorPhoto)[0]">
                         </a>
                         <div class="info">
                           <a @click="toActor(actor.actorId)" target="_blank" class="actor-name">
@@ -269,16 +269,16 @@ export default {
       const {data : res} = await axios.get('sysMovie/find/' + this.movieId)
       if(res.code !== 200) return this.$message.error('数据查询失败')
       this.movieInfo = res.data
-      this.movieInfo.moviePoster = 'http://127.0.0.1:8181' + JSON.parse(res.data.moviePoster)[0]
+      this.movieInfo.moviePoster = this.global.base + JSON.parse(res.data.moviePoster)[0]
       this.movieInfo.moviePictures = JSON.parse(this.movieInfo.moviePictures).map((obj, index) => {
-        return 'http://127.0.0.1:8181' + obj
+        return this.global.base + obj
       })
       this.movieInfo.movieCategoryList = this.movieInfo.movieCategoryList.map((obj,index) => {
         return obj.movieCategoryName;
       }).join(" ")
       this.movieInfo.movieCommentList = this.movieInfo.movieCommentList.slice(0, Math.min(10, this.movieInfo.movieCommentList.length))
       this.movieInfo.movieCommentList = this.movieInfo.movieCommentList.map((obj, index) => {
-        obj.sysUser.userPicture = 'http://127.0.0.1:8181' + JSON.parse(obj.sysUser.userPicture)[0]
+        obj.sysUser.userPicture = this.global.base + JSON.parse(obj.sysUser.userPicture)[0]
         return obj
       })
     },

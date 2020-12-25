@@ -33,7 +33,7 @@
             <span class="scroll-next scroll-btn" @click="nextPage"></span>
             <div class="movie-list" ref="movieListRef" :style="'left:' + left + 'px'">
               <div class="movie" v-for="item in cinemaInfo.sysMovieList" :key="item.movieId" :class="{active: item.movieId === activeMovie}" @click="activeMovie = item.movieId">
-                <img :src="'http://127.0.0.1:8181' + JSON.parse(item.moviePoster)[0]">
+                <img :src="this.global.base + JSON.parse(item.moviePoster)[0]">
               </div>
             </div>
           </div>
@@ -171,7 +171,7 @@ export default {
       this.sessions = res.data.sessions
       //解析图片
       this.cinemaInfo.cinemaPicture = (JSON.parse(this.cinemaInfo.cinemaPicture)).map((obj, index) => {
-        return 'http://127.0.0.1:8181' + obj
+        return this.global.base + obj
       })
       if(this.sessions !== null)
         this.activeMovie = this.sessions[0].movieId

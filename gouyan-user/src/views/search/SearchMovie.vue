@@ -58,7 +58,7 @@ export default {
       this.movieList = res.data
       //处理数据
       for(let movie of this.movieList){
-        movie.moviePoster = 'http://127.0.0.1:8181' + JSON.parse(movie.moviePoster)[0]
+        movie.moviePoster = this.global.base + JSON.parse(movie.moviePoster)[0]
         movie.movieCategoryList = movie.movieCategoryList.map((obj, index) => {
           return obj.movieCategoryName
         })

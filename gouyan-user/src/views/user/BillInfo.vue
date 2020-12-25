@@ -85,7 +85,7 @@ export default {
       this.$message.success('删除成功！')
     },
     getSrc(s){
-      return 'http://127.0.0.1:8181'+JSON.parse(s)[0]
+      return this.global.base + JSON.parse(s)[0]
     },
   },
   created() {
