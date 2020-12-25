@@ -18,7 +18,7 @@
           <div class="major-movie">
             <div>代表作</div>
             <div class="major-movie-list">
-              <img :src="this.global.base + item.moviePoster" v-for="item in actorInfo.movieList.slice(0, Math.min(3, actorInfo.movieList.length))" :key="item.movieId">
+              <img :src="global.base + item.moviePoster" v-for="item in actorInfo.movieList.slice(0, Math.min(3, actorInfo.movieList.length))" :key="item.movieId">
             </div>
           </div>
         </div>

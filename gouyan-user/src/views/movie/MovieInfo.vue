@@ -83,7 +83,7 @@
                         <div class="actors-list clearfix">
                           <div class="actor" v-for="actor in item.actorList">
                             <a @click="toActor(actor.actorId)" target="_blank" class="portrait">
-                              <img class="default-img" :alt="actor.actorName" :src="this.global.base + JSON.parse(actor.actorPhoto)[0]">
+                              <img class="default-img" :alt="actor.actorName" :src="httpURL + JSON.parse(actor.actorPhoto)[0]">
                             </a>
                             <div class="info">
                               <a @click="toActor(actor.actorId)" target="_blank" class="actor-name">
@@ -167,7 +167,7 @@
                     <div class="actors-list clearfix">
                       <div class="actor" v-for="actor in item.actorList">
                         <a @click="toActor(actor.actorId)" target="_blank" class="portrait">
-                          <img class="default-img" :alt="actor.actorName" :src="this.global.base + JSON.parse(actor.actorPhoto)[0]">
+                          <img class="default-img" :alt="actor.actorName" :src="httpURL + JSON.parse(actor.actorPhoto)[0]">
                         </a>
                         <div class="info">
                           <a @click="toActor(actor.actorId)" target="_blank" class="actor-name">
@@ -258,7 +258,8 @@ export default {
           { required: true, message: '请输入评论内容', trigger: 'blur' }
         ]
       },
-      colors: ['#99A9BF', '#F7BA2A', '#FF9900']
+      colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+      httpURL: this.global.base
     }
   },
   created(){
@@ -266,19 +267,20 @@ export default {
   },
   methods:{
     async getMovieInfo(){
+      const _this = this
       const {data : res} = await axios.get('sysMovie/find/' + this.movieId)
       if(res.code !== 200) return this.$message.error('数据查询失败')
       this.movieInfo = res.data
-      this.movieInfo.moviePoster = this.global.base + JSON.parse(res.data.moviePoster)[0]
+      this.movieInfo.moviePoster = this.httpURL + JSON.parse(res.data.moviePoster)[0]
       this.movieInfo.moviePictures = JSON.parse(this.movieInfo.moviePictures).map((obj, index) => {
-        return this.global.base + obj
+        return this.httpURL + obj
       })
       this.movieInfo.movieCategoryList = this.movieInfo.movieCategoryList.map((obj,index) => {
         return obj.movieCategoryName;
       }).join(" ")
       this.movieInfo.movieCommentList = this.movieInfo.movieCommentList.slice(0, Math.min(10, this.movieInfo.movieCommentList.length))
       this.movieInfo.movieCommentList = this.movieInfo.movieCommentList.map((obj, index) => {
-        obj.sysUser.userPicture = this.global.base + JSON.parse(obj.sysUser.userPicture)[0]
+        obj.sysUser.userPicture = this.httpURL + JSON.parse(obj.sysUser.userPicture)[0]
         return obj
       })
     },

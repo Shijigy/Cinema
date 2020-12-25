@@ -33,7 +33,7 @@
             <span class="scroll-next scroll-btn" @click="nextPage"></span>
             <div class="movie-list" ref="movieListRef" :style="'left:' + left + 'px'">
               <div class="movie" v-for="item in cinemaInfo.sysMovieList" :key="item.movieId" :class="{active: item.movieId === activeMovie}" @click="activeMovie = item.movieId">
-                <img :src="this.global.base + JSON.parse(item.moviePoster)[0]">
+                <img :src="global.base + JSON.parse(item.moviePoster)[0]">
               </div>
             </div>
           </div>

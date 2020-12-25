@@ -15,7 +15,7 @@
                :http-request="submitFile">
       <i slot="default" class="el-icon-plus"></i>
       <div slot="file" slot-scope="{file}">
-        <img class="el-upload-list__item-thumbnail" :src="(picDialog?'':this.global.base)+file.url" alt="">
+        <img class="el-upload-list__item-thumbnail" :src="(picDialog?'':global.base)+file.url" alt="">
         <span class="el-upload-list__item-actions">
                 <span class="el-upload-list__item-delete" @click="handleRemove(file)">
                   <i class="el-icon-delete"></i>

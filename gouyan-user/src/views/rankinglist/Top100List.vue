@@ -7,7 +7,7 @@
         </div>
         <div class="middle1">
           <a :href="'/movieInfo/' + item.movieId">
-            <img :src="this.global.base + JSON.parse(item.moviePoster)[0]" :alt="item.movieNameCn">
+            <img :src="global.base + JSON.parse(item.moviePoster)[0]" :alt="item.movieNameCn">
           </a>
         </div>
         <div class="middle2">
