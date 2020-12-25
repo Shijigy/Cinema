@@ -411,7 +411,7 @@ export default {
       for (const item of JSON.parse(this.editForm.userPicture)) {
         let pic = {}
         pic['name'] = ''
-        pic['url'] = 'http://127.0.0.1:8181' + item
+        pic['url'] = this.global.base + item
         this.pics.push(pic)
       }
       this.editDialogVisible = true
