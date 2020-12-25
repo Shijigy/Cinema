@@ -21,6 +21,10 @@ import ActorInfo from "../views/actor/ActorInfo";
 import CinemaInfo from "../views/cinema/CinemaInfo";
 import ChooseSeat from "../views/pay/ChooseSeat";
 import BillDetail from "../views/pay/BillDetail";
+import Search from "../views/search/Search";
+import SearchMovie from "../views/search/SearchMovie";
+import SearchActor from "../views/search/SearchActor";
+import SearchCinema from "../views/search/SearchCinema";
 
 Vue.use(VueRouter)
 
@@ -90,6 +94,29 @@ const routes = [
         path: '/billDetail/:billId',
         component: BillDetail,
         name: 'billDetail'
+      },
+      {
+        path: '/search/',
+        component: Search,
+        name: 'search',
+        redirect: {name:'searchMovie'},
+        children: [
+          {
+            path:'searchMovie',
+            component: SearchMovie,
+            name: 'searchMovie',
+          },
+          {
+            path: 'searchActor',
+            component: SearchActor,
+            name: 'searchActor'
+          },
+          {
+            path: 'searchCinema',
+            component: SearchCinema,
+            name: 'searchCinema'
+          }
+        ]
       }
     ]
   },
