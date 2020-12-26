@@ -116,7 +116,6 @@ export default {
       },
       cinemaarealist: [],
       total: 0,
-      url: 'http://localhost:8181/',
       //控制对话框的显示与隐藏
       addDialogVisible: false,
       //添加区域的表单数据
@@ -157,7 +156,7 @@ export default {
   methods: {
     getCinemaAreaList() {
       const _this = this;
-      axios.get(_this.url + 'sysCinemaArea', {params: _this.queryInfo}).then(resp => {
+      axios.get('sysCinemaArea', {params: _this.queryInfo}).then(resp => {
         console.log(resp)
         _this.cinemaarealist = resp.data.data;
         _this.total = resp.data.total;
@@ -187,7 +186,7 @@ export default {
         if (!valid) return
         //预校验成功，发网络请求
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        await axios.post(_this.url + 'sysCinemaArea', JSON.stringify(_this.addForm)).then(resp => {
+        await axios.post('sysCinemaArea', JSON.stringify(_this.addForm)).then(resp => {
           console.log(resp)
           if (resp.data.code !== 200){
             this.$message.error('添加影院区域失败！')
@@ -203,7 +202,7 @@ export default {
     // 显示修改对话框，回显数据
     showEditDialog(id){
       const _this = this
-      axios.get(_this.url + 'sysCinemaArea/' + id ).then(resp => {
+      axios.get('sysCinemaArea/' + id ).then(resp => {
         console.log(resp)
         _this.editForm = resp.data.data
       })
@@ -219,7 +218,7 @@ export default {
         const _this = this
         if (!valid) return
         axios.defaults.headers.put['Content-Type'] = 'application/json'
-        await axios.put(_this.url + '/sysCinemaArea', JSON.stringify(_this.editForm)).then(resp => {
+        await axios.put('/sysCinemaArea', JSON.stringify(_this.editForm)).then(resp => {
           if (resp.data.code !== 200){
             this.$message.error('修改影院区域失败！')
           }
@@ -252,7 +251,7 @@ export default {
       this.multipleSelection.forEach(data => {
         ids.push(data.cinemaAreaId)
       })
-      await axios.delete(_this.url + 'sysCinemaArea/' + ids).then(resp => {
+      await axios.delete('sysCinemaArea/' + ids).then(resp => {
         if (resp.data.code !== 200){
           this.$message.success('批量删除影院区域失败！')
         }
@@ -277,7 +276,7 @@ export default {
         return _this.$message.info('已取消删除')
       }
 
-      await axios.delete(_this.url + 'sysCinemaArea/' + id).then(resp => {
+      await axios.delete('sysCinemaArea/' + id).then(resp => {
         if (resp.data.code !== 200){
           _this.$message.success('删除影院区域失败！')
         }

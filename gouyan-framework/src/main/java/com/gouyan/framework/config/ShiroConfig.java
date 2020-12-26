@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -31,7 +32,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
 
         //配置受限资源
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new LinkedHashMap<>();
         map.put("/sysUser/**", "anon");//放行
         map.put("/images/**", "anon");//放行图片查询
         map.put("/captcha/**", "anon");//放行验证码请求

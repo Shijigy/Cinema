@@ -100,7 +100,6 @@ export default {
       moviecommentlist: [],
       movieList: [],
       total: 0,
-      url: 'http://localhost:8181/',
       //控制对话框的显示与隐藏
       addDialogVisible: false,
       addForm:{
@@ -129,7 +128,7 @@ export default {
   methods: {
     getMovieCommentList() {
       const _this = this;
-      axios.get(_this.url + 'sysMovieComment', {params: _this.queryInfo}).then(resp => {
+      axios.get('sysMovieComment', {params: _this.queryInfo}).then(resp => {
         console.log(resp)
         _this.moviecommentlist = resp.data.data;
         _this.total = resp.data.total;
@@ -197,7 +196,7 @@ export default {
       this.multipleSelection.forEach(data => {
         ids.push(data.movieId)
       })
-      await axios.delete(_this.url + 'sysMovieComment/' + ids).then(resp => {
+      await axios.delete('sysMovieComment/' + ids).then(resp => {
         if (resp.data.code !== 200){
           this.$message.success('批量删除电影评论失败！')
         }
@@ -230,7 +229,7 @@ export default {
         return _this.$message.info('已取消删除')
       }
       axios.defaults.headers.post['Content-Type'] = 'application/json'
-      await axios.post(_this.url + 'sysMovieComment/delete', JSON.stringify(deleteInfo)).then(resp => {
+      await axios.post('sysMovieComment/delete', JSON.stringify(deleteInfo)).then(resp => {
         console.log(resp);
         console.log(deleteInfo)
         if (resp.data.code !== 200){
