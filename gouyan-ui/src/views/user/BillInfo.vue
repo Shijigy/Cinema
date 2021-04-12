@@ -123,12 +123,12 @@ export default {
     },
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize
-      this.getHallCategoryList()
+      this.getBillList()
       console.log(newSize)
     },
     handleCurrentChange(newPage) {
       this.queryInfo.pageNum = newPage
-      this.getHallCategoryList()
+      this.getBillList()
       console.log(newPage)
     },
     // 监听多选框变化
