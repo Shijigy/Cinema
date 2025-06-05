@@ -116,7 +116,7 @@ public class OssUploadService implements UploadService {
                 }
             }
         } catch (Exception ex) {
-            //ignore
+            System.out.println(ex.toString());
         }
         return "www";
     }

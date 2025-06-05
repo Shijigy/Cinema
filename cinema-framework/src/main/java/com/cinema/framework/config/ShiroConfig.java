@@ -32,6 +32,7 @@ public class ShiroConfig {
 
         //配置受限资源
         Map<String, String> map = new LinkedHashMap<>();
+        map.put("/sysMovie","anon");
         map.put("/sysSession", "anon");
         map.put("/sysCinema", "anon");
 

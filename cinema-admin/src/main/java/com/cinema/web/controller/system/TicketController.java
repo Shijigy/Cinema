@@ -96,4 +96,13 @@ public class TicketController extends BaseController {
         List<TicketVo> tickets = ticketService.generateTicketsByBillId(billId);
         return ResponseResult.success("生成成功", tickets);
     }
+
+    /**
+     * 根据用户手机号查询电影票列表
+     */
+    @GetMapping("/ticket/phone/{phoneNumber}")
+    public ResponseResult findByPhoneNumber(@PathVariable String phoneNumber) {
+        List<TicketVo> ticketVos = ticketService.findByPhoneNumber(phoneNumber);
+        return ResponseResult.success(ticketVos);
+    }
 }

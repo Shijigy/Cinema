@@ -114,4 +114,12 @@
         SELECT * FROM ticket WHERE user_id = #{userId}
     </select>
 
+    <!-- 根据用户手机号查询电影票列表 -->
+    <select id="findByPhoneNumber" resultType="com.cinema.system.domin.Ticket">
+        SELECT t.*
+        FROM ticket t
+                 JOIN sys_user u ON t.user_id = u.user_id
+        WHERE u.phone_number = #{phoneNumber}
+    </select>
+
 </mapper>

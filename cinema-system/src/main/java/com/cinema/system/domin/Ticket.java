@@ -17,6 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Ticket implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
 
     private Long ticketId;      // 电影票ID

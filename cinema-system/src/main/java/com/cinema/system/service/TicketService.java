@@ -46,4 +46,9 @@ public interface TicketService {
      * 根据订单ID生成电影票
      */
     List<TicketVo> generateTicketsByBillId(Long billId);
+
+    /**
+     * 根据用户手机号查询电影票列表
+     */
+    List<TicketVo> findByPhoneNumber(String phoneNumber);
 }

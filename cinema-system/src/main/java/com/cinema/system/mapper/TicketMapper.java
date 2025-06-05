@@ -25,4 +25,9 @@ public interface TicketMapper {
      * 根据用户ID查询电影票列表
      */
     List<Ticket> findByUserId(Long userId);
+
+    /**
+     * 根据用户手机号查询电影票列表
+     */
+    List<Ticket> findByPhoneNumber(String phoneNumber);
 }

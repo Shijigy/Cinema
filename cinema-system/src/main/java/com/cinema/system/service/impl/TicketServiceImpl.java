@@ -82,6 +82,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<TicketVo> findByPhoneNumber(String phoneNumber) {
+        List<Ticket> tickets = ticketMapper.findByPhoneNumber(phoneNumber);
+        return convertToTicketVos(tickets);
+    }
+
+    @Override
     public List<TicketVo> findTicketVos(Ticket ticket) {
         List<Ticket> tickets = ticketMapper.findAll(ticket);
         return convertToTicketVos(tickets);

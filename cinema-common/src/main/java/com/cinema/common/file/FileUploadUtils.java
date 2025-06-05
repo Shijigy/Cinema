@@ -105,8 +105,8 @@ public class FileUploadUtils
 
         String fileName = extractFilename(file);
 
-        File desc = getAbsoluteFile(baseDir, fileName);
-        file.transferTo(desc);
+//        File desc = getAbsoluteFile(baseDir, fileName);
+//        file.transferTo(desc);
         String pathFileName = getPathFileName(baseDir, fileName);
         return pathFileName;
     }
@@ -141,7 +141,7 @@ public class FileUploadUtils
     {
         int dirLastIndex = parentPath.length() + 1;
         String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
-        String pathFileName = "/images/" + currentDir + "/" + fileName;
+        String pathFileName = currentDir + "/" + fileName;
         return pathFileName;
     }
 
