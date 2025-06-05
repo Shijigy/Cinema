@@ -32,6 +32,19 @@
 			<artifactId>cinema-framework</artifactId>
 		</dependency>
 
+		<!-- 七牛云对象存储-->
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>[7.16.0, 7.16.99]</version>
+		</dependency>
+
+		<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.10.1</version> <!-- 最新稳定版 -->
+		</dependency>
+
 	</dependencies>
 
 	<build>

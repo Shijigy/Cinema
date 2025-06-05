@@ -56,3 +56,10 @@ server:
 aj:
   captcha:
     water-mark:
+
+# oss配置
+oss:
+  accessKey:
+  secretKey:
+  bucket:
+  url:
