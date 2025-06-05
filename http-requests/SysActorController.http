@@ -1,5 +1,5 @@
 ### 添加请求
-POST http://localhost:8181/sysActor
+POST http://localhost:9999/sysActor
 Content-Type: application/json
 
 {
@@ -20,15 +20,15 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8181/sysActor?actorGender=true
+GET http://localhost:9999/sysActor?actorGender=true
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8181/sysActor/2
+GET http://localhost:9999/sysActor/2
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8181/sysActor
+PUT http://localhost:9999/sysActor
 Content-Type: application/json
 
 {
@@ -46,9 +46,9 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8181/sysActor/5
+DELETE http://localhost:9999/sysActor/5
 
 
 ### 查询完整信息
-GET http://localhost:8181/sysActor/find/1
+GET http://localhost:9999/sysActor/find/1
 

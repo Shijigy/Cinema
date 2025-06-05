@@ -1,13 +1,13 @@
 ### 查询所有
-GET http://localhost:8181/sysRole
+GET http://localhost:9999/sysRole
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8181/sysRole/4
+GET http://localhost:9999/sysRole/4
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8181/sysRole
+PUT http://localhost:9999/sysRole
 Content-Type: application/json
 
 {
@@ -17,10 +17,10 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8181/sysRole/4
+DELETE http://localhost:9999/sysRole/4
 
 ### 添加请求
-POST http://localhost:8181/sysRole
+POST http://localhost:9999/sysRole
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ### 给角色分配权限
-POST http://localhost:8181/sysRole/1
+POST http://localhost:9999/sysRole/1
 Content-Type: application/json
 
 [111, 121, 131]

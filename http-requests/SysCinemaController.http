@@ -1,5 +1,5 @@
 ### 添加请求
-POST http://localhost:8181/sysCinema
+POST http://localhost:9999/sysCinema
 Content-Type: application/json
 
 {
@@ -18,15 +18,15 @@ Content-Type: application/json
 
 
 ### 查询所有
-GET http://localhost:8181/sysCinema?cinemaBrandId=2
+GET http://localhost:9999/sysCinema?cinemaBrandId=2
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8181/sysCinema/2
+GET http://localhost:9999/sysCinema/2
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8181/sysCinema
+PUT http://localhost:9999/sysCinema
 Content-Type: application/json
 
 {
@@ -43,7 +43,7 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8181/sysCinema/4
+DELETE http://localhost:9999/sysCinema/4
 
 ### 前台查询影院的详细信息
-GET http://localhost:8181/sysCinema/find/1/1
+GET http://localhost:9999/sysCinema/find/1/1

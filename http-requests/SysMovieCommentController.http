@@ -1,5 +1,5 @@
 ### 添加请求
-POST http://localhost:8181/sysMovieComment
+POST http://localhost:9999/sysMovieComment
 Content-Type: application/json
 
 {
@@ -11,19 +11,19 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8181/sysMovieComment
+GET http://localhost:9999/sysMovieComment
 Accept: application/json
 
 ### 查询指定电影评论
-GET http://localhost:8181/sysMovieComment/4
+GET http://localhost:9999/sysMovieComment/4
 Accept: application/json
 
 ### 查询指定用户评论
-GET http://localhost:8181/sysUserComment/1
+GET http://localhost:9999/sysUserComment/1
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8181/sysMovieComment
+PUT http://localhost:9999/sysMovieComment
 Content-Type: application/json
 
 {
@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ### 删除
-POST http://localhost:8181/sysMovieComment/delete
+POST http://localhost:9999/sysMovieComment/delete
 Content-Type: application/json
 
 [

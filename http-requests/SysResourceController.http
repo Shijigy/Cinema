@@ -1,5 +1,5 @@
 ### 添加请求
-POST http://localhost:8181/sysResource
+POST http://localhost:9999/sysResource
 Content-Type: application/json
 
 {
@@ -10,21 +10,21 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8181/sysResource
+GET http://localhost:9999/sysResource
 Accept: application/json
 
 ### 查询所有资源包含其子菜单
-GET http://localhost:8181/sysResource/children
+GET http://localhost:9999/sysResource/children
 
 ### 按层级查询所有权限
-GET http://localhost:8181/sysResource/tree
+GET http://localhost:9999/sysResource/tree
 
 ### 查询一个
-GET http://localhost:8181/sysResource/11
+GET http://localhost:9999/sysResource/11
 Accept: application/json
 
 ### 修改
-PUT http://localhost:8181/sysResource
+PUT http://localhost:9999/sysResource
 Content-Type: application/json
 
 {
@@ -35,4 +35,4 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8181/sysResource/15
+DELETE http://localhost:9999/sysResource/15

@@ -1,6 +1,6 @@
 
 ### 添加请求
-POST http://localhost:8181/sysUser
+POST http://localhost:9999/sysUser
 Content-Type: application/json
 
 {
@@ -13,15 +13,15 @@ Content-Type: application/json
 }
 
 ### 查询所有
-GET http://localhost:8181/sysUser
+GET http://localhost:9999/sysUser
 Accept: application/json
 
 ### 查询一个
-GET http://localhost:8181/sysUser/3
+GET http://localhost:9999/sysUser/3
 token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDc0OTk4OTUsInVzZXJuYW1lIjoi5ZGo5YWrIn0.RbEZ7YeX53SjrIiSzW0W5W23-vMP_kyCidiB4MVOC3U
 
 ### 修改
-PUT http://localhost:8181/sysUser
+PUT http://localhost:9999/sysUser
 Content-Type: application/json
 
 {
@@ -33,10 +33,10 @@ Content-Type: application/json
 }
 
 ### 删除
-DELETE http://localhost:8181/sysUser/5
+DELETE http://localhost:9999/sysUser/5
 
 ### 登录用户
-POST http://localhost:8181/sysUser/login
+POST http://localhost:9999/sysUser/login
 Content-Type: application/json
 
 {
@@ -45,4 +45,4 @@ Content-Type: application/json
 }
 
 ### 测试路径
-GET http://localhost:8181/upload/delete?filePath=/images/user/2020/12/05/eac4c11d811d4c29aa7e8e3289a051fd.jpg
+GET http://localhost:9999/upload/delete?filePath=/images/user/2020/12/05/eac4c11d811d4c29aa7e8e3289a051fd.jpg

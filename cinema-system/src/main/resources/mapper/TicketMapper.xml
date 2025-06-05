@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cinema.system.mapper.TicketMapper">
+
+    <!-- 查询所有电影票，根据传入的 ticket 对象作为条件 -->
+    <select id="findAll" resultType="com.cinema.system.domin.Ticket">
+        SELECT * FROM ticket
+        <where>
+            <if test="billId != null">
+                AND bill_id = #{billId}
+            </if>
+            <if test="user_id != null">
+                AND user_id = #{user_id}
+            </if>
+            <if test="movieId != null">
+                AND movie_id = #{movieId}
+            </if>
+            <if test="sessionId != null">
+                AND session_id = #{sessionId}
+            </if>
+            <if test="hall_category_id != null">
+                AND hall_category_id = #{hall_category_id}
+            </if>
+            <if test="seatInfo != null">
+                AND seat_info = #{seatInfo}
+            </if>
+            <if test="ticketPrice != null">
+                AND ticket_price = #{ticketPrice}
+            </if>
+            <if test="order_time != null">
+                AND order_time = #{order_time}
+            </if>
+            <if test="ticketState != null">
+                AND ticket_state = #{ticketState}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime}
+            </if>
+            <if test="useTime != null">
+                AND use_time = #{useTime}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据电影票ID查询单个电影票 -->
+    <select id="findById" resultType="com.cinema.system.domin.Ticket">
+        SELECT * FROM ticket WHERE ticket_id = #{id}
+    </select>
+
+    <!-- 添加电影票 -->
+    <insert id="add" parameterType="com.cinema.system.domin.Ticket"
+            useGeneratedKeys="true" keyProperty="ticketId">
+        INSERT INTO ticket (bill_id, user_id, movie_id, session_id, hall_category_id,
+                            seat_info, ticket_price, order_time, ticket_state, create_time, use_time)
+        VALUES (#{billId}, #{user_id}, #{movieId}, #{sessionId}, #{hall_category_id},
+                #{seatInfo}, #{ticketPrice}, #{order_time}, #{ticketState}, #{createTime}, #{useTime})
+    </insert>
+
+    <!-- 更新电影票信息 -->
+    <update id="update" parameterType="com.cinema.system.domin.Ticket">
+        UPDATE ticket
+        <set>
+            <if test="billId != null">
+                bill_id = #{billId},
+            </if>
+            <if test="user_id != null">
+                user_id = #{user_id},
+            </if>
+            <if test="movieId != null">
+                movie_id = #{movieId},
+            </if>
+            <if test="sessionId != null">
+                session_id = #{sessionId},
+            </if>
+            <if test="hall_category_id != null">
+                hall_category_id = #{hall_category_id},
+            </if>
+            <if test="seatInfo != null">
+                seat_info = #{seatInfo},
+            </if>
+            <if test="ticketPrice != null">
+                ticket_price = #{ticketPrice},
+            </if>
+            <if test="order_time != null">
+                order_time = #{order_time},
+            </if>
+            <if test="ticketState != null">
+                ticket_state = #{ticketState},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="useTime != null">
+                use_time = #{useTime}
+            </if>
+        </set>
+        WHERE ticket_id = #{ticketId}
+    </update>
+
+    <!-- 根据电影票ID删除单个电影票 -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM ticket WHERE ticket_id = #{id}
+    </delete>
+
+    <!-- 根据订单ID查询电影票列表 -->
+    <select id="findByBillId" resultType="com.cinema.system.domin.Ticket">
+        SELECT * FROM ticket WHERE bill_id = #{billId}
+    </select>
+
+    <!-- 根据用户ID查询电影票列表 -->
+    <select id="findByUserId" resultType="com.cinema.system.domin.Ticket">
+        SELECT * FROM ticket WHERE user_id = #{userId}
+    </select>
+
+</mapper>
