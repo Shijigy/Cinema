@@ -9,11 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
-/**
- * 电影播放时段
- * @Author: 华雨欣
- * @Create: 2020-11-20 11:10
- */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

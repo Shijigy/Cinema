@@ -5,10 +5,6 @@ import com.cinema.system.domin.SysMovieAge;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-19 21:07
- */
 
 
 public interface SysHallCategoryMapper {

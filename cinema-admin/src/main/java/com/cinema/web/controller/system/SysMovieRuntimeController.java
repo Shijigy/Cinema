@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-20 10:54
- */
+
 @RestController
 public class SysMovieRuntimeController extends BaseController {
 

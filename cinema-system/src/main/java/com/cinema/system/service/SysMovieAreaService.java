@@ -5,10 +5,7 @@ import com.cinema.system.domin.SysMovieArea;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-18 22:28
- */
+
 public interface SysMovieAreaService {
     List<SysMovieArea> findAll();
 

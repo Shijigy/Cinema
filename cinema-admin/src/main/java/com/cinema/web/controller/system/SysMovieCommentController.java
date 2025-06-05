@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-22 22:41
- */
+
 @RestController
 public class SysMovieCommentController extends BaseController {
 

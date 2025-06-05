@@ -2,13 +2,11 @@ package com.cinema.system.mapper;
 
 import com.cinema.system.domin.SysSession;
 import com.cinema.system.domin.vo.SysSessionVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-23 22:29
- */
+
 public interface SysSessionMapper {
 
     /**
@@ -59,7 +57,11 @@ public interface SysSessionMapper {
      * @param movieId
      * @return
      */
-    List<SysSession> findByCinemaAndMovie(Long cinemaId, Long movieId);
+    // List<SysSession> findByCinemaAndMovie(Long cinemaId, Long movieId);
+    List<SysSession> findByCinemaAndMovie(
+            @Param("cinemaId") Long cinemaId,
+            @Param("movieId") Long movieId
+    );
 
     //场次冲突2
     /**

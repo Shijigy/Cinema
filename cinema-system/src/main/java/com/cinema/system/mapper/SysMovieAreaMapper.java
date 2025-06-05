@@ -5,10 +5,7 @@ import com.cinema.system.domin.SysMovieArea;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-18 22:07
- */
+
 public interface SysMovieAreaMapper {
     /**
      * 查询所有电影区域

@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-25 22:41
- */
+
 @RestController
 public class SysCinemaController extends BaseController {
 

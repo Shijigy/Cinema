@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-22 21:52
- */
+
 @RestController
 public class SysUserController extends BaseController {
     @Autowired

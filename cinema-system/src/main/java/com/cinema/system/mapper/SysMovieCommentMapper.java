@@ -5,10 +5,7 @@ import com.cinema.system.domin.SysMovieComment;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-19 22:52
- */
+
 public interface SysMovieCommentMapper {
 
     /**

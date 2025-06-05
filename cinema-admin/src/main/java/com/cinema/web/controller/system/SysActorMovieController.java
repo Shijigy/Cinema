@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author lxd
- * @create 2020-11-27 10:36
- */
+
 @RestController
 public class SysActorMovieController extends BaseController {
 

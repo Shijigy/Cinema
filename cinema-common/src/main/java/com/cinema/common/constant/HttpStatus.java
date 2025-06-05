@@ -1,10 +1,6 @@
 package com.cinema.common.constant;
 
-/**
- * 定义常量记录Http状态码
- * @Author: 华雨欣
- * @Create: 2020-11-17 22:25
- */
+
 public class HttpStatus {
     /**
      * 成功

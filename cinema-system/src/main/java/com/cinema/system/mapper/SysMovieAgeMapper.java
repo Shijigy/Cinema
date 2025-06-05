@@ -3,10 +3,7 @@ package com.cinema.system.mapper;
 import com.cinema.system.domin.SysMovieAge;
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-14 22:52
- */
+
 public interface SysMovieAgeMapper {
 
     /**
