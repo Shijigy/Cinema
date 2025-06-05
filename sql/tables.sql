@@ -981,9 +981,7 @@ CREATE TABLE `ticket`  (
                            CONSTRAINT `fk_ticket_hall_category` FOREIGN KEY (`hall_category_id`) REFERENCES `sys_hall_category` (`hall_category_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-
-
-INSERT INTO `sys_resource` VALUES (64, '电影票管理', '', 2, 6);
+INSERT INTO `sys_resource` VALUES (64, '电影票管理', 'ticket', 2, 6);
 INSERT INTO `sys_resource` VALUES (641, '查询电影票', '', 3, 64);
 INSERT INTO `sys_resource` VALUES (642, '添加电影票', '', 3, 64);
 INSERT INTO `sys_resource` VALUES (643, '修改电影票', '', 3, 64);
